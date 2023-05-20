@@ -15,10 +15,12 @@ public class GameManager : MonoBehaviour {
 
     [Header("Game Object References")]
     public Spawner spawner;
+    public GameObject playerPrefab;
 
     [Header("UI References")]
-    public TMPro.TMP_Text scoreText;
-    public TMPro.TMP_Text timeText;
+    public GameUIManager gameUI;
+    public GameOverUIManager gameOverUI;
+
 
     [Header("Game Parameters")]
     public float playTime;
@@ -30,17 +32,20 @@ public class GameManager : MonoBehaviour {
     public float spawnerIntervalMultiplier;
     public float obstacleSpeedMultiplier;
 
-
     private float levelUpTimer;
 
+    private bool gameActive;
+
+    private GameObject playerInstance;
+
     void Start() {
-        playTime = 0f;
+        setUpNewGame();
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update() { if (gameActive == false) return;
         checkLevel();
-        updateUI();
+        updateGameUI();
         playTime += Time.deltaTime;
         score += 1;
     }
@@ -52,6 +57,11 @@ public class GameManager : MonoBehaviour {
             level++;
             updateSpawnerProperties();
         }
+
+        if (playerInstance == null) {
+            //If the player object doesn't exist, the player is dead
+            setUpGameOver();
+        }
     }
 
     private void updateSpawnerProperties() {
@@ -62,8 +72,42 @@ public class GameManager : MonoBehaviour {
         spawner.spawnObjectMoveDownSpeedMultiplier *= obstacleSpeedMultiplier;
     }
 
-    private void updateUI() {
-        scoreText.text = score.ToString();
-        timeText.text = System.Math.Round(playTime,2).ToString();
+    private void updateGameUI() {
+        gameUI.setUIProperties(score, (int)playTime);
+    }
+
+    private void setUpGameOver() {
+        gameActive = false;
+        Time.timeScale = 0f;
+        
+        gameUI.gameObject.SetActive(false);
+
+        gameOverUI.setGameStats(score, (int)playTime, level);
+        gameOverUI.gameObject.SetActive(true);
+    }
+
+    public void setUpNewGame() {
+        gameActive = true;
+        Time.timeScale = 1f;
+        spawner.resetSpawner();
+        initValues();
+        spawnPlayer();
+
+        gameOverUI.gameObject.SetActive(false);
+        
+        gameUI.resetUI();
+        gameUI.gameObject.SetActive(true);
+ 
+    }
+
+    private void spawnPlayer() {   
+        playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+    }
+
+    private void initValues() {
+        playTime = 0f;
+        level = 1;
+        score = 0;
+        levelUpTimer = 0f;
     }
 }

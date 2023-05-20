@@ -8,16 +8,23 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
 
     public List<Transform> spawnPoints;
-    public GameObject spawnObject;
+    public GameObject spawnObjectPrefab;
 
     public float spawnInterval; // In Seconds
     public float spawnObjectMoveDownSpeedMultiplier;
 
+    private List<GameObject> spawnedObjects;
     private float deltaTime;
 
-    // Start is called before the first frame update
+    private float spawnIntervalDefault;
+    private float spawnObjectMoveDownSpeedMultiplierDefault;
+
+    void Awake() {
+        spawnIntervalDefault = spawnInterval;
+        spawnObjectMoveDownSpeedMultiplierDefault = spawnObjectMoveDownSpeedMultiplier;
+    }
     void Start() {
-        deltaTime = 0f;
+        initValues();
     }
 
     // Update is called once per frame
@@ -35,9 +42,10 @@ public class Spawner : MonoBehaviour {
         int startPos = Random.Range(0, 3);
 
         // Instantiate at position (0, 0, 0) and zero rotation.
-        GameObject newObject = Instantiate(spawnObject, spawnPoints[startPos].position, Quaternion.identity);
-
+        GameObject newObject = Instantiate(spawnObjectPrefab, spawnPoints[startPos].position, Quaternion.identity);
         setNewObjectProperties(newObject);
+
+        spawnedObjects.Add(newObject);
     }
 
     private void setNewObjectProperties(GameObject newObject) {
@@ -45,4 +53,24 @@ public class Spawner : MonoBehaviour {
 
         obstacle.moveDownSpeedY *= spawnObjectMoveDownSpeedMultiplier;
     }
+
+    public void resetSpawner() {
+        clearAllSpawnedObjects();
+        initValues();
+    }
+
+    private void clearAllSpawnedObjects() { if (spawnedObjects == null) return;
+
+        foreach(GameObject obj in spawnedObjects) {
+            Destroy(obj);
+        }
+    }
+
+    private void initValues() {
+        deltaTime = 0f;
+        spawnInterval = spawnIntervalDefault;
+        spawnObjectMoveDownSpeedMultiplier = spawnObjectMoveDownSpeedMultiplierDefault;
+        spawnedObjects = new List<GameObject>();
+    }
+
 }

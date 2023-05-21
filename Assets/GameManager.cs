@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     [Header("UI References")]
     public GameUIManager gameUI;
     public GameOverUIManager gameOverUI;
+    public LevelUpTextBehaviour levelUpText;
 
 
     [Header("Game Parameters")]
@@ -53,8 +54,7 @@ public class GameManager : MonoBehaviour {
     private void checkLevel() {
         levelUpTimer += Time.deltaTime;
         if (levelUpTimer >= levelUpTime) {
-            levelUpTimer = 0f;
-            level++;
+            levelUp();
             updateSpawnerProperties();
         }
 
@@ -98,6 +98,12 @@ public class GameManager : MonoBehaviour {
         gameUI.resetUI();
         gameUI.gameObject.SetActive(true);
  
+    }
+
+    private void levelUp() {
+        levelUpTimer = 0f;
+        level++;
+        levelUpText.playLevelUpAnimation(level);
     }
 
     private void spawnPlayer() {   

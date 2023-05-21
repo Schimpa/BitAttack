@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverUIManager : MonoBehaviour {
 
@@ -13,7 +14,7 @@ public class GameOverUIManager : MonoBehaviour {
         timeText.text = TimeUtil.secondsToMinuteString(time);
         levelText.text = level.ToString();
     }
-    public void onBackButton() {
-
+    public void loadMainScreen() {
+        SceneManager.LoadScene("MainScreen");
     }
 }

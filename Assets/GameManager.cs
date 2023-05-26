@@ -21,7 +21,12 @@ public class GameManager : MonoBehaviour {
     public GameUIManager gameUI;
     public GameOverUIManager gameOverUI;
     public LevelUpTextBehaviour levelUpText;
+    public GameOverTextBehaviour gameOverText;
 
+    [Header("Other References")]
+    public SoundManager soundManager;
+    public MusicManager musicManager;
+    public MovementController movementController;
 
     [Header("Game Parameters")]
     public float playTime;
@@ -38,6 +43,7 @@ public class GameManager : MonoBehaviour {
     private bool gameActive;
 
     private GameObject playerInstance;
+
 
     void Start() {
         setUpNewGame();
@@ -61,6 +67,7 @@ public class GameManager : MonoBehaviour {
         if (playerInstance == null) {
             //If the player object doesn't exist, the player is dead
             setUpGameOver();
+            disableMovementController();
         }
     }
 
@@ -84,6 +91,11 @@ public class GameManager : MonoBehaviour {
 
         gameOverUI.setGameStats(score, (int)playTime, level);
         gameOverUI.gameObject.SetActive(true);
+
+        gameOverText.createInfoText(level);
+        gameOverText.createMotivationText(level);
+
+        soundManager.playDeadSound();
     }
 
     public void setUpNewGame() {
@@ -97,17 +109,21 @@ public class GameManager : MonoBehaviour {
         
         gameUI.resetUI();
         gameUI.gameObject.SetActive(true);
- 
+
+        musicManager.playLevel01Music();
+
     }
 
     private void levelUp() {
         levelUpTimer = 0f;
         level++;
         levelUpText.playLevelUpAnimation(level);
+        soundManager.playLevelUpSound();
     }
 
     private void spawnPlayer() {   
         playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        activateMovementController(playerInstance);
     }
 
     private void initValues() {
@@ -115,5 +131,15 @@ public class GameManager : MonoBehaviour {
         level = 1;
         score = 0;
         levelUpTimer = 0f;
+    }
+
+    private void activateMovementController(GameObject objectToMove) {
+        movementController.objectToMove = playerInstance;
+        movementController.calculateXAxisMoveBorder();
+        movementController.enabled = true;
+    }
+
+    private void disableMovementController() {
+        movementController.enabled = false;
     }
 }

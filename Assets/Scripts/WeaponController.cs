@@ -13,12 +13,13 @@ public class WeaponController : MonoBehaviour {
     //Value, from which the input is processed and bullets are shoot
     public float verticalInputThreshold;
 
-    private FixedJoystick joystick;
+    //private FixedJoystick joystick;
+    private SoundManager soundManager;
 
     private float bulletSpawnIntervalTimer;
 
     void Start() {
-
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -28,7 +29,7 @@ public class WeaponController : MonoBehaviour {
         float verticalInput = 0f;
 
         if (SystemInfo.deviceType == DeviceType.Handheld) {
-            verticalInput = joystick.Horizontal;
+            //verticalInput = joystick.Horizontal;
         } else {
             verticalInput = Input.GetAxis("Vertical");
         }
@@ -42,6 +43,7 @@ public class WeaponController : MonoBehaviour {
     void shootBullet() {
         if (bulletSpawnIntervalTimer > bulletSpawnInterval) {
             GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            soundManager.playShootSound();
             bulletSpawnIntervalTimer = 0f;
         } 
     }

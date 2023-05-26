@@ -5,15 +5,15 @@ public class MovementController : MonoBehaviour {
     public float moveSpeed;
     public float joystickSensitivity;
 
+    public FixedJoystick joystick;
+    public GameObject objectToMove;
+
     // The maximum value, in which the character can move on the X-Axis (Both directions)
     private float xAxisMovementBorder;
 
-    private FixedJoystick joystick;
+    
 
-    void Start() {
-        calculateXAxisMoveBorder();
-
-        joystick = GameObject.Find("Joystick").GetComponent<FixedJoystick>();
+    void Awake() {
         if (SystemInfo.deviceType == DeviceType.Handheld) {
             joystick.gameObject.SetActive(true);
         } else {
@@ -21,7 +21,7 @@ public class MovementController : MonoBehaviour {
         }
     }
 
-    void Update() {
+    void Update() { if (objectToMove == null) return;
         float horizontalInput = 0f;
 
         if (SystemInfo.deviceType == DeviceType.Handheld) {
@@ -30,9 +30,7 @@ public class MovementController : MonoBehaviour {
             horizontalInput = Input.GetAxis("Horizontal");
         }
 
-        float verticalInput = Input.GetAxis("Vertical");
-
-        float xPos = this.transform.position.x;
+        float xPos = objectToMove.transform.position.x;
 
         if (Mathf.Abs(xPos) > xAxisMovementBorder) {
             if ( (xPos < - xAxisMovementBorder) && horizontalInput > 0) {
@@ -51,18 +49,18 @@ public class MovementController : MonoBehaviour {
     void updateTransform(float horizontalInput) {
         Vector3 moveVector = new Vector3(horizontalInput, 0, 0) * moveSpeed * Time.deltaTime;
 
-        transform.Translate(moveVector);
+        objectToMove.transform.Translate(moveVector);
     }
 
-    void calculateXAxisMoveBorder() {
+    public void calculateXAxisMoveBorder() {
         //Get the screen width. This can be different depending on the screen
         Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
         // The Scale of the player
-        float characterWidth = this.transform.localScale.x;
+        float objectToMoveWidth = objectToMove.transform.localScale.x;
 
         //Subtract half of the characters width, so the character does not move out of the screen
-        xAxisMovementBorder = stageDimensions.x - (characterWidth / 2); 
+        xAxisMovementBorder = stageDimensions.x - (objectToMoveWidth / 2); 
 
     }
 

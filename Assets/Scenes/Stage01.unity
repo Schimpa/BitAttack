@@ -2282,6 +2282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   joystickSensitivity: 0
+  objectMovementRotation: 45
   joystick: {fileID: 2092840862}
   objectToMove: {fileID: 0}
 --- !u!4 &1365622101

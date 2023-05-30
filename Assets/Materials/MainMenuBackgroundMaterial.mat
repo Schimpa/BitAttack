@@ -33,8 +33,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BackgroundMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: bc28a2b5e06f3eb49a10e15ec9a99576, type: 3}
+  m_Name: MainMenuBackgroundMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 6ac33e278a64f354b912645bf865b169, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -100,7 +100,7 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _Density: 20
+    - _Density: 10
     - _DetailNormalMapScale: 1
     - _DownMoveSpeed: 0.02
     - _DstBlend: 0
@@ -109,6 +109,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _MoveSpeed: 0.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: -1

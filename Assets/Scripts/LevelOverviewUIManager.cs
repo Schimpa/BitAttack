@@ -16,7 +16,7 @@ public class LevelOverviewUIManager : MonoBehaviour {
         
     }
 
-    public void loadLevel01() {
-        SceneManager.LoadScene("Level01");
+    public void loadLevel(string name) {
+        SceneManager.LoadScene(name);
     }
 }

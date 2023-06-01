@@ -18,11 +18,7 @@ public class PlayerCollisionDetection : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("TRIGGER");
         Destroy(this.gameObject);
     }
 
-    private void OnTriggerStay2D(Collider2D other) {
-        Debug.Log("TRIGGER");
-    }
 }

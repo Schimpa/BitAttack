@@ -83,36 +83,6 @@ public class GameManager : MonoBehaviour {
         gameUI.setUIProperties(score, (int)playTime);
     }
 
-    private void setUpGameOver() {
-        gameActive = false;
-        Time.timeScale = 0f;
-        
-        gameUI.gameObject.SetActive(false);
-
-        gameOverUI.setGameStats(score, (int)playTime, level);
-        gameOverUI.gameObject.SetActive(true);
-
-        gameOverText.createInfoText(level);
-        gameOverText.createMotivationText(level);
-
-        soundManager.playDeadSound();
-    }
-
-    public void setUpNewGame() {
-        gameActive = true;
-        Time.timeScale = 1f;
-        spawner.resetSpawner();
-        initValues();
-        spawnPlayer();
-
-        gameOverUI.gameObject.SetActive(false);
-        
-        gameUI.resetUI();
-        gameUI.gameObject.SetActive(true);
-
-        musicManager.playLevel01Music();
-
-    }
 
     private void levelUp() {
         levelUpTimer = 0f;
@@ -126,11 +96,32 @@ public class GameManager : MonoBehaviour {
         activateMovementController(playerInstance);
     }
 
-    private void initValues() {
+    private void initGameValues() {
+        gameActive = true;
+        Time.timeScale = 1f;
         playTime = 0f;
         level = 1;
         score = 0;
         levelUpTimer = 0f;
+    }
+
+    private void initGameOverValues() {
+        gameActive = false;
+        Time.timeScale = 0f;
+    }
+
+    public void setUpNewGame() {
+        initGameValues();
+        spawner.resetSpawner();
+        spawnPlayer();
+        initGameUI();
+        musicManager.playLevel01Music();
+    }
+
+    private void setUpGameOver() {
+        initGameOverValues();
+        initGameOverUI();
+        soundManager.playDeadSound();
     }
 
     private void activateMovementController(GameObject objectToMove) {
@@ -141,5 +132,22 @@ public class GameManager : MonoBehaviour {
 
     private void disableMovementController() {
         movementController.enabled = false;
+    }
+
+    private void initGameUI() {
+        gameOverUI.gameObject.SetActive(false);
+
+        gameUI.resetUI();
+        gameUI.gameObject.SetActive(true);
+    }
+
+    private void initGameOverUI() {
+        gameUI.gameObject.SetActive(false);
+
+        gameOverUI.setGameStats(score, (int)playTime, level);
+        gameOverUI.gameObject.SetActive(true);
+
+        gameOverText.createInfoText(level);
+        gameOverText.createMotivationText(level);
     }
 }

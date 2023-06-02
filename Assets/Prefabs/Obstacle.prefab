@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDownSpeedY: 3
   destroyPositionY: -10
+  score: 100
 --- !u!61 &2810927295146416412
 BoxCollider2D:
   m_ObjectHideFlags: 0

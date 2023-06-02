@@ -32,13 +32,16 @@ public class GameManager : MonoBehaviour {
     public float playTime;
     public int score;
     public int level;
-    public int levelUpTime = 10;   // The Time it takes to level up
+    public int levelUpTime = 10;   // The time it takes to level up
+    public float scoreTime = 1f;   // The time it takes to add score
+    public int scoreAmount = 100;
 
     [Header("Spawner Properties")]
     public float spawnerIntervalMultiplier;
     public float obstacleSpeedMultiplier;
 
     private float levelUpTimer;
+    private float scoreTimer;
 
     private bool gameActive;
 
@@ -52,9 +55,9 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() { if (gameActive == false) return;
         checkLevel();
+        checkScore();
         updateGameUI();
         playTime += Time.deltaTime;
-        score += 1;
     }
 
     private void checkLevel() {
@@ -68,6 +71,14 @@ public class GameManager : MonoBehaviour {
             //If the player object doesn't exist, the player is dead
             setUpGameOver();
             disableMovementController();
+        }
+    }
+
+    private void checkScore() {
+        scoreTimer += Time.deltaTime;
+        if (scoreTimer >= scoreTime) {
+            score += scoreAmount;
+            scoreTimer = 0f;
         }
     }
 
@@ -103,6 +114,7 @@ public class GameManager : MonoBehaviour {
         level = 1;
         score = 0;
         levelUpTimer = 0f;
+        scoreTimer = 0f;
     }
 
     private void initGameOverValues() {

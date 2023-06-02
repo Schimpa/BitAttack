@@ -12,12 +12,15 @@ public class Spawner : MonoBehaviour {
 
     public float spawnInterval; // In Seconds
     public float spawnObjectMoveDownSpeedMultiplier;
+    public bool preventSameSpawnPositionTwice;  // If this is true, the spawner does not spawn two objects after another at the same position
 
     private List<GameObject> spawnedObjects;
     private float deltaTime;
 
     private float spawnIntervalDefault;
     private float spawnObjectMoveDownSpeedMultiplierDefault;
+
+    private int previousSpawnPosition;
 
     void Awake() {
         spawnIntervalDefault = spawnInterval;
@@ -39,13 +42,25 @@ public class Spawner : MonoBehaviour {
     }
 
     private void spawnNewObject() {
-        int startPos = Random.Range(0, 3);
+        int spawnPos = getSpawnPosition();
 
         // Instantiate at position (0, 0, 0) and zero rotation.
-        GameObject newObject = Instantiate(spawnObjectPrefab, spawnPoints[startPos].position, Quaternion.identity);
+        GameObject newObject = Instantiate(spawnObjectPrefab, spawnPoints[spawnPos].position, Quaternion.identity);
         setNewObjectProperties(newObject);
 
         spawnedObjects.Add(newObject);
+    }
+
+    private int getSpawnPosition() {
+        int spawnPos = Random.Range(0, spawnPoints.Count);
+
+        while (preventSameSpawnPositionTwice && spawnPos == previousSpawnPosition) {
+            //Prevent same spawn position twice
+            spawnPos = Random.Range(0, spawnPoints.Count);
+        }
+
+        previousSpawnPosition = spawnPos;
+        return spawnPos;
     }
 
     private void setNewObjectProperties(GameObject newObject) {
@@ -60,7 +75,6 @@ public class Spawner : MonoBehaviour {
     }
 
     private void clearAllSpawnedObjects() { if (spawnedObjects == null) return;
-
         foreach(GameObject obj in spawnedObjects) {
             Destroy(obj);
         }
@@ -68,6 +82,7 @@ public class Spawner : MonoBehaviour {
 
     private void initValues() {
         deltaTime = 0f;
+        previousSpawnPosition = 100;
         spawnInterval = spawnIntervalDefault;
         spawnObjectMoveDownSpeedMultiplier = spawnObjectMoveDownSpeedMultiplierDefault;
         spawnedObjects = new List<GameObject>();

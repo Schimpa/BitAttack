@@ -1,0 +1,4 @@
+Export:
+
+Apply Transform
+Y Forward, Z Up

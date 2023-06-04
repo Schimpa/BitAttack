@@ -32,13 +32,16 @@ public class GameManager : MonoBehaviour {
     public float playTime;
     public int score;
     public int level;
-    public int levelUpTime = 10;   // The Time it takes to level up
+    public int levelUpTime = 10;   // The time it takes to level up
+    public float scoreTime = 1f;   // The time it takes to add score
+    public int scoreAmount = 100;
 
     [Header("Spawner Properties")]
     public float spawnerIntervalMultiplier;
     public float obstacleSpeedMultiplier;
 
     private float levelUpTimer;
+    private float scoreTimer;
 
     private bool gameActive;
 
@@ -52,9 +55,9 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() { if (gameActive == false) return;
         checkLevel();
+        checkScore();
         updateGameUI();
         playTime += Time.deltaTime;
-        score += 1;
     }
 
     private void checkLevel() {
@@ -71,6 +74,14 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private void checkScore() {
+        scoreTimer += Time.deltaTime;
+        if (scoreTimer >= scoreTime) {
+            score += scoreAmount;
+            scoreTimer = 0f;
+        }
+    }
+
     private void updateSpawnerProperties() {
         /**
         * Updates the spawner properties with the specified multipliers
@@ -83,36 +94,6 @@ public class GameManager : MonoBehaviour {
         gameUI.setUIProperties(score, (int)playTime);
     }
 
-    private void setUpGameOver() {
-        gameActive = false;
-        Time.timeScale = 0f;
-        
-        gameUI.gameObject.SetActive(false);
-
-        gameOverUI.setGameStats(score, (int)playTime, level);
-        gameOverUI.gameObject.SetActive(true);
-
-        gameOverText.createInfoText(level);
-        gameOverText.createMotivationText(level);
-
-        soundManager.playDeadSound();
-    }
-
-    public void setUpNewGame() {
-        gameActive = true;
-        Time.timeScale = 1f;
-        spawner.resetSpawner();
-        initValues();
-        spawnPlayer();
-
-        gameOverUI.gameObject.SetActive(false);
-        
-        gameUI.resetUI();
-        gameUI.gameObject.SetActive(true);
-
-        musicManager.playLevel01Music();
-
-    }
 
     private void levelUp() {
         levelUpTimer = 0f;
@@ -126,11 +107,33 @@ public class GameManager : MonoBehaviour {
         activateMovementController(playerInstance);
     }
 
-    private void initValues() {
+    private void initGameValues() {
+        gameActive = true;
+        Time.timeScale = 1f;
         playTime = 0f;
         level = 1;
         score = 0;
         levelUpTimer = 0f;
+        scoreTimer = 0f;
+    }
+
+    private void initGameOverValues() {
+        gameActive = false;
+        Time.timeScale = 0f;
+    }
+
+    public void setUpNewGame() {
+        initGameValues();
+        spawner.resetSpawner();
+        spawnPlayer();
+        initGameUI();
+        musicManager.playLevel01Music();
+    }
+
+    private void setUpGameOver() {
+        initGameOverValues();
+        initGameOverUI();
+        soundManager.playDeadSound();
     }
 
     private void activateMovementController(GameObject objectToMove) {
@@ -141,5 +144,22 @@ public class GameManager : MonoBehaviour {
 
     private void disableMovementController() {
         movementController.enabled = false;
+    }
+
+    private void initGameUI() {
+        gameOverUI.gameObject.SetActive(false);
+
+        gameUI.resetUI();
+        gameUI.gameObject.SetActive(true);
+    }
+
+    private void initGameOverUI() {
+        gameUI.gameObject.SetActive(false);
+
+        gameOverUI.setGameStats(score, (int)playTime, level);
+        gameOverUI.gameObject.SetActive(true);
+
+        gameOverText.createInfoText(level);
+        gameOverText.createMotivationText(level);
     }
 }

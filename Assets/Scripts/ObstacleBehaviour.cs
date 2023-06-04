@@ -10,15 +10,24 @@ public class ObstacleBehaviour : MonoBehaviour {
     // The position, at which this obstacle will be destoyed
     public float destroyPositionY;
 
+    // The amount of score it adds to the game if this obstacle is destroyed
+    public int score = 100;
+
     void Update() {
+        checkDestroyConditions();
+        translateObstacle();
+    }
+
+    private void checkDestroyConditions() {
         if (transform.position.y < destroyPositionY) {
+            GameObject.Find("GameManager").GetComponent<GameManager>().score += score;
             Destroy(this.gameObject);
         }
+    }
 
+    private void translateObstacle() {
         Vector3 moveVector = new Vector3(0, -moveDownSpeedY, 0) * moveDownSpeedY * Time.deltaTime;
-
         transform.Translate(moveVector);
-
     }
 
 }

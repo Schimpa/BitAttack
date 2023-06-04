@@ -96,11 +96,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BUILTIN_QueueControl: 0
+    - _BUILTIN_QueueControl: 1
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _Density: 10
+    - _Density: 9.97
     - _DetailNormalMapScale: 1
     - _DownMoveSpeed: 0.02
     - _DstBlend: 0
@@ -109,7 +109,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _MoveSpeed: 0.5
+    - _MoveSpeed: 0.13
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: -1

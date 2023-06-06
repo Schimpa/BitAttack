@@ -11,7 +11,7 @@ public class GameOverUIManager : MonoBehaviour {
 
     public void setGameStats(int score, int time, int level) {
         scoreText.text = score.ToString();
-        timeText.text = TimeUtil.secondsToMinuteString(time);
+        timeText.text = time.ToString() + "s";
         levelText.text = level.ToString();
     }
     public void loadMainScreen() {

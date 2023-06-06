@@ -9,7 +9,7 @@ public class GameUIManager : MonoBehaviour {
 
     public void setUIProperties(int score, int time) {
         scoreText.text = score.ToString();
-        timeText.text = TimeUtil.secondsToMinuteString(time);
+        timeText.text = time.ToString()+"s";
     }
 
     public void resetUI() {

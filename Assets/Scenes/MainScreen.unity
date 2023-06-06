@@ -2078,6 +2078,7 @@ GameObject:
   - component: {fileID: 1251439074}
   - component: {fileID: 1251439076}
   - component: {fileID: 1251439075}
+  - component: {fileID: 1251439077}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -2202,6 +2203,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251439073}
   m_CullTransparentMesh: 1
+--- !u!111 &1251439077
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251439073}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: e007312391eaacc48a6cc88cc5004fe6, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: e007312391eaacc48a6cc88cc5004fe6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1255316453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,6 +2229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1255316455}
   - component: {fileID: 1255316454}
+  - component: {fileID: 1255316456}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -2286,6 +2304,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!111 &1255316456
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255316453}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 349caa5833eebf447897bf0d6f842d48, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 349caa5833eebf447897bf0d6f842d48, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1257245290
 GameObject:
   m_ObjectHideFlags: 0

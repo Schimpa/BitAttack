@@ -23,18 +23,19 @@ public class GameManager : MonoBehaviour {
     public LevelUpTextBehaviour levelUpText;
     public GameOverTextBehaviour gameOverText;
 
-    [Header("Other References")]
+    [Header("Other Managers")]
     public SoundManager soundManager;
     public MusicManager musicManager;
+    public GameStatsManager gameStatsManager;
+
+    [Header("Other Controllers")]
+
     public MovementController movementController;
 
     [Header("Game Parameters")]
-    public float playTime;
-    public int score;
-    public int level;
     public int levelUpTime = 10;   // The time it takes to level up
-    public float scoreTime = 1f;   // The time it takes to add score
-    public int scoreAmount = 100;
+    public float scoreAddTime = 1f;   // The time it takes to add score
+    public int scoreAddTimeAmount = 100;
 
     [Header("Spawner Properties")]
     public float spawnerIntervalMultiplier;
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour {
         checkLevel();
         checkScore();
         updateGameUI();
-        playTime += Time.deltaTime;
+        gameStatsManager.addPlayTime(Time.deltaTime);
     }
 
     private void checkLevel() {
@@ -76,8 +77,8 @@ public class GameManager : MonoBehaviour {
 
     private void checkScore() {
         scoreTimer += Time.deltaTime;
-        if (scoreTimer >= scoreTime) {
-            score += scoreAmount;
+        if (scoreTimer >= scoreAddTime) {
+            gameStatsManager.addScore(scoreAddTimeAmount);
             scoreTimer = 0f;
         }
     }
@@ -91,14 +92,17 @@ public class GameManager : MonoBehaviour {
     }
 
     private void updateGameUI() {
+        int score = gameStatsManager.currentScore;
+        float playTime = gameStatsManager.currentPlayTime;
+
         gameUI.setUIProperties(score, (int)playTime);
     }
 
 
     private void levelUp() {
         levelUpTimer = 0f;
-        level++;
-        levelUpText.playLevelUpAnimation(level);
+        gameStatsManager.levelUp();
+        levelUpText.playLevelUpAnimation(gameStatsManager.currentLevel);
         soundManager.playLevelUpSound();
     }
 
@@ -110,9 +114,7 @@ public class GameManager : MonoBehaviour {
     private void initGameValues() {
         gameActive = true;
         Time.timeScale = 1f;
-        playTime = 0f;
-        level = 1;
-        score = 0;
+        gameStatsManager.resetCurrentGameStats();
         levelUpTimer = 0f;
         scoreTimer = 0f;
     }
@@ -154,6 +156,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void initGameOverUI() {
+        int score = gameStatsManager.currentScore;
+        int playTime = (int)gameStatsManager.currentPlayTime;
+        int level = gameStatsManager.currentLevel;
+
         gameUI.gameObject.SetActive(false);
 
         gameOverUI.setGameStats(score, (int)playTime, level);

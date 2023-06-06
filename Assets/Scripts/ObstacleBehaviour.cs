@@ -20,7 +20,7 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     private void checkDestroyConditions() {
         if (transform.position.y < destroyPositionY) {
-            GameObject.Find("GameManager").GetComponent<GameManager>().score += score;
+            GameObject.Find("GameStatsManager").GetComponent<GameStatsManager>().addScore(score);
             Destroy(this.gameObject);
         }
     }

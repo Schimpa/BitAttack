@@ -9,22 +9,37 @@ using UnityEngine;
  */
 public class GameStatsManager : MonoBehaviour {
 
+    public TotalStageStatsFileManager totalStats;
+
     public float currentPlayTime;
     public int currentScore;
     public int currentLevel;
+    public int currentObstaclesAvoided;
+    public int currentCoinsCollected;
 
     void Start() {
         resetCurrentGameStats();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void addCurrentStatsToGlobalStats() {
+        totalStats.loadStats();
 
-    private void addCurrentStatsToGlobalStats() {
+        StageStats stageStatsRef = totalStats.getStageStats();
 
+        stageStatsRef.totalTimeInSec += currentPlayTime;
+        stageStatsRef.totalScore += currentScore;
+        stageStatsRef.totalObstaclesAvoided += currentObstaclesAvoided;
+        stageStatsRef.totalCoinsCollected += currentCoinsCollected;
+
+        if (stageStatsRef.topLevelReached < currentLevel) {
+            stageStatsRef.topLevelReached = currentLevel;
+        }
+
+        if (stageStatsRef.topScoreReached < currentScore) {
+            stageStatsRef.topScoreReached = currentScore;
+        }
+
+        totalStats.saveStats();
     }
 
     private void checkAchievementRequirements() {
@@ -47,5 +62,7 @@ public class GameStatsManager : MonoBehaviour {
         currentPlayTime = 0f;
         currentScore = 0;
         currentLevel = 1;
+        currentObstaclesAvoided = 0;
+        currentCoinsCollected = 0;
     }
 }

@@ -2049,6 +2049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1325996270}
   - component: {fileID: 1325996269}
+  - component: {fileID: 1325996271}
   m_Layer: 0
   m_Name: GameStatsManager
   m_TagString: Untagged
@@ -2068,9 +2069,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a084fbe0c7a3db40855c0ff6a6160cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalStats: {fileID: 1325996271}
   currentPlayTime: 0
   currentScore: 0
   currentLevel: 0
+  currentObstaclesAvoided: 0
+  currentCoinsCollected: 0
 --- !u!4 &1325996270
 Transform:
   m_ObjectHideFlags: 0
@@ -2086,6 +2090,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325996271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325996268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a204bbd110af7904f93754c40354ec9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageStatsFileName: Stage01Stats
 --- !u!114 &1334588116 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
@@ -2195,7 +2212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  joystickSensitivity: 0
+  joystickSensitivity: 1
   objectMovementRotation: 45
   joystick: {fileID: 2092840862}
   objectToMove: {fileID: 0}
@@ -2827,7 +2844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 2
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2919,7 +2936,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 40e0aeabe244d7a45b1b328a78de40bc, type: 2}
+  - {fileID: 2100000, guid: d227bcabd6104d8489724b9045ec3aff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

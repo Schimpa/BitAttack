@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
         setUpNewGame();
+        QualitySettings.vSyncCount = 0;
+        QualitySettings.vS
+        Application.targetFrameRate = 120;
     }
 
     // Update is called once per frame
@@ -111,6 +114,26 @@ public class GameManager : MonoBehaviour {
         activateMovementController(playerInstance);
     }
 
+    public void setUpNewGame() {
+        initGameValues();
+        spawner.resetSpawner();
+        spawnPlayer();
+        initGameUI();
+        musicManager.playMusic();
+    }
+
+    private void setUpGameOver() {
+        configureGameOverValues();
+        initGameOverUI();
+        gameStatsManager.addCurrentStatsToGlobalStats();
+        configureGameOverSound();
+    }
+
+    private void activateMovementController(GameObject objectToMove) {
+        movementController.objectToMove = playerInstance;
+        movementController.calculateXAxisMoveBorder();
+        movementController.enabled = true;
+    }
     private void initGameValues() {
         gameActive = true;
         Time.timeScale = 1f;
@@ -119,29 +142,14 @@ public class GameManager : MonoBehaviour {
         scoreTimer = 0f;
     }
 
-    private void initGameOverValues() {
+    private void configureGameOverValues() {
         gameActive = false;
         Time.timeScale = 0f;
     }
 
-    public void setUpNewGame() {
-        initGameValues();
-        spawner.resetSpawner();
-        spawnPlayer();
-        initGameUI();
-        musicManager.playLevel01Music();
-    }
-
-    private void setUpGameOver() {
-        initGameOverValues();
-        initGameOverUI();
+    private void configureGameOverSound() {
+        musicManager.setPlayVolume(0.25f);
         soundManager.playDeadSound();
-    }
-
-    private void activateMovementController(GameObject objectToMove) {
-        movementController.objectToMove = playerInstance;
-        movementController.calculateXAxisMoveBorder();
-        movementController.enabled = true;
     }
 
     private void disableMovementController() {

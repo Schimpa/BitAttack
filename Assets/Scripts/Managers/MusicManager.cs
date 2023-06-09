@@ -17,7 +17,9 @@ public class MusicManager : MonoBehaviour {
         }
     }
 
-    public void playLevel01Music() {
+    public void playMusic() {
+        setPlayVolume(1);
+
         if (resetClipOnReplay) {
             audioSrc.Stop();
             audioSrc.PlayOneShot(level01Music);
@@ -29,6 +31,10 @@ public class MusicManager : MonoBehaviour {
                 audioSrc.Play();
             }          
         }       
+    }
+
+    public void setPlayVolume(float value) {
+        audioSrc.volume = value;
     }
 
 

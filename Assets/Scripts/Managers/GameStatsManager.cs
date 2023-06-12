@@ -39,6 +39,10 @@ public class GameStatsManager : MonoBehaviour {
             stageStatsRef.topScoreReached = currentScore;
         }
 
+        if (stageStatsRef.topTimeReachedInSec < currentPlayTime) {
+            stageStatsRef.topTimeReachedInSec = currentPlayTime;
+        }
+
         totalStats.saveStats();
     }
 

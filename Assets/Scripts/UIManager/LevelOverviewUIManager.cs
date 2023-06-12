@@ -16,7 +16,11 @@ public class LevelOverviewUIManager : MonoBehaviour {
         
     }
 
-    public void loadLevel(string name) {
-        SceneManager.LoadScene(name);
+    void setUpStage1ForGamePreparationUI() {
+        GamePreparationUIManager gamePrep = 
+            GameObject.Find("Canvas").GetComponent<MainScreenUIManager>().gamePreparationUIManager;
+
+        gamePrep.configureUI("Stage01");
+
     }
 }

@@ -6,6 +6,12 @@ public class GameUIManager : MonoBehaviour {
 
     public TMPro.TMP_Text scoreText;
     public TMPro.TMP_Text timeText;
+    public Animation levelUpTextAnimation;
+
+    public void Start() {
+        levelUpTextAnimation.Stop();
+        levelUpTextAnimation.Rewind();
+    }
 
     public void setUIProperties(int score, int time) {
         scoreText.text = score.ToString();

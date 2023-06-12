@@ -14,9 +14,11 @@ public class TotalStageStatsFileManager : MonoBehaviour {
 
     private StageStats stageStats;
 
-    void Start() {
+    void Awake() {
         formatter = new BinaryFormatter();
-        filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
+        if (stageStatsFileName != "") {
+            filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
+        }
     }
 
     public void saveStats() {
@@ -47,5 +49,11 @@ public class TotalStageStatsFileManager : MonoBehaviour {
 
     public StageStats getStageStats() {
         return this.stageStats;
+    }
+
+    public void updateStatsFileName(string stageStatsFileName) {
+        this.stageStatsFileName = stageStatsFileName;
+
+        this.filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
     }
 }

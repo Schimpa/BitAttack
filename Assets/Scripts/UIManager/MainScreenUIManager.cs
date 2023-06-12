@@ -6,23 +6,33 @@ public class MainScreenUIManager : MonoBehaviour {
 
     public GameObject mainMenuUI;
     public GameObject levelOverviewUI;
-    // Start is called before the first frame update
+    public GameObject gamePreparationUI;
+
+    public GamePreparationUIManager gamePreparationUIManager;
+
     void Start() {
-        
+        gamePreparationUIManager = gamePreparationUI.GetComponent<GamePreparationUIManager>();
+        switchToMainMenuUI();
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
-    public void switchToMainMenuUI() {
-        mainMenuUI.SetActive(true);
+    public void switchToMainMenuUI() { 
+        gamePreparationUI.SetActive(false);
         levelOverviewUI.SetActive(false);
+
+        mainMenuUI.SetActive(true);
     }
 
     public void switchToLevelOverviewUI() {
         mainMenuUI.SetActive(false);
+        gamePreparationUI.SetActive(false);
+
         levelOverviewUI.SetActive(true);
+    }
+
+    public void switchToGamePreparationUI() {
+        mainMenuUI.SetActive(false);
+        levelOverviewUI.SetActive(false);
+
+        gamePreparationUI.SetActive(true);
     }
 }

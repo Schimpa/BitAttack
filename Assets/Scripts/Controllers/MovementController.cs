@@ -19,6 +19,8 @@ public class MovementController : MonoBehaviour {
         } else {
             joystick.gameObject.SetActive(false);
         }
+
+        loadSensitivityPreference();
     }
 
     void Update() { if (objectToMove == null) return;
@@ -73,6 +75,12 @@ public class MovementController : MonoBehaviour {
         //Subtract half of the characters width, so the character does not move out of the screen
         xAxisMovementBorder = stageDimensions.x - (objectToMoveWidth / 2); 
 
+    }
+    private void loadSensitivityPreference() {
+        if (PlayerPrefs.HasKey(PrefKeys.SENSITIVITY.ToString())) {
+            float sensitivity = PlayerPrefs.GetFloat(PrefKeys.SENSITIVITY.ToString(),1);
+            this.moveSpeed *= sensitivity;
+        }
     }
 
 }

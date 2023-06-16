@@ -56,4 +56,6 @@ public class TotalStageStatsFileManager : MonoBehaviour {
 
         this.filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
     }
+
+    //---------------------------
 }

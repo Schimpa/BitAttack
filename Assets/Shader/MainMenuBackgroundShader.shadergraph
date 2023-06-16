@@ -927,10 +927,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1053.0,
-            "y": -91.0,
-            "width": 114.99993896484375,
-            "height": 34.000003814697269
+            "x": -1083.0,
+            "y": -74.0,
+            "width": 115.00006103515625,
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -2306,10 +2306,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1219.0,
-            "y": 571.0000610351563,
+            "x": -1386.0,
+            "y": 440.0,
             "width": 138.0,
-            "height": 33.99993896484375
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -2572,13 +2572,13 @@
     },
     "m_Name": "Time",
     "m_DrawState": {
-        "m_Expanded": true,
+        "m_Expanded": false,
         "m_Position": {
             "serializedVersion": "2",
             "x": -1372.0,
-            "y": 359.0000305175781,
-            "width": 124.0,
-            "height": 172.99996948242188
+            "y": 259.0,
+            "width": 78.9998779296875,
+            "height": 77.0
         }
     },
     "m_Slots": [

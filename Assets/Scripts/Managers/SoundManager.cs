@@ -11,14 +11,8 @@ public class SoundManager : MonoBehaviour {
     public AudioClip deadSound;
     public AudioClip clickSound;
 
-
     void Start() {
-        
-    }
-
-    // Update is called once per frame
-    void Update() {
-     
+        checkSoundPreference();
     }
 
     public void playShootSound() {
@@ -35,5 +29,17 @@ public class SoundManager : MonoBehaviour {
 
     public void playClickSound() {
         audioSrc.PlayOneShot(clickSound);
+    }
+
+    public void checkSoundPreference() {
+        if (PlayerPrefs.HasKey(PrefKeys.SOUND_IS_ON.ToString())) {
+            int isSoundOn = PlayerPrefs.GetInt(PrefKeys.SOUND_IS_ON.ToString());
+
+            if (isSoundOn == 1) {
+                audioSrc.mute = false;
+            } else {
+                audioSrc.mute = true;
+            }
+        }
     }
 }

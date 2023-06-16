@@ -43,11 +43,11 @@ public class GameStatsManager : MonoBehaviour {
             stageStatsRef.topTimeReachedInSec = currentPlayTime;
         }
 
+        if (currentLevel >= 8) {
+            stageStatsRef.level08ReachedAmount++;
+        }
+
         totalStats.saveStats();
-    }
-
-    private void checkAchievementRequirements() {
-
     }
 
     public void addPlayTime(float value) {
@@ -69,4 +69,17 @@ public class GameStatsManager : MonoBehaviour {
         currentObstaclesAvoided = 0;
         currentCoinsCollected = 0;
     }
+
+    private void validateStage01Achievements(StageStats stageStatsRef) {
+        if (stageStatsRef.level08ReachedAmount >= 5) {
+            stageStatsRef.achievement01Reached = true;
+        }
+        if (stageStatsRef.totalObstaclesAvoided >= 1000) {
+            stageStatsRef.achievement02Reached = true;
+        }
+        if (stageStatsRef.totalTimeInSec >= (60*30) ) { //30 Minutes playtime
+            stageStatsRef.achievement03Reached = true;
+        }
+    }
 }
+

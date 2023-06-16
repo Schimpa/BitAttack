@@ -15,6 +15,8 @@ public class MusicManager : MonoBehaviour {
         if (playOnStart && audioSrc.clip == null) {
             audioSrc.Play();
         }
+
+        checkMusicPreference();
     }
 
     public void playMusic() {
@@ -37,6 +39,16 @@ public class MusicManager : MonoBehaviour {
         audioSrc.volume = value;
     }
 
+    public void checkMusicPreference() {
+        if (PlayerPrefs.HasKey(PrefKeys.MUSIC_IS_ON.ToString())) {
+            int isMusicOn = PlayerPrefs.GetInt(PrefKeys.MUSIC_IS_ON.ToString());
 
+            if (isMusicOn == 1) {
+                audioSrc.mute = false;
+            } else {
+                audioSrc.mute = true;
+            }
+        }
+    }
 
 }

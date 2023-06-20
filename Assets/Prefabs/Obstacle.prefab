@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2810927295146416412}
   m_Layer: 0
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +102,8 @@ MonoBehaviour:
   moveDownSpeedY: 3
   destroyPositionY: -10
   score: 100
+  obstacleRenderer: {fileID: 2810927295146416414}
+  obstacleColor: 0
 --- !u!61 &2810927295146416412
 BoxCollider2D:
   m_ObjectHideFlags: 0

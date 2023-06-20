@@ -14,12 +14,7 @@ public class MovementController : MonoBehaviour {
     private float xAxisMovementBorder;
 
     void Awake() {
-        if (SystemInfo.deviceType == DeviceType.Handheld) {
-            joystick.gameObject.SetActive(true);
-        } else {
-            joystick.gameObject.SetActive(false);
-        }
-
+        setJoyStickActive(true);
         loadSensitivityPreference();
     }
 
@@ -81,6 +76,18 @@ public class MovementController : MonoBehaviour {
             float sensitivity = PlayerPrefs.GetFloat(PrefKeys.SENSITIVITY.ToString(),1);
             this.moveSpeed *= sensitivity;
         }
+    }
+
+    public void setJoyStickActive(bool value) {
+        /**
+         * Sets the joystick active or inactive. But only active if it is a mobile device
+         */
+        if (value == true && SystemInfo.deviceType == DeviceType.Handheld) {
+            joystick.gameObject.SetActive(true);
+        } else {
+            joystick.gameObject.SetActive(false);
+        }
+        
     }
 
 }

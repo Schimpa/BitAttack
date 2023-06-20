@@ -6,14 +6,19 @@ public class MusicManager : MonoBehaviour {
 
     public AudioSource audioSrc;
 
-    public AudioClip level01Music;
+    public AudioClip music;
 
     public bool resetClipOnReplay;  // Set this to true to replay the music after the level restarts. Else the clip keeps playing
     public bool playOnStart;        // If this is set to true, the assigned music clip is played at start
 
     public void Start() {
-        if (playOnStart && audioSrc.clip == null) {
+        if (music != null) {    // Load clip
+            audioSrc.clip = music;
             audioSrc.Play();
+        }
+
+        if (playOnStart && audioSrc.clip == null) {
+            audioSrc.Play();    // Play music
         }
 
         checkMusicPreference();
@@ -24,10 +29,10 @@ public class MusicManager : MonoBehaviour {
 
         if (resetClipOnReplay) {
             audioSrc.Stop();
-            audioSrc.PlayOneShot(level01Music);
+            audioSrc.PlayOneShot(music);
         } else { 
             if (audioSrc.clip == null) {
-                audioSrc.clip = level01Music;
+                audioSrc.clip = music;
             }
             if (audioSrc.isPlaying == false) {
                 audioSrc.Play();

@@ -58,6 +58,10 @@ public class GameStatsManager : MonoBehaviour {
         this.currentScore += value;
     }
 
+    public void addCoins(int value) {
+        this.currentCoinsCollected += value;
+    }
+
     public void levelUp() {
         this.currentLevel += 1;
     }

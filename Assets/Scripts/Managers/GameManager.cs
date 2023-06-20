@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour {
 
     private void spawnPlayer() {   
         playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        playerInstance.name = "Player";
         activateMovementController(playerInstance);
     }
 
@@ -160,6 +161,8 @@ public class GameManager : MonoBehaviour {
 
         gameUI.resetUI();
         gameUI.gameObject.SetActive(true);
+
+        movementController.setJoyStickActive(true);
     }
 
     private void initGameOverUI() {
@@ -174,5 +177,7 @@ public class GameManager : MonoBehaviour {
 
         gameOverText.createInfoText(level);
         gameOverText.createMotivationText(level);
+
+        movementController.setJoyStickActive(false);
     }
 }

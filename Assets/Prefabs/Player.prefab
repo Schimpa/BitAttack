@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 3735859727625737049}
   - component: {fileID: 4350093349400020556}
   - component: {fileID: 908748430549079169}
+  - component: {fileID: 4696579470119487479}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -119,7 +120,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab9b00d8bed2c7843a273c48a71a6097, type: 2}
+  - {fileID: 2100000, guid: a1da87a8f18b60842be68c24039fe95c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -196,3 +197,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4696579470119487479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9159408223885750016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f354ab67874897408f110762f329ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMaterial: {fileID: 2100000, guid: a1da87a8f18b60842be68c24039fe95c, type: 2}
+  currentPlayerColor: 0
+  colorChangeTime: 10

@@ -9,7 +9,8 @@ using UnityEngine;
  */
 public class GameStatsManager : MonoBehaviour {
 
-    public TotalStageStatsFileManager totalStats;
+    public TotalStageStatsFileManager stageStats;
+    public GlobalStatsFileManager globalStats;
 
     public float currentPlayTime;
     public int currentScore;
@@ -22,10 +23,20 @@ public class GameStatsManager : MonoBehaviour {
     }
 
     public void addCurrentStatsToGlobalStats() {
-        totalStats.loadStats();
+        stageStats.loadStats();
+        globalStats.loadStats();
 
-        StageStats stageStatsRef = totalStats.getStageStats();
+        StageStats stageStatsRef = stageStats.getStageStats();
+        GlobalStats globalStatsRef = globalStats.getGlobalStats();
 
+        updateStageStats(stageStatsRef);
+        updateGlobalStats(globalStatsRef);
+
+        stageStats.saveStats();
+        globalStats.saveStats();
+    }
+
+    private void updateStageStats(StageStats stageStatsRef) {
         stageStatsRef.totalTimeInSec += currentPlayTime;
         stageStatsRef.totalScore += currentScore;
         stageStatsRef.totalObstaclesAvoided += currentObstaclesAvoided;
@@ -46,8 +57,9 @@ public class GameStatsManager : MonoBehaviour {
         if (currentLevel >= 8) {
             stageStatsRef.level08ReachedAmount++;
         }
-
-        totalStats.saveStats();
+    }
+    private void updateGlobalStats(GlobalStats globalStatsRef) {
+        globalStatsRef.coins += currentCoinsCollected;
     }
 
     public void addPlayTime(float value) {

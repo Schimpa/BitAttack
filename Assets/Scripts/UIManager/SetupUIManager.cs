@@ -14,7 +14,7 @@ public class SetupUIManager : MonoBehaviour {
     private bool isSoundOn;
     private bool isMusicOn;
 
-    void Start() {
+    void OnEnable() {
         isSoundOn = true;
         isMusicOn = true;
     }

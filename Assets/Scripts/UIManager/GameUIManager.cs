@@ -8,7 +8,7 @@ public class GameUIManager : MonoBehaviour {
     public TMPro.TMP_Text timeText;
     public Animation levelUpTextAnimation;
 
-    public void Start() {
+    public void OnEnable() {
         levelUpTextAnimation.Stop();
         levelUpTextAnimation.Rewind();
     }

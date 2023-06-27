@@ -33,8 +33,12 @@ public class TotalStageStatsFileManager : MonoBehaviour {
         if (File.Exists(this.filePath)) {
             // Load existing data
             FileStream stream = new FileStream(this.filePath, FileMode.Open);
-
-            stageStats = formatter.Deserialize(stream) as StageStats;
+            if (stream.Length == 0) {
+                stageStats = new StageStats();
+            }
+            else {
+                stageStats = formatter.Deserialize(stream) as StageStats;
+            }
             stream.Close();
         } else {
             // No File avaiable, create new StageStats instance
@@ -45,6 +49,7 @@ public class TotalStageStatsFileManager : MonoBehaviour {
 
     public void resetStats() {
         File.Delete(filePath);
+        stageStats = new StageStats();
     }
 
     public StageStats getStageStats() {

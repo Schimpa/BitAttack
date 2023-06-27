@@ -8,10 +8,11 @@ public class MainScreenUIManager : MonoBehaviour {
     public GameObject levelOverviewUI;
     public GameObject gamePreparationUI;
     public GameObject setupUI;
+    public GameObject shopUI;
 
     public GamePreparationUIManager gamePreparationUIManager;
 
-    void Start() {
+    void OnEnable() {
         Time.timeScale = 1;
         gamePreparationUIManager = gamePreparationUI.GetComponent<GamePreparationUIManager>();
         switchToMainMenuUI();
@@ -21,6 +22,7 @@ public class MainScreenUIManager : MonoBehaviour {
         gamePreparationUI.SetActive(false);
         levelOverviewUI.SetActive(false);
         setupUI.SetActive(false);
+        shopUI.SetActive(false);
 
         mainMenuUI.SetActive(true);
     }
@@ -29,6 +31,7 @@ public class MainScreenUIManager : MonoBehaviour {
         mainMenuUI.SetActive(false);
         gamePreparationUI.SetActive(false);
         setupUI.SetActive(false);
+        shopUI.SetActive(false);
 
         levelOverviewUI.SetActive(true);
     }
@@ -37,6 +40,7 @@ public class MainScreenUIManager : MonoBehaviour {
         mainMenuUI.SetActive(false);
         levelOverviewUI.SetActive(false);
         setupUI.SetActive(false);
+        shopUI.SetActive(false);
 
         gamePreparationUI.SetActive(true);
     }
@@ -45,7 +49,17 @@ public class MainScreenUIManager : MonoBehaviour {
         mainMenuUI.SetActive(false);
         levelOverviewUI.SetActive(false);
         gamePreparationUI.SetActive(false);
+        shopUI.SetActive(false);
 
         setupUI.SetActive(true);
+    }
+
+    public void switchToShopUI() {
+        mainMenuUI.SetActive(false);
+        levelOverviewUI.SetActive(false);
+        gamePreparationUI.SetActive(false);
+        setupUI.SetActive(false);
+
+        shopUI.SetActive(true);
     }
 }

@@ -161,6 +161,7 @@ public class GameManager : MonoBehaviour {
 
         gameUI.resetUI();
         gameUI.gameObject.SetActive(true);
+        levelUpText.playEmptyAnimation();
 
         movementController.setJoyStickActive(true);
     }

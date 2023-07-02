@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class ObstacleBehaviour : MonoBehaviour {
 
-    // The down move speed in Y direction (towards the player)
-    public float moveDownSpeedY;
+    
+    public float moveDownSpeedY; // The down move speed in Y direction (towards the player)
+    public float destroyPositionY; // The position, at which this obstacle will be destoyed
 
-    // The position, at which this obstacle will be destoyed
-    public float destroyPositionY;
-
-    // The amount of score it adds to the game if this obstacle is destroyed
-    public int score = 100;
+    public int scoreWhenAvoided = 25; // The amount of score the player gets if this obstacle is avoided
+    public int scoreWhenShot = 50; // The amount of score the player gets if this obstacle is shot
+    public int coinsWhenShot = 1; // The amount of coins the player gets if this obstacle is shot
 
     public Renderer obstacleRenderer;
 
     public ColorMode obstacleColor;
 
+    private GameStatsManager gameStats;
+
 
     private void Start() {
+        gameStats = GameObject.Find("GameStatsManager").GetComponent<GameStatsManager>();
         setObstacleColor();
     }
     private void Update() {
@@ -43,16 +45,14 @@ public class ObstacleBehaviour : MonoBehaviour {
     }
 
     private void destroyObstacleFromBorder() {
-        GameStatsManager gameStats = GameObject.Find("GameStatsManager").GetComponent<GameStatsManager>();
-        gameStats.addScore(score);
+        gameStats.addScore(scoreWhenAvoided);
         gameStats.currentObstaclesAvoided++;
         Destroy(this.gameObject);
     }
 
     private void destroyObstacleFromBullet() {
-        GameStatsManager gameStats = GameObject.Find("GameStatsManager").GetComponent<GameStatsManager>();
-        gameStats.addScore(score);
-        gameStats.addCoins(1);
+        gameStats.addScore(scoreWhenShot);
+        gameStats.addCoins(coinsWhenShot);
         gameStats.currentObstaclesAvoided++;
         Destroy(this.gameObject);
     }

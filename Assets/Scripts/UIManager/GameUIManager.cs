@@ -9,8 +9,7 @@ public class GameUIManager : MonoBehaviour {
     public Animation levelUpTextAnimation;
 
     public void OnEnable() {
-        levelUpTextAnimation.Stop();
-        levelUpTextAnimation.Rewind();
+        resetUI();
     }
 
     public void setUIProperties(int score, int time) {
@@ -21,6 +20,8 @@ public class GameUIManager : MonoBehaviour {
     public void resetUI() {
         scoreText.text = "0";
         timeText.text = "0";
+        levelUpTextAnimation.Stop();
+        levelUpTextAnimation.Rewind();
     }
 
 }

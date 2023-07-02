@@ -4079,6 +4079,10 @@ PrefabInstance:
       propertyPath: movementController
       value: 
       objectReference: {fileID: 1365622100}
+    - target: {fileID: 7449866376157814269, guid: 8c02b2f971862d44f91a1bca7a900a76, type: 3}
+      propertyPath: scoreAddTimeAmount
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c02b2f971862d44f91a1bca7a900a76, type: 3}
 --- !u!1001 &8997288601815863851

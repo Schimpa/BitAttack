@@ -220,6 +220,6 @@ public class ShopUIManager : MonoBehaviour {
     }
 
     public void updateCoinsText() {
-        coinsText.text = "Coins:" + stats.coins.ToString();
+        coinsText.text = "Coins: " + stats.coins.ToString();
     }
 }

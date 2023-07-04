@@ -18,7 +18,7 @@ public class LevelOverviewUIManager : MonoBehaviour {
 
     void setUpStage1ForGamePreparationUI() {
         GamePreparationUIManager gamePrep = 
-            GameObject.Find("Canvas").GetComponent<MainScreenUIManager>().gamePreparationUIManager;
+            GameObject.Find("Canvas").GetComponent<MainScreenUIManager>().getGamePreparationUIManager();
 
         gamePrep.configureUI("Stage01");
 

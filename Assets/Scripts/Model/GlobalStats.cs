@@ -19,6 +19,9 @@ public class GlobalStats {
     public bool exhaust02Unlocked;
     public bool exhaust03Unlocked;
 
+    public int selectedShip;
+    public int selectedBullet;
+
     public GlobalStats() {
 
         this.coins = 0;
@@ -34,6 +37,9 @@ public class GlobalStats {
         this.exhaust01Unlocked = false;
         this.exhaust02Unlocked = false;
         this.exhaust03Unlocked = false;
+
+        this.selectedShip = 0;
+        this.selectedBullet = 0;
     }
 
 

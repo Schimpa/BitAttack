@@ -10,6 +10,9 @@ public class SoundManager : MonoBehaviour {
     public AudioClip levelUpSound;
     public AudioClip deadSound;
     public AudioClip clickSound;
+    public AudioClip obstacleHitSound;
+    public AudioClip selectionFailedSound;
+    public AudioClip selectionSuccessfullSound;
 
     void Start() {
         checkSoundPreference();
@@ -29,6 +32,18 @@ public class SoundManager : MonoBehaviour {
 
     public void playClickSound() {
         audioSrc.PlayOneShot(clickSound);
+    }
+
+    public void playSelectionFailedSound() {
+        audioSrc.PlayOneShot(selectionFailedSound);
+    }
+
+    public void playSelectionSuccessfullSound() {
+        audioSrc.PlayOneShot(selectionSuccessfullSound);
+    }
+
+    public void playObstacleHitSound() {
+        audioSrc.PlayOneShot(obstacleHitSound);
     }
 
     public void checkSoundPreference() {

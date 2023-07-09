@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ShopUIManager : MonoBehaviour {
@@ -17,6 +18,8 @@ public class ShopUIManager : MonoBehaviour {
     public const int EXHAUST02_COINS = 200;
     public const int EXHAUST03_COINS = 400;
 
+    public SoundManager soundManager;
+
     public GlobalStatsFileManager globalStats;
     public TMPro.TMP_Text coinsText;
 
@@ -31,6 +34,7 @@ public class ShopUIManager : MonoBehaviour {
     public GameObject exhaust01Button;
     public GameObject exhaust02Button;
     public GameObject exhaust03Button;
+
 
     private GlobalStats stats;
 
@@ -65,6 +69,13 @@ public class ShopUIManager : MonoBehaviour {
             globalStats.saveStats();
             checkShip01Button();
         }
+
+        if (stats.ship01Unlocked == true) {
+            stats.selectedShip = 0;
+            soundManager.playSelectionSuccessfullSound();
+        } else {
+            soundManager.playSelectionFailedSound();
+        }
     }
 
     public void onShip02ButtonClick() {
@@ -73,6 +84,13 @@ public class ShopUIManager : MonoBehaviour {
             stats.coins -= SHIP02_COINS;
             globalStats.saveStats();
             checkShip02Button();
+        }
+
+        if (stats.ship02Unlocked == true) {
+            stats.selectedShip = 1;
+            soundManager.playSelectionSuccessfullSound();
+        } else {
+            soundManager.playSelectionFailedSound();
         }
     }
 
@@ -83,6 +101,13 @@ public class ShopUIManager : MonoBehaviour {
             globalStats.saveStats();
             checkShip03Button();
         }
+
+        if (stats.ship03Unlocked == true) {
+            stats.selectedShip = 2;
+            soundManager.playSelectionSuccessfullSound();
+        } else {
+            soundManager.playSelectionFailedSound();
+        }
     }
     public void onBullet01ButtonClick() {
         if (stats.coins >= BULLET01_COINS) {
@@ -90,6 +115,13 @@ public class ShopUIManager : MonoBehaviour {
             stats.coins -= BULLET01_COINS;
             globalStats.saveStats();
             checkBullet01Button();
+        }
+
+        if (stats.bullet01Unlocked == true) {
+            stats.selectedBullet = 0;
+            soundManager.playSelectionSuccessfullSound();
+        } else {
+            soundManager.playSelectionFailedSound();
         }
     }
 
@@ -100,6 +132,13 @@ public class ShopUIManager : MonoBehaviour {
             globalStats.saveStats();
             checkBullet02Button();
         }
+
+        if (stats.bullet02Unlocked == true) {
+            stats.selectedBullet = 1;
+            soundManager.playSelectionSuccessfullSound();
+        } else {
+            soundManager.playSelectionFailedSound();
+        }
     }
 
     public void onBullet03ButtonClick() {
@@ -108,6 +147,13 @@ public class ShopUIManager : MonoBehaviour {
             stats.coins -= BULLET03_COINS;
             globalStats.saveStats();
             checkBullet03Button();
+        }
+
+        if (stats.bullet03Unlocked == true) {
+            stats.selectedBullet = 2;
+            soundManager.playSelectionSuccessfullSound();
+        } else {
+            soundManager.playSelectionFailedSound();
         }
     }
 
@@ -222,4 +268,5 @@ public class ShopUIManager : MonoBehaviour {
     public void updateCoinsText() {
         coinsText.text = "Coins: " + stats.coins.ToString();
     }
+
 }

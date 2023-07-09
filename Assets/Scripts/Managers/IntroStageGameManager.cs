@@ -4,14 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 
 
-/**
- * Wofür soll dieses Skript zuständing sein?
- * - Den Spawner kontrollieren, Spawnrate und Geschwindigkeit einstellen
- * - Spielzeit, Score und Level verwalten
- * - Spiel starten / beenden
- * 
- */
-public class GameManager : MonoBehaviour {
+public class IntroStageGameManager : MonoBehaviour {
 
     [Header("Game Object References")]
     public Spawner spawner;
@@ -20,8 +13,7 @@ public class GameManager : MonoBehaviour {
     [Header("UI References")]
     public GameUIManager gameUI;
     public GameOverUIManager gameOverUI;
-    public LevelUpTextBehaviour levelUpText;
-    public GameOverTextBehaviour gameOverText;
+    public TMPro.TMP_Text objectiveText;
 
     [Header("Other Managers")]
     public SoundManager soundManager;
@@ -34,7 +26,6 @@ public class GameManager : MonoBehaviour {
     [Header("Player")]
 
     [Header("Game Parameters")]
-    public int levelUpTime = 10;   // The time it takes to level up
     public float scoreAddTime = 1f;   // The time it takes to add score
     public int scoreAddTimeAmount = 100;
 
@@ -42,7 +33,6 @@ public class GameManager : MonoBehaviour {
     public float spawnerIntervalMultiplier;
     public float obstacleSpeedMultiplier;
 
-    private float levelUpTimer;
     private float scoreTimer;
 
     private bool gameActive;
@@ -65,12 +55,6 @@ public class GameManager : MonoBehaviour {
     }
 
     private void checkLevel() {
-        levelUpTimer += Time.deltaTime;
-        if (levelUpTimer >= levelUpTime) {
-            levelUp();
-            updateSpawnerProperties();
-        }
-
         if (playerInstance == null) {
             //If the player object doesn't exist, the player is dead
             setUpGameOver();
@@ -99,14 +83,6 @@ public class GameManager : MonoBehaviour {
         float playTime = gameStatsManager.currentPlayTime;
 
         gameUI.setUIProperties(score, (int)playTime);
-    }
-
-
-    private void levelUp() {
-        levelUpTimer = 0f;
-        gameStatsManager.levelUp();
-        levelUpText.playLevelUpAnimation(gameStatsManager.currentLevel);
-        soundManager.playLevelUpSound();
     }
 
     private void spawnPlayer() {   
@@ -144,7 +120,6 @@ public class GameManager : MonoBehaviour {
         gameActive = true;
         Time.timeScale = 1f;
         gameStatsManager.resetCurrentGameStats();
-        levelUpTimer = 0f;
         scoreTimer = 0f;
     }
 
@@ -167,7 +142,6 @@ public class GameManager : MonoBehaviour {
 
         gameUI.resetUI();
         gameUI.gameObject.SetActive(true);
-        levelUpText.playEmptyAnimation();
 
         movementController.setJoyStickActive(true);
     }
@@ -182,9 +156,6 @@ public class GameManager : MonoBehaviour {
 
         gameOverUI.setGameStats(score, (int)playTime, level, coins);
         gameOverUI.gameObject.SetActive(true);
-
-        gameOverText.createInfoText(level);
-        gameOverText.createMotivationText(level);
 
         movementController.setJoyStickActive(false);
     }

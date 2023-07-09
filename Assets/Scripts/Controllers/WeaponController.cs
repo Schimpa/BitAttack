@@ -20,6 +20,11 @@ public class WeaponController : MonoBehaviour {
 
     void Start() {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
+        PlayerConfigurationManager configManager = 
+            GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
+
+        bulletPrefab = configManager.getSelectedBullet();
     }
 
     // Update is called once per frame

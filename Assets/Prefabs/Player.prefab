@@ -42,11 +42,12 @@ GameObject:
   - component: {fileID: 9159408223885750018}
   - component: {fileID: 9159408223885750044}
   - component: {fileID: 5494014111943330181}
+  - component: {fileID: 4696579470119487479}
   - component: {fileID: 2028169635566692515}
   - component: {fileID: 3735859727625737049}
   - component: {fileID: 4350093349400020556}
   - component: {fileID: 908748430549079169}
-  - component: {fileID: 4696579470119487479}
+  - component: {fileID: 3250890199348632324}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -100,6 +101,21 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletSpawnInterval: 0.33
   verticalInputThreshold: 0.2
+--- !u!114 &4696579470119487479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9159408223885750016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f354ab67874897408f110762f329ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMaterial: {fileID: 2100000, guid: a1da87a8f18b60842be68c24039fe95c, type: 2}
+  currentPlayerColor: 0
+  colorChangeTime: 10
 --- !u!23 &2028169635566692515
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -197,18 +213,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4696579470119487479
-MonoBehaviour:
+--- !u!111 &3250890199348632324
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9159408223885750016}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f354ab67874897408f110762f329ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMaterial: {fileID: 2100000, guid: a1da87a8f18b60842be68c24039fe95c, type: 2}
-  currentPlayerColor: 0
-  colorChangeTime: 10
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 005867fb78235584eb286e6a69b9f834, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 005867fb78235584eb286e6a69b9f834, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

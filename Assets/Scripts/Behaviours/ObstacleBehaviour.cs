@@ -54,6 +54,9 @@ public class ObstacleBehaviour : MonoBehaviour {
         gameStats.addScore(scoreWhenShot);
         gameStats.addCoins(coinsWhenShot);
         gameStats.currentObstaclesAvoided++;
+
+        GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();
+
         Destroy(this.gameObject);
     }
 

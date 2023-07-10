@@ -10,7 +10,7 @@ public class MainScreenUIManager : MonoBehaviour {
     public GameObject setupUI;
     public GameObject shopUI;
 
-    public GamePreparationUIManager gamePreparationUIManager;
+    private GamePreparationUIManager gamePreparationUIManager;
 
     void OnEnable() {
         Time.timeScale = 1;
@@ -61,5 +61,9 @@ public class MainScreenUIManager : MonoBehaviour {
         setupUI.SetActive(false);
 
         shopUI.SetActive(true);
+    }
+
+    public GamePreparationUIManager getGamePreparationUIManager() {
+        return this.gamePreparationUIManager;
     }
 }

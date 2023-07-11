@@ -10,6 +10,8 @@ public class GameOverUIManager : MonoBehaviour {
     public TMPro.TMP_Text levelText;
     public TMPro.TMP_Text coinsText;
 
+    public GameOverTextBehaviour gameOverText;
+
     public void OnEnable() {
         adjustTextWidth();
     }
@@ -41,6 +43,11 @@ public class GameOverUIManager : MonoBehaviour {
         timeRt.offsetMin  = new Vector2(textLeftOffset, timeRt.offsetMin.y);
         levelRt.offsetMin = new Vector2(textLeftOffset, levelRt.offsetMin.y);
         coinsRt.offsetMin = new Vector2(textLeftOffset, coinsRt.offsetMin.y);
+    }
+
+    public void createGameOverText(int level) {
+        gameOverText.createInfoText(level);
+        gameOverText.createMotivationText(level);
     }
 
 }

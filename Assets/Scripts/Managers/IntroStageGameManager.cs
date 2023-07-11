@@ -11,9 +11,8 @@ public class IntroStageGameManager : MonoBehaviour {
     public GameObject playerPrefab;
 
     [Header("UI References")]
-    public GameUIManager gameUI;
+    public IntroGameUIManager gameUI;
     public GameOverUIManager gameOverUI;
-    public TMPro.TMP_Text objectiveText;
 
     [Header("Other Managers")]
     public SoundManager soundManager;
@@ -23,11 +22,12 @@ public class IntroStageGameManager : MonoBehaviour {
     [Header("Other Controllers")]
     public MovementController movementController;
 
-    [Header("Player")]
-
     [Header("Game Parameters")]
     public float scoreAddTime = 1f;   // The time it takes to add score
-    public int scoreAddTimeAmount = 100;
+    public int scoreAddTimeAmount = 10;
+
+    [Header("Winning condition")]
+    public int coinsToWin;
 
     [Header("Spawner Properties")]
     public float spawnerIntervalMultiplier;
@@ -48,17 +48,21 @@ public class IntroStageGameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() { if (gameActive == false) return;
-        checkLevel();
+        checkGameConditions();
         checkScore();
         updateGameUI();
         gameStatsManager.addPlayTime(Time.deltaTime);
     }
 
-    private void checkLevel() {
+    private void checkGameConditions() {
         if (playerInstance == null) {
             //If the player object doesn't exist, the player is dead
             setUpGameOver();
             disableMovementController();
+        }
+
+        if (gameStatsManager.currentCoinsCollected >= coinsToWin) {
+            setUpGameOver();
         }
     }
 
@@ -70,19 +74,11 @@ public class IntroStageGameManager : MonoBehaviour {
         }
     }
 
-    private void updateSpawnerProperties() {
-        /**
-        * Updates the spawner properties with the specified multipliers
-        */
-        spawner.spawnInterval *= spawnerIntervalMultiplier;
-        spawner.spawnObjectMoveDownSpeedMultiplier *= obstacleSpeedMultiplier;
-    }
-
     private void updateGameUI() {
         int score = gameStatsManager.currentScore;
-        float playTime = gameStatsManager.currentPlayTime;
+        int currentCoinsCollected = gameStatsManager.currentCoinsCollected;
 
-        gameUI.setUIProperties(score, (int)playTime);
+        gameUI.updateUIProperties(score, currentCoinsCollected);
     }
 
     private void spawnPlayer() {   

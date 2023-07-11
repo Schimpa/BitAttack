@@ -14,6 +14,10 @@ public class Spawner : MonoBehaviour {
     public float spawnObjectMoveDownSpeedMultiplier;
     public bool preventSameSpawnPositionTwice;  // If this is true, the spawner does not spawn two objects after another at the same position
 
+    [Header("Spawner Level Up Properties")]
+    public float spawnerIntervalMultiplier;
+    public float obstacleSpeedMultiplier;
+
     private List<GameObject> spawnedObjects;
     private float deltaTime;
 
@@ -72,6 +76,12 @@ public class Spawner : MonoBehaviour {
     public void resetSpawner() {
         clearAllSpawnedObjects();
         initValues();
+    }
+
+    public void levelUp() {
+        // Levels up the spawner and adjusts properties
+        spawnInterval *= spawnerIntervalMultiplier;
+        spawnObjectMoveDownSpeedMultiplier *= obstacleSpeedMultiplier;
     }
 
     private void clearAllSpawnedObjects() { if (spawnedObjects == null) return;

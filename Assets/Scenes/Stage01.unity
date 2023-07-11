@@ -1387,6 +1387,7 @@ MonoBehaviour:
   timeText: {fileID: 489104898}
   levelText: {fileID: 2065877972}
   coinsText: {fileID: 999535258}
+  gameOverText: {fileID: 547047743}
 --- !u!114 &547047743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2228,8 +2229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 763296137}
-  timeText: {fileID: 1544051559}
   levelUpTextAnimation: {fileID: 285329973}
+  levelUpText: {fileID: 285329976}
 --- !u!1 &995255921
 GameObject:
   m_ObjectHideFlags: 0
@@ -3993,6 +3994,14 @@ PrefabInstance:
       propertyPath: spawnObjectPrefab
       value: 
       objectReference: {fileID: 2810927295146416408, guid: 7abf885700fb1d3409923f5190fbf980, type: 3}
+    - target: {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: obstacleSpeedMultiplier
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnerIntervalMultiplier
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
       propertyPath: preventSameSpawnPositionTwice
       value: 1

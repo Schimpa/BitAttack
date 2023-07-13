@@ -58,10 +58,12 @@ public class IntroStageGameManager : MonoBehaviour {
         if (playerInstance == null) {
             //If the player object doesn't exist, the player is dead
             setUpGameOver();
+            setUpGameOverFailedText();
             disableMovementController();
         }
 
         if (gameStatsManager.currentCoinsCollected >= coinsToWin) {
+            setUpGameOverWinText();
             setUpGameOver();
         }
     }
@@ -154,5 +156,17 @@ public class IntroStageGameManager : MonoBehaviour {
         gameOverUI.gameObject.SetActive(true);
 
         movementController.setJoyStickActive(false);
+    }
+
+    private void setUpGameOverWinText() {
+        gameOverUI.gameOverText.setCustomInfoText("Very nice!");
+        gameOverUI.gameOverText.setCustomMotivationText("");
+        gameOverUI.titleText.text = "Intro stage done!";
+    }
+
+    private void setUpGameOverFailedText() {
+        gameOverUI.gameOverText.setCustomInfoText("You really failed the intro level...");
+        gameOverUI.gameOverText.setCustomMotivationText("");
+        gameOverUI.titleText.text = "Intro stage failed!";
     }
 }

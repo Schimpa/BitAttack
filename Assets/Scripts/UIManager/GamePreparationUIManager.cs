@@ -60,6 +60,7 @@ public class GamePreparationUIManager : MonoBehaviour {
 
     public void checkAchievementValidation(StageStats stats) {
         int achievementsReached = 3;
+        totalStats.validateStage01Achievements();
 
         if (stats.achievement01Reached == false) {
             achievement01Text.color = new Color(1, 1, 1, .3f);

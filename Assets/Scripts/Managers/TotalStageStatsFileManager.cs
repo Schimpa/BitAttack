@@ -62,5 +62,18 @@ public class TotalStageStatsFileManager : MonoBehaviour {
         this.filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
     }
 
-    //---------------------------
+    public void validateStage01Achievements() {
+        if (stageStats.level08ReachedAmount >= 5) {
+            stageStats.achievement01Reached = true;
+        }
+
+        if (stageStats.totalObstaclesAvoided >= 1000) {
+            stageStats.achievement02Reached = true;
+        }
+        
+        if (stageStats.totalTimeInSec > (60 * 30)) {
+            stageStats.achievement03Reached = true;
+        }
+
+    }
 }

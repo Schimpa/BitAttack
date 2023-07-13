@@ -5,6 +5,9 @@ public class MovementController : MonoBehaviour {
     public float moveSpeed;
     public float joystickSensitivity;
 
+    [Range(0,1)]
+    public float joystickThreshold; //The value, at which the input from the joystick will be registered
+
     public float objectMovementRotation;
 
     public FixedJoystick joystick;
@@ -22,7 +25,9 @@ public class MovementController : MonoBehaviour {
         float horizontalInput = 0f;
 
         if (SystemInfo.deviceType == DeviceType.Handheld) {
-            horizontalInput = joystick.Horizontal * joystickSensitivity;
+            if (Mathf.Abs(joystick.Horizontal) > joystickThreshold) {
+                horizontalInput = joystick.Horizontal * joystickSensitivity;
+            }       
         } else {
             horizontalInput = Input.GetAxis("Horizontal");
         }
@@ -41,7 +46,7 @@ public class MovementController : MonoBehaviour {
             updateObjectPosition(horizontalInput);
         }
 
-        updateObjectRotation(horizontalInput);
+        updateObjectRotation(-horizontalInput);
 
     }
 

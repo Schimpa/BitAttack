@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameOverUIManager : MonoBehaviour {
 
+    public TMPro.TMP_Text titleText;
     public TMPro.TMP_Text scoreText;
     public TMPro.TMP_Text timeText;
     public TMPro.TMP_Text levelText;
@@ -46,8 +47,12 @@ public class GameOverUIManager : MonoBehaviour {
     }
 
     public void createGameOverText(int level) {
-        gameOverText.createInfoText(level);
-        gameOverText.createMotivationText(level);
+        //gameOverText.createInfoTextByLevel(level);
+        gameOverText.createMotivationTextByLevel(level);
+    }
+
+    public void setTitleText(string text) {
+        titleText.text = text;
     }
 
 }

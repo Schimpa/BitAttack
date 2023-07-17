@@ -16,7 +16,7 @@ public class GameStatsManager : MonoBehaviour {
     public int currentScore;
     public int currentLevel;
     public int currentObstaclesAvoided;
-    public int currentCoinsCollected;
+    public int currentBitsCollected;
 
     void Start() {
         resetCurrentGameStats();
@@ -40,7 +40,7 @@ public class GameStatsManager : MonoBehaviour {
         stageStatsRef.totalTimeInSec += currentPlayTime;
         stageStatsRef.totalScore += currentScore;
         stageStatsRef.totalObstaclesAvoided += currentObstaclesAvoided;
-        stageStatsRef.totalCoinsCollected += currentCoinsCollected;
+        stageStatsRef.totalBitsCollected += currentBitsCollected;
 
         if (stageStatsRef.topLevelReached < currentLevel) {
             stageStatsRef.topLevelReached = currentLevel;
@@ -59,7 +59,7 @@ public class GameStatsManager : MonoBehaviour {
         }
     }
     private void updateGlobalStats(GlobalStats globalStatsRef) {
-        globalStatsRef.coins += currentCoinsCollected;
+        globalStatsRef.bits += currentBitsCollected;
     }
 
     public void addPlayTime(float value) {
@@ -70,8 +70,8 @@ public class GameStatsManager : MonoBehaviour {
         this.currentScore += value;
     }
 
-    public void addCoins(int value) {
-        this.currentCoinsCollected += value;
+    public void addBits(int value) {
+        this.currentBitsCollected += value;
     }
 
     public void levelUp() {
@@ -83,7 +83,7 @@ public class GameStatsManager : MonoBehaviour {
         currentScore = 0;
         currentLevel = 1;
         currentObstaclesAvoided = 0;
-        currentCoinsCollected = 0;
+        currentBitsCollected = 0;
     }
 
     private void validateStage01Achievements(StageStats stageStatsRef) {

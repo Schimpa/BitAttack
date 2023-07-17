@@ -10,7 +10,7 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     public int scoreWhenAvoided = 25; // The amount of score the player gets if this obstacle is avoided
     public int scoreWhenShot = 50; // The amount of score the player gets if this obstacle is shot
-    public int coinsWhenShot = 1; // The amount of coins the player gets if this obstacle is shot
+    public int bitsWhenShot = 1; // The amount of bits the player gets if this obstacle is shot
 
     public Renderer obstacleRenderer;
 
@@ -52,7 +52,7 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     private void destroyObstacleFromBullet() {
         gameStats.addScore(scoreWhenShot);
-        gameStats.addCoins(coinsWhenShot);
+        gameStats.addBits(bitsWhenShot);
         gameStats.currentObstaclesAvoided++;
 
         GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();

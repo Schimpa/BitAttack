@@ -13,7 +13,7 @@ public class GamePreparationUIManager : MonoBehaviour {
 
     public TMPro.TMP_Text totalTimeText;
     public TMPro.TMP_Text totalScoreText;
-    public TMPro.TMP_Text coinsCollectedText;
+    public TMPro.TMP_Text bitsCollectedText;
     public TMPro.TMP_Text obstaclesAvoidedText;
 
     public TMPro.TMP_Text achievement01Text;
@@ -54,7 +54,7 @@ public class GamePreparationUIManager : MonoBehaviour {
 
         totalTimeText.text = totalTime.ToString() + "s";
         totalScoreText.text = stats.totalScore.ToString();
-        coinsCollectedText.text = stats.totalCoinsCollected.ToString();
+        bitsCollectedText.text = stats.totalBitsCollected.ToString();
         obstaclesAvoidedText.text = stats.totalObstaclesAvoided.ToString();
     }
 

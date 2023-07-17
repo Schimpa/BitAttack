@@ -9,6 +9,7 @@ public class IntroStageGameManager : MonoBehaviour {
     [Header("Game Object References")]
     public Spawner spawner;
     public GameObject playerPrefab;
+    public GameObject restartButton;    // To disable the restart button when the player won the game
 
     [Header("UI References")]
     public IntroGameUIManager gameUI;
@@ -27,7 +28,7 @@ public class IntroStageGameManager : MonoBehaviour {
     public int scoreAddTimeAmount = 10;
 
     [Header("Winning condition")]
-    public int coinsToWin;
+    public int bitsToWin;
 
     [Header("Spawner Properties")]
     public float spawnerIntervalMultiplier;
@@ -55,16 +56,16 @@ public class IntroStageGameManager : MonoBehaviour {
     }
 
     private void checkGameConditions() {
-        if (playerInstance == null) {
-            //If the player object doesn't exist, the player is dead
+        if (playerInstance == null) { // When the player lost the game
             setUpGameOver();
             setUpGameOverFailedText();
             disableMovementController();
         }
 
-        if (gameStatsManager.currentCoinsCollected >= coinsToWin) {
+        if (gameStatsManager.currentBitsCollected >= bitsToWin) { // When the player won the game
             setUpGameOverWinText();
             setUpGameOver();
+            restartButton.SetActive(false);
         }
     }
 
@@ -78,9 +79,9 @@ public class IntroStageGameManager : MonoBehaviour {
 
     private void updateGameUI() {
         int score = gameStatsManager.currentScore;
-        int currentCoinsCollected = gameStatsManager.currentCoinsCollected;
+        int currentBitsCollected = gameStatsManager.currentBitsCollected;
 
-        gameUI.updateUIProperties(score, currentCoinsCollected);
+        gameUI.updateUIProperties(score, currentBitsCollected);
     }
 
     private void spawnPlayer() {   
@@ -148,11 +149,11 @@ public class IntroStageGameManager : MonoBehaviour {
         int score = gameStatsManager.currentScore;
         int playTime = (int)gameStatsManager.currentPlayTime;
         int level = gameStatsManager.currentLevel;
-        int coins = gameStatsManager.currentCoinsCollected;
+        int bits = gameStatsManager.currentBitsCollected;
 
         gameUI.gameObject.SetActive(false);
 
-        gameOverUI.setGameStats(score, (int)playTime, level, coins);
+        gameOverUI.setGameStats(score, (int)playTime, level, bits);
         gameOverUI.gameObject.SetActive(true);
 
         movementController.setJoyStickActive(false);

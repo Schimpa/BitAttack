@@ -18,14 +18,14 @@ public class MovementController : MonoBehaviour {
 
     void Awake() {
         setJoyStickActive(true);
-        loadSensitivityPreference();
+        loadPreferences();
     }
 
     void Update() { if (objectToMove == null) return;
         float horizontalInput = 0f;
 
         if (SystemInfo.deviceType == DeviceType.Handheld) {
-            if (Mathf.Abs(joystick.Horizontal) > joystickThreshold) {
+            if (Mathf.Abs(joystick.Horizontal) >= joystickThreshold) {
                 horizontalInput = joystick.Horizontal * joystickSensitivity;
             }       
         } else {
@@ -76,10 +76,15 @@ public class MovementController : MonoBehaviour {
         xAxisMovementBorder = stageDimensions.x - (objectToMoveWidth / 2); 
 
     }
-    private void loadSensitivityPreference() {
+    private void loadPreferences() {
         if (PlayerPrefs.HasKey(PrefKeys.SENSITIVITY.ToString())) {
             float sensitivity = PlayerPrefs.GetFloat(PrefKeys.SENSITIVITY.ToString(),1);
             this.moveSpeed *= sensitivity;
+        }
+
+        if (PlayerPrefs.HasKey(PrefKeys.JOYSTICK_THRESOLD.ToString())) {
+            float joystickThreshold = PlayerPrefs.GetFloat(PrefKeys.JOYSTICK_THRESOLD.ToString(), 1);
+            this.joystickThreshold = joystickThreshold;
         }
     }
 

@@ -43,11 +43,6 @@ public class GameOverTextBehaviour : MonoBehaviour {
         infoText.text = text;
     }
 
-    public void createInfoTextByLevel(int level) {
-        int nextBit =  5 - (level % 5);
-        infoText.text = nextBit.ToString() + " levels needed for next Bit!";
-    }
-
     void checkMotivationThresholdLevel() {
         if (badMotivationLevelThreshold > normalMotivationLevelThreshold) {
             Debug.LogError("The level for bad motivation must be lower than for normal motivation!");

@@ -16,6 +16,8 @@ public class WeaponController : MonoBehaviour {
     //private FixedJoystick joystick;
     private SoundManager soundManager;
 
+    private FixedJoystick joystick;
+
     private float bulletSpawnIntervalTimer;
 
     void Start() {
@@ -23,6 +25,10 @@ public class WeaponController : MonoBehaviour {
 
         PlayerConfigurationManager configManager = 
             GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
+
+        if (SystemInfo.deviceType == DeviceType.Handheld) {
+            joystick = GameObject.Find("MovementController").GetComponent<MovementController>().joystick;
+        }
 
         bulletPrefab = configManager.getSelectedBullet();
     }
@@ -34,7 +40,7 @@ public class WeaponController : MonoBehaviour {
         float verticalInput = 0f;
 
         if (SystemInfo.deviceType == DeviceType.Handheld) {
-            //verticalInput = joystick.Horizontal;
+            verticalInput = joystick.Vertical;
         } else {
             verticalInput = Input.GetAxis("Vertical");
         }

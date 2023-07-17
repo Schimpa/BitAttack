@@ -12,15 +12,15 @@ public class IntroGameUIManager : MonoBehaviour {
 
     public List<TextPopUpBehaviour> textPopUps;
 
-    public int totalCoinsAmount;
+    public int totalBitsAmount;
 
     public void OnEnable() {
         resetUI();
     }
 
-    public void updateUIProperties(int score, int coinsCollected) {
+    public void updateUIProperties(int score, int bitsCollected) {
         scoreText.text = score.ToString();
-        string objectiveString = "Coins collected: " + coinsCollected.ToString() + "/" + totalCoinsAmount.ToString();
+        string objectiveString = "Bits collected: " + bitsCollected.ToString() + "/" + totalBitsAmount.ToString();
 
         objectiveText.text = objectiveString;
 

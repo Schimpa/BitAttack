@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 /**
  * This class is responsible for saving and loading the global stats of the game
- * Like coin amount and unlocked items
+ * Like bit amount and unlocked items
  */
 public class GlobalStatsFileManager : MonoBehaviour {
 

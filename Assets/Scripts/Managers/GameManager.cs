@@ -161,11 +161,11 @@ public class GameManager : MonoBehaviour {
         int score = gameStatsManager.currentScore;
         int playTime = (int)gameStatsManager.currentPlayTime;
         int level = gameStatsManager.currentLevel;
-        int coins = gameStatsManager.currentCoinsCollected;
+        int bits = gameStatsManager.currentBitsCollected;
 
         gameUI.gameObject.SetActive(false);
 
-        gameOverUI.setGameStats(score, (int)playTime, level, coins);
+        gameOverUI.setGameStats(score, (int)playTime, level, bits);
         gameOverUI.gameObject.SetActive(true);
 
         gameOverUI.createGameOverText(level);

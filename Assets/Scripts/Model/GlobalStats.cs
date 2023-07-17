@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class GlobalStats {
 
-    public int coins;
+    public int bits;
 
     public bool ship01Unlocked;
     public bool ship02Unlocked;
@@ -24,7 +24,7 @@ public class GlobalStats {
 
     public GlobalStats() {
 
-        this.coins = 0;
+        this.bits = 0;
 
         this.ship01Unlocked = false;
         this.ship02Unlocked = false;

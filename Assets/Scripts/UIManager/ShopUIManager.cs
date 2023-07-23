@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class ShopUIManager : MonoBehaviour {
 
-    public const int SHIP01_BITS = 100;
-    public const int SHIP02_BITS = 20;
-    public const int SHIP03_BITS = 40;
+    public const int SHIP01_BITS = 0;
+    public const int SHIP02_BITS = 100;
+    public const int SHIP03_BITS = 200;
 
-    public const int BULLET01_BITS = 100;
-    public const int BULLET02_BITS = 200;
-    public const int BULLET03_BITS = 400;
+    public const int BULLET01_BITS = 0;
+    public const int BULLET02_BITS = 100;
+    public const int BULLET03_BITS = 200;
 
     public const int EXHAUST01_BITS = 100;
     public const int EXHAUST02_BITS = 200;
@@ -56,10 +56,47 @@ public class ShopUIManager : MonoBehaviour {
         checkExhaust02Button();
         checkExhaust03Button();
 
+        setSelectionColor();
+
     }
 
     private void OnDisable() {
         globalStats.saveStats();
+    }
+
+    private void setSelectionColor() {
+
+        ship01Button.GetComponent<Image>().color = Color.white;
+        ship02Button.GetComponent<Image>().color = Color.white;
+        ship03Button.GetComponent<Image>().color = Color.white;
+
+        bullet01Button.GetComponent<Image>().color = Color.white;
+        bullet02Button.GetComponent<Image>().color = Color.white;
+        bullet03Button.GetComponent<Image>().color = Color.white;
+
+        switch (stats.selectedShip) {
+            case 0:
+                ship01Button.GetComponent<Image>().color = Color.blue;
+                break;
+            case 1:
+                ship02Button.GetComponent<Image>().color = Color.blue;
+                break;
+            case 2:
+                ship03Button.GetComponent<Image>().color = Color.blue;
+                break;
+        }
+
+        switch (stats.selectedBullet) {
+            case 0:
+                bullet01Button.GetComponent<Image>().color = Color.blue;
+                break;
+            case 1:
+                bullet02Button.GetComponent<Image>().color = Color.blue;
+                break;
+            case 2:
+                bullet03Button.GetComponent<Image>().color = Color.blue;
+                break;
+        }
     }
 
     public void onShip01ButtonClick() {
@@ -76,6 +113,7 @@ public class ShopUIManager : MonoBehaviour {
         } else {
             soundManager.playSelectionFailedSound();
         }
+        setSelectionColor();
     }
 
     public void onShip02ButtonClick() {
@@ -92,6 +130,7 @@ public class ShopUIManager : MonoBehaviour {
         } else {
             soundManager.playSelectionFailedSound();
         }
+        setSelectionColor();
     }
 
     public void onShip03ButtonClick() {
@@ -108,6 +147,7 @@ public class ShopUIManager : MonoBehaviour {
         } else {
             soundManager.playSelectionFailedSound();
         }
+        setSelectionColor();
     }
     public void onBullet01ButtonClick() {
         if (stats.bits >= BULLET01_BITS) {
@@ -123,6 +163,7 @@ public class ShopUIManager : MonoBehaviour {
         } else {
             soundManager.playSelectionFailedSound();
         }
+        setSelectionColor();
     }
 
     public void onBullet02ButtonClick() {
@@ -139,6 +180,7 @@ public class ShopUIManager : MonoBehaviour {
         } else {
             soundManager.playSelectionFailedSound();
         }
+        setSelectionColor();
     }
 
     public void onBullet03ButtonClick() {
@@ -155,6 +197,7 @@ public class ShopUIManager : MonoBehaviour {
         } else {
             soundManager.playSelectionFailedSound();
         }
+        setSelectionColor();
     }
 
     public void onExhaust01ButtonClick() {
@@ -187,7 +230,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkShip01Button() {
         TMPro.TMP_Text buttonText = ship01Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.ship01Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = SHIP01_BITS.ToString();
         }
@@ -196,7 +239,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkShip02Button() {
         TMPro.TMP_Text buttonText = ship02Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.ship02Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = SHIP02_BITS.ToString();
         }
@@ -205,7 +248,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkShip03Button() {
         TMPro.TMP_Text buttonText = ship03Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.ship03Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = SHIP03_BITS.ToString();
         }
@@ -214,7 +257,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkBullet01Button() {
         TMPro.TMP_Text buttonText = bullet01Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.bullet01Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = BULLET01_BITS.ToString();
         }
@@ -223,7 +266,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkBullet02Button() {
         TMPro.TMP_Text buttonText = bullet02Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.bullet02Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = BULLET02_BITS.ToString();
         }
@@ -232,7 +275,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkBullet03Button() {
         TMPro.TMP_Text buttonText = bullet03Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.bullet03Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = BULLET03_BITS.ToString();
         }
@@ -241,7 +284,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkExhaust01Button() {
         TMPro.TMP_Text buttonText = exhaust01Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.exhaust01Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = EXHAUST01_BITS.ToString();
         }
@@ -250,7 +293,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkExhaust02Button() {
         TMPro.TMP_Text buttonText = exhaust02Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.exhaust02Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = EXHAUST02_BITS.ToString();
         }
@@ -259,7 +302,7 @@ public class ShopUIManager : MonoBehaviour {
     public void checkExhaust03Button() {
         TMPro.TMP_Text buttonText = exhaust03Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.exhaust03Unlocked) {
-            buttonText.text = "O";
+            buttonText.text = "";
         } else {
             buttonText.text = EXHAUST03_BITS.ToString();
         }

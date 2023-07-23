@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GamePreparationUIManager : MonoBehaviour {
 
-    public TotalStageStatsFileManager totalStats;
+    public StageStatsFileManager totalStats;
 
     public TMPro.TMP_Text topLevelText;
     public TMPro.TMP_Text topScoreText;

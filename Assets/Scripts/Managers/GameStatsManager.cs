@@ -9,7 +9,7 @@ using UnityEngine;
  */
 public class GameStatsManager : MonoBehaviour {
 
-    public TotalStageStatsFileManager stageStats;
+    public StageStatsFileManager stageStats;
     public GlobalStatsFileManager globalStats;
 
     public float currentPlayTime;

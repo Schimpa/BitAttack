@@ -9,6 +9,10 @@ public class PlayerColorController : MonoBehaviour {
     public ColorMode currentPlayerColor = ColorMode.BLUE;
 
     public float colorChangeTime;       // The time it takes to change the color of the player 
+
+    [Header("Has to be in order BLUE, RED, YELLOW")]
+    public List<GameObject> trails;
+
     private float colorChangeTimer;
 
     private ColorController colorController;
@@ -45,16 +49,28 @@ public class PlayerColorController : MonoBehaviour {
     public void setColorBlue() {
         colorController.setColorBlue(playerMaterial);
         currentPlayerColor = ColorMode.BLUE;
+
+        trails[0].SetActive(true);  // BLUE
+        trails[1].SetActive(false);  // RED
+        trails[2].SetActive(false);  // GREEN
     }
 
     public void setColorRed() {
         colorController.setColorRed(playerMaterial);
         currentPlayerColor = ColorMode.RED;
+
+        trails[0].SetActive(false);  // BLUE
+        trails[1].SetActive(true);  // RED
+        trails[2].SetActive(false);  // GREEN
     }
 
     public void setColorYellow() {
         colorController.setColorYellow(playerMaterial);
         currentPlayerColor = ColorMode.YELLOW;
+
+        trails[0].SetActive(false);  // BLUE
+        trails[1].SetActive(false);  // RED
+        trails[2].SetActive(true);  // GREEN
     }
 
 }

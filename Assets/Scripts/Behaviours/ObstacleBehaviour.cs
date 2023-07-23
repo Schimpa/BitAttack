@@ -16,12 +16,18 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     public ColorMode obstacleColor;
 
+    [Header("Has to be in order BLUE, RED, YELLOW")]
+    public List<GameObject> obstacleTrails;
+
+    public Transform trailSpawnTransform;
+
     private GameStatsManager gameStats;
 
 
     private void Start() {
         gameStats = GameObject.Find("GameStatsManager").GetComponent<GameStatsManager>();
         setObstacleColor();
+        spawnObstacleTrail();
     }
     private void Update() {
         checkDestroyConditions();
@@ -84,6 +90,27 @@ public class ObstacleBehaviour : MonoBehaviour {
                 break;
 
         }
+    }
+
+    private void spawnObstacleTrail() {
+        // Spawns the obstacle trail, depending on the color
+        GameObject trail;
+        switch (obstacleColor) {
+            case ColorMode.BLUE:
+                trail = Instantiate(obstacleTrails[0], trailSpawnTransform.position, Quaternion.identity);
+                break;
+            case ColorMode.RED:
+                trail = Instantiate(obstacleTrails[1], trailSpawnTransform.position, Quaternion.identity);
+                break;
+            case ColorMode.YELLOW:
+                trail = Instantiate(obstacleTrails[2], trailSpawnTransform.position, Quaternion.identity);
+                break;
+            default:
+                trail = Instantiate(obstacleTrails[0], trailSpawnTransform.position, Quaternion.identity); 
+                break;
+        }
+
+        trail.transform.SetParent(this.gameObject.transform);
     }
 
 }

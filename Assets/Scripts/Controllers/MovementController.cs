@@ -10,7 +10,8 @@ public class MovementController : MonoBehaviour {
 
     public float objectMovementRotation;
 
-    public FixedJoystick joystick;
+    public FixedJoystick joystickRight;
+    public FixedJoystick joystickLeft;
     public GameObject objectToMove;
 
     // The maximum value, in which the character can move on the X-Axis (Both directions)
@@ -24,10 +25,20 @@ public class MovementController : MonoBehaviour {
     void Update() { if (objectToMove == null) return;
         float horizontalInput = 0f;
 
-        if (SystemInfo.deviceType == DeviceType.Handheld) {
+        /*if (SystemInfo.deviceType == DeviceType.Handheld) {
             if (Mathf.Abs(joystick.Horizontal) >= joystickThreshold) {
                 horizontalInput = joystick.Horizontal * joystickSensitivity;
             }       
+        } else {
+            horizontalInput = Input.GetAxis("Horizontal");
+        }*/
+
+        if (SystemInfo.deviceType == DeviceType.Handheld) {
+            if (joystickRight.isPressed) {
+                horizontalInput = 1;
+            } else if (joystickLeft.isPressed) {
+                horizontalInput = -1;
+            }     
         } else {
             horizontalInput = Input.GetAxis("Horizontal");
         }
@@ -93,9 +104,11 @@ public class MovementController : MonoBehaviour {
          * Sets the joystick active or inactive. But only active if it is a mobile device
          */
         if (value == true && SystemInfo.deviceType == DeviceType.Handheld) {
-            joystick.gameObject.SetActive(true);
+            joystickRight.gameObject.SetActive(true);
+            joystickLeft.gameObject.SetActive(true);
         } else {
-            joystick.gameObject.SetActive(false);
+            joystickRight.gameObject.SetActive(false);
+            joystickLeft.gameObject.SetActive(false);
         }
         
     }

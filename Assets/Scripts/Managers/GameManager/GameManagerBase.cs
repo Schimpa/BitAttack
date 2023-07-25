@@ -30,6 +30,8 @@ public abstract class GameManagerBase : MonoBehaviour {
     public float scoreAddTime = 1f;   // The time it takes to add score
     public int scoreAddTimeAmount = 100;
 
+    public GameObject playerSpawnPosition;
+
     protected float scoreTimer;
 
     protected bool gameActive;
@@ -39,8 +41,7 @@ public abstract class GameManagerBase : MonoBehaviour {
 
     protected virtual void Start() {
         setUpNewGame();
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 120;
+
     }
 
     // Update is called once per frame
@@ -84,7 +85,7 @@ public abstract class GameManagerBase : MonoBehaviour {
     }
 
     protected void spawnPlayer() {   
-        playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        playerInstance = Instantiate(playerPrefab, playerSpawnPosition.transform.position, Quaternion.identity);
         playerInstance.name = "Player";
         activateMovementController(playerInstance);
 

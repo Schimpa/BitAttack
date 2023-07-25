@@ -42,20 +42,12 @@ public class WeaponController : MonoBehaviour {
     void Update() {
         bulletSpawnIntervalTimer += Time.deltaTime;
 
-        float verticalInput = 0f;
-
-        if (SystemInfo.deviceType == DeviceType.Handheld) {
-            if (joystickRight.isPressed || joystickLeft.isPressed) {
-                verticalInput = 1;
-            }
-        } else {
-            verticalInput = Input.GetAxis("Vertical");
-        }
-
-        if (verticalInput > verticalInputThreshold) {
+        if ( (SystemInfo.deviceType == DeviceType.Handheld) && (joystickRight.isPressed || joystickLeft.isPressed) ) {
+            shootBullet();
+        } else if (Input.GetKey(KeyCode.Space)) {
             shootBullet();
         }
-        
+   
     }
 
     void shootBullet() {
@@ -65,7 +57,6 @@ public class WeaponController : MonoBehaviour {
             BulletBehaviour bulletBehaviour = bulletInstance.GetComponent<BulletBehaviour>();
             bulletBehaviour.bulletColor = playerColor.currentPlayerColor;
             bulletBehaviour.setBulletColor();
-
 
             soundManager.playShootSound();
             bulletSpawnIntervalTimer = 0f;

@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDownSpeedY: 3
-  destroyPositionY: -10
+  destroyPositionY: -25
   scoreWhenAvoided: 25
   scoreWhenShot: 50
   bitsWhenShot: 1

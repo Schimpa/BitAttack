@@ -12,7 +12,7 @@ public class BulletBehaviour : MonoBehaviour {
 
     public ColorMode bulletColor;
 
-    [Header("Has to be in order BLUE, RED, YELLOW")]
+    [Header("Has to be in order BLUE, GREEN, PURPLE")]
     public List<GameObject> bulletTrails;
 
     private void Start() {
@@ -36,11 +36,11 @@ public class BulletBehaviour : MonoBehaviour {
                 trail = Instantiate(bulletTrails[0], this.transform.position, Quaternion.identity);
                 break;
             case ColorMode.GREEN:
-                this.GetComponent<SpriteRenderer>().color = Color.red;
+                this.GetComponent<SpriteRenderer>().color = Color.green;
                 trail = Instantiate(bulletTrails[1], this.transform.position, Quaternion.identity);
                 break;
             case ColorMode.PURPLE:
-                this.GetComponent<SpriteRenderer>().color = Color.yellow;
+                this.GetComponent<SpriteRenderer>().color = Color.blue * Color.red;
                 trail = Instantiate(bulletTrails[2], this.transform.position, Quaternion.identity);
                 break;
             default:

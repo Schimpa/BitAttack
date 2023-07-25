@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class ShopUIManager : MonoBehaviour {
 
     public const int SHIP01_BITS = 0;
-    public const int SHIP02_BITS = 100;
-    public const int SHIP03_BITS = 200;
+    public const int SHIP02_BITS = 10;
+    public const int SHIP03_BITS = 20;
 
     public const int BULLET01_BITS = 0;
     public const int BULLET02_BITS = 100;

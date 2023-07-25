@@ -41,7 +41,6 @@ public class ShopUIManager : MonoBehaviour {
     void OnEnable() {
         globalStats.loadStats();
         stats = globalStats.getGlobalStats();
-
         updateBitsText();
 
         checkShip01Button();

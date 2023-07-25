@@ -22,7 +22,7 @@ public class GameStatsManager : MonoBehaviour {
         resetCurrentGameStats();
     }
 
-    public void addCurrentStatsToGlobalStats() {
+    public void addCurrentGameStatsToGlobalStats() {
         stageStats.loadStats();
         globalStats.loadStats();
 

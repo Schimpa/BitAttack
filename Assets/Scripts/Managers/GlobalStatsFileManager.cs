@@ -14,10 +14,12 @@ public class GlobalStatsFileManager : MonoBehaviour {
     private string filePath;
 
     private GlobalStats globalStats;
+    private bool fileLoaded;
 
     void Awake() {
         formatter = new BinaryFormatter();
         filePath = Application.persistentDataPath + "/" + GLOBAL_STATS_FILE_NAME + ".stats";
+        fileLoaded = false;
     }
 
     public void saveStats() {

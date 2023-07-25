@@ -39,9 +39,9 @@ public class PlayerColorController : MonoBehaviour {
     private void updatePlayerColor() {
         if (currentPlayerColor == ColorMode.BLUE) {
             setColorRed();
-        } else if (currentPlayerColor == ColorMode.RED) {
+        } else if (currentPlayerColor == ColorMode.GREEN) {
             setColorYellow();
-        } else if (currentPlayerColor == ColorMode.YELLOW) {
+        } else if (currentPlayerColor == ColorMode.PURPLE) {
             setColorBlue();
         }
     }
@@ -57,7 +57,7 @@ public class PlayerColorController : MonoBehaviour {
 
     public void setColorRed() {
         colorController.setColorRed(playerMaterial);
-        currentPlayerColor = ColorMode.RED;
+        currentPlayerColor = ColorMode.GREEN;
 
         trails[0].SetActive(false);  // BLUE
         trails[1].SetActive(true);  // RED
@@ -66,7 +66,7 @@ public class PlayerColorController : MonoBehaviour {
 
     public void setColorYellow() {
         colorController.setColorYellow(playerMaterial);
-        currentPlayerColor = ColorMode.YELLOW;
+        currentPlayerColor = ColorMode.PURPLE;
 
         trails[0].SetActive(false);  // BLUE
         trails[1].SetActive(false);  // RED

@@ -35,11 +35,11 @@ public class BulletBehaviour : MonoBehaviour {
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
                 trail = Instantiate(bulletTrails[0], this.transform.position, Quaternion.identity);
                 break;
-            case ColorMode.RED:
+            case ColorMode.GREEN:
                 this.GetComponent<SpriteRenderer>().color = Color.red;
                 trail = Instantiate(bulletTrails[1], this.transform.position, Quaternion.identity);
                 break;
-            case ColorMode.YELLOW:
+            case ColorMode.PURPLE:
                 this.GetComponent<SpriteRenderer>().color = Color.yellow;
                 trail = Instantiate(bulletTrails[2], this.transform.position, Quaternion.identity);
                 break;

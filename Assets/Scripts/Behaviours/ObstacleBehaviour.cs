@@ -82,11 +82,11 @@ public class ObstacleBehaviour : MonoBehaviour {
                 break;
             case 1:
                 colorController.setColorRed(obstacleRenderer.material);
-                obstacleColor = ColorMode.RED;
+                obstacleColor = ColorMode.GREEN;
                 break;
             case 2:
                 colorController.setColorYellow(obstacleRenderer.material);
-                obstacleColor = ColorMode.YELLOW;
+                obstacleColor = ColorMode.PURPLE;
                 break;
 
         }
@@ -99,10 +99,10 @@ public class ObstacleBehaviour : MonoBehaviour {
             case ColorMode.BLUE:
                 trail = Instantiate(obstacleTrails[0], trailSpawnTransform.position, Quaternion.identity);
                 break;
-            case ColorMode.RED:
+            case ColorMode.GREEN:
                 trail = Instantiate(obstacleTrails[1], trailSpawnTransform.position, Quaternion.identity);
                 break;
-            case ColorMode.YELLOW:
+            case ColorMode.PURPLE:
                 trail = Instantiate(obstacleTrails[2], trailSpawnTransform.position, Quaternion.identity);
                 break;
             default:

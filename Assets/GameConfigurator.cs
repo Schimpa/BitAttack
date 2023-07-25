@@ -18,9 +18,10 @@ public class GameConfigurator : MonoBehaviour {
     [Header("The player spawn position is moved to be in the bottom / left 15% of the screen")]
     public GameObject playerSpawnPosition;
 
-    [Header("The particle emmiter will be places just outside the camera view, same as the spawner")]
+    [Header("The particle emmiters will be placed just outside the camera view, same as the spawner")]
     public GameObject backgroundCubes;
     public GameObject backgroundLasers;
+    public GameObject backgroundPixels;
 
     void Awake() {
         QualitySettings.vSyncCount = 0;
@@ -29,30 +30,44 @@ public class GameConfigurator : MonoBehaviour {
         movementController.setGameMode(this.gameMode);
 
         Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        float backgroundShapeSize = 0f;
+        float backgroundShapeSpawnerWidth = 0f;
+        float viewBorder = 0f;
 
         if (gameMode == GameMode.PC) {
             mainCamera.transform.Rotate(new Vector3(0, 0, 90));
-            backgroundShapeSize = Mathf.Abs(stageDimensions.y) * 2;
+            backgroundShapeSpawnerWidth = Mathf.Abs(stageDimensions.y) * 2;
+            viewBorder = Mathf.Abs(stageDimensions.x);
         } else {
-            backgroundShapeSize = Mathf.Abs(stageDimensions.x) * 2;
+            backgroundShapeSpawnerWidth = Mathf.Abs(stageDimensions.x) * 2;
+            viewBorder = Mathf.Abs(stageDimensions.y);
         }
 
         
         ParticleSystem.ShapeModule backgroundCubesShape = backgroundCubes.GetComponent<ParticleSystem>().shape;
-        backgroundCubesShape.scale = new Vector3(backgroundShapeSize, 1, 1);
+        backgroundCubesShape.scale = new Vector3(backgroundShapeSpawnerWidth, 1, 1);
 
         ParticleSystem.ShapeModule backgroundLasersShape = backgroundLasers.GetComponent<ParticleSystem>().shape;
-        backgroundLasersShape.scale = new Vector3(backgroundShapeSize, 1, 1);
+        backgroundLasersShape.scale = new Vector3(backgroundShapeSpawnerWidth, 1, 1);
+
+        ParticleSystem.ShapeModule backgroundPixelsShape = backgroundPixels.GetComponent<ParticleSystem>().shape;
+        backgroundPixelsShape.scale = new Vector3(backgroundShapeSpawnerWidth, 1, 1);
+
+
+        backgroundCubes.SetActive(true);
+        backgroundLasers.SetActive(true);
+        backgroundPixels.SetActive(true);
 
         spawner.transform.position = new Vector3(
-            spawner.transform.position.x,Mathf.Abs(stageDimensions.y) + 2, spawner.transform.position.z);
+            spawner.transform.position.x, viewBorder + 2, spawner.transform.position.z);
 
         backgroundCubes.transform.position = new Vector3(
-            backgroundCubes.transform.position.x, Mathf.Abs(stageDimensions.y) + 5, backgroundCubes.transform.position.z);
+            backgroundCubes.transform.position.x, viewBorder + 5, backgroundCubes.transform.position.z);
 
         backgroundLasers.transform.position = new Vector3(
-            backgroundLasers.transform.position.x, Mathf.Abs(stageDimensions.y) + 5, backgroundLasers.transform.position.z);
+            backgroundLasers.transform.position.x, viewBorder + 5, backgroundLasers.transform.position.z);
+
+        backgroundPixels.transform.position = new Vector3(
+            backgroundPixels.transform.position.x, viewBorder + 5, backgroundPixels.transform.position.z);
 
 
         float playerSpawnPosY = -Mathf.Abs(stageDimensions.y) + ( Mathf.Abs(stageDimensions.y) * 0.2f);

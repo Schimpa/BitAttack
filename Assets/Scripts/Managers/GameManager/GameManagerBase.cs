@@ -106,7 +106,7 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected void setUpGameOver() {
         configureGameOverValues();
         initGameOverUI();
-        gameStatsManager.addCurrentStatsToGlobalStats();
+        gameStatsManager.addCurrentGameStatsToGlobalStats();
         configureGameOverSound();
     }
 

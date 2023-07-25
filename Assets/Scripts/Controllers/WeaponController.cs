@@ -13,16 +13,27 @@ public class WeaponController : MonoBehaviour {
     //Value, from which the input is processed and bullets are shoot
     public float verticalInputThreshold;
 
+    private PlayerColorController playerColor;
+
     //private FixedJoystick joystick;
     private SoundManager soundManager;
+
+    private FixedJoystick joystickRight;
+    private FixedJoystick joystickLeft;
 
     private float bulletSpawnIntervalTimer;
 
     void Start() {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        playerColor = GameObject.Find("Player").GetComponent<PlayerColorController>();
 
         PlayerConfigurationManager configManager = 
             GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
+
+        if (SystemInfo.deviceType == DeviceType.Handheld) {
+            joystickRight = GameObject.Find("MovementController").GetComponent<MovementController>().joystickRight;
+            joystickLeft = GameObject.Find("MovementController").GetComponent<MovementController>().joystickLeft;
+        }
 
         bulletPrefab = configManager.getSelectedBullet();
     }
@@ -31,23 +42,22 @@ public class WeaponController : MonoBehaviour {
     void Update() {
         bulletSpawnIntervalTimer += Time.deltaTime;
 
-        float verticalInput = 0f;
-
-        if (SystemInfo.deviceType == DeviceType.Handheld) {
-            //verticalInput = joystick.Horizontal;
-        } else {
-            verticalInput = Input.GetAxis("Vertical");
-        }
-
-        if (verticalInput > verticalInputThreshold) {
+        if ( (SystemInfo.deviceType == DeviceType.Handheld) && (joystickRight.isPressed || joystickLeft.isPressed) ) {
+            shootBullet();
+        } else if (Input.GetKey(KeyCode.Space)) {
             shootBullet();
         }
-        
+   
     }
 
     void shootBullet() {
         if (bulletSpawnIntervalTimer > bulletSpawnInterval) {
             GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+
+            BulletBehaviour bulletBehaviour = bulletInstance.GetComponent<BulletBehaviour>();
+            bulletBehaviour.bulletColor = playerColor.currentPlayerColor;
+            bulletBehaviour.setBulletColor();
+
             soundManager.playShootSound();
             bulletSpawnIntervalTimer = 0f;
         } 

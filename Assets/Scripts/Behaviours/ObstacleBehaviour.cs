@@ -10,11 +10,16 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     public int scoreWhenAvoided = 25; // The amount of score the player gets if this obstacle is avoided
     public int scoreWhenShot = 50; // The amount of score the player gets if this obstacle is shot
-    public int coinsWhenShot = 1; // The amount of coins the player gets if this obstacle is shot
+    public int bitsWhenShot = 1; // The amount of bits the player gets if this obstacle is shot
 
     public Renderer obstacleRenderer;
 
     public ColorMode obstacleColor;
+
+    [Header("Has to be in order BLUE, RED, YELLOW")]
+    public List<GameObject> obstacleTrails;
+
+    public Transform trailSpawnTransform;
 
     private GameStatsManager gameStats;
 
@@ -22,6 +27,7 @@ public class ObstacleBehaviour : MonoBehaviour {
     private void Start() {
         gameStats = GameObject.Find("GameStatsManager").GetComponent<GameStatsManager>();
         setObstacleColor();
+        spawnObstacleTrail();
     }
     private void Update() {
         checkDestroyConditions();
@@ -52,7 +58,7 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     private void destroyObstacleFromBullet() {
         gameStats.addScore(scoreWhenShot);
-        gameStats.addCoins(coinsWhenShot);
+        gameStats.addBits(bitsWhenShot);
         gameStats.currentObstaclesAvoided++;
 
         GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();
@@ -76,14 +82,35 @@ public class ObstacleBehaviour : MonoBehaviour {
                 break;
             case 1:
                 colorController.setColorRed(obstacleRenderer.material);
-                obstacleColor = ColorMode.RED;
+                obstacleColor = ColorMode.GREEN;
                 break;
             case 2:
                 colorController.setColorYellow(obstacleRenderer.material);
-                obstacleColor = ColorMode.YELLOW;
+                obstacleColor = ColorMode.PURPLE;
                 break;
 
         }
+    }
+
+    private void spawnObstacleTrail() {
+        // Spawns the obstacle trail, depending on the color
+        GameObject trail;
+        switch (obstacleColor) {
+            case ColorMode.BLUE:
+                trail = Instantiate(obstacleTrails[0], trailSpawnTransform.position, Quaternion.identity);
+                break;
+            case ColorMode.GREEN:
+                trail = Instantiate(obstacleTrails[1], trailSpawnTransform.position, Quaternion.identity);
+                break;
+            case ColorMode.PURPLE:
+                trail = Instantiate(obstacleTrails[2], trailSpawnTransform.position, Quaternion.identity);
+                break;
+            default:
+                trail = Instantiate(obstacleTrails[0], trailSpawnTransform.position, Quaternion.identity); 
+                break;
+        }
+
+        trail.transform.SetParent(this.gameObject.transform);
     }
 
 }

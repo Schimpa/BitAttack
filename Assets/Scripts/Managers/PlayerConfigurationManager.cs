@@ -20,15 +20,18 @@ public class PlayerConfigurationManager : MonoBehaviour {
 
     private GlobalStats globalStats;
 
-    private int selectedShip = 0;
+    private int selectedShip;
 
-    private int selectedBullet = 0;
+    private int selectedBullet;
 
 
     void Start() {
         globalStatsFileManager.loadStats();
 
         globalStats = globalStatsFileManager.getGlobalStats();
+
+        //selectedShip = 0;
+        //selectedBullet = 0;
 
         selectedShip = globalStats.selectedShip;
         selectedBullet = globalStats.selectedBullet;

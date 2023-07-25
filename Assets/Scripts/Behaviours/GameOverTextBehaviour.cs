@@ -25,7 +25,7 @@ public class GameOverTextBehaviour : MonoBehaviour {
         
     }
 
-    public void createMotivationText(int level) {
+    public void createMotivationTextByLevel(int level) {
         if (level >= goodMotivationLevelThreshold) {
             motivationText.text = goodMotivations[Random.Range(0, goodMotivations.Count)];
         } else if (level >= normalMotivationLevelThreshold) {
@@ -35,9 +35,12 @@ public class GameOverTextBehaviour : MonoBehaviour {
         }
     }
 
-    public void createInfoText(int level) {
-        int nextBit =  5 - (level % 5);
-        infoText.text = nextBit.ToString() + " levels needed for next Bit!";
+    public void setCustomMotivationText(string text) {
+        motivationText.text = text;
+    }
+
+    public void setCustomInfoText(string text) {
+        infoText.text = text;
     }
 
     void checkMotivationThresholdLevel() {

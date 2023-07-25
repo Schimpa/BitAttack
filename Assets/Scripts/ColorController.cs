@@ -7,30 +7,30 @@ public class ColorController : MonoBehaviour {
     public Color colorBlue01;
     public Color colorBlue02;
 
-    public Color colorRed01;
-    public Color colorRed02;
+    public Color colorGreen01;
+    public Color colorGreen02;
 
-    public Color colorYellow01;
-    public Color colorYellow02;
+    public Color colorPurple01;
+    public Color colorPurple02;
 
     public void setColorBlue(Material mat) {
         mat.SetColor("_Color01", colorBlue01);
         mat.SetColor("_Color02", colorBlue02);
     }
     public void setColorRed(Material mat) {
-        mat.SetColor("_Color01", colorRed01);
-        mat.SetColor("_Color02", colorRed02);
+        mat.SetColor("_Color01", colorGreen01);
+        mat.SetColor("_Color02", colorGreen02);
     }
 
     public void setColorYellow(Material mat) {
-        mat.SetColor("_Color01", colorYellow01);
-        mat.SetColor("_Color02", colorYellow02);
+        mat.SetColor("_Color01", colorPurple01);
+        mat.SetColor("_Color02", colorPurple02);
     }
 
 }
 
 public enum ColorMode {
     BLUE,
-    RED,
-    YELLOW
+    GREEN,
+    PURPLE
 }

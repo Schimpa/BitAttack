@@ -47,5 +47,6 @@ public class PlayerPrefsManager : MonoBehaviour {
 public enum PrefKeys {
     MUSIC_IS_ON,
     SOUND_IS_ON,
-    SENSITIVITY
+    SENSITIVITY,
+    JOYSTICK_THRESOLD
 }

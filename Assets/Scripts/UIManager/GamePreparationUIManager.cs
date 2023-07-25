@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GamePreparationUIManager : MonoBehaviour {
 
-    public TotalStageStatsFileManager totalStats;
+    public StageStatsFileManager totalStats;
 
     public TMPro.TMP_Text topLevelText;
     public TMPro.TMP_Text topScoreText;
@@ -13,7 +13,7 @@ public class GamePreparationUIManager : MonoBehaviour {
 
     public TMPro.TMP_Text totalTimeText;
     public TMPro.TMP_Text totalScoreText;
-    public TMPro.TMP_Text coinsCollectedText;
+    public TMPro.TMP_Text bitsCollectedText;
     public TMPro.TMP_Text obstaclesAvoidedText;
 
     public TMPro.TMP_Text achievement01Text;
@@ -54,12 +54,13 @@ public class GamePreparationUIManager : MonoBehaviour {
 
         totalTimeText.text = totalTime.ToString() + "s";
         totalScoreText.text = stats.totalScore.ToString();
-        coinsCollectedText.text = stats.totalCoinsCollected.ToString();
+        bitsCollectedText.text = stats.totalBitsCollected.ToString();
         obstaclesAvoidedText.text = stats.totalObstaclesAvoided.ToString();
     }
 
     public void checkAchievementValidation(StageStats stats) {
         int achievementsReached = 3;
+        totalStats.validateStage01Achievements();
 
         if (stats.achievement01Reached == false) {
             achievement01Text.color = new Color(1, 1, 1, .3f);

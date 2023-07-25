@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainScreenUIManager : MonoBehaviour {
 
     public GameObject mainMenuUI;
     public GameObject levelOverviewUI;
     public GameObject gamePreparationUI;
+    public GameObject introStagePreparationUI;
     public GameObject setupUI;
     public GameObject shopUI;
 
@@ -14,6 +16,8 @@ public class MainScreenUIManager : MonoBehaviour {
 
     void OnEnable() {
         Time.timeScale = 1;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 120;
         gamePreparationUIManager = gamePreparationUI.GetComponent<GamePreparationUIManager>();
         switchToMainMenuUI();
     }
@@ -23,6 +27,7 @@ public class MainScreenUIManager : MonoBehaviour {
         levelOverviewUI.SetActive(false);
         setupUI.SetActive(false);
         shopUI.SetActive(false);
+        introStagePreparationUI.SetActive(false);
 
         mainMenuUI.SetActive(true);
     }
@@ -32,6 +37,7 @@ public class MainScreenUIManager : MonoBehaviour {
         gamePreparationUI.SetActive(false);
         setupUI.SetActive(false);
         shopUI.SetActive(false);
+        introStagePreparationUI.SetActive(false);
 
         levelOverviewUI.SetActive(true);
     }
@@ -41,6 +47,7 @@ public class MainScreenUIManager : MonoBehaviour {
         levelOverviewUI.SetActive(false);
         setupUI.SetActive(false);
         shopUI.SetActive(false);
+        introStagePreparationUI.SetActive(false);
 
         gamePreparationUI.SetActive(true);
     }
@@ -50,6 +57,7 @@ public class MainScreenUIManager : MonoBehaviour {
         levelOverviewUI.SetActive(false);
         gamePreparationUI.SetActive(false);
         shopUI.SetActive(false);
+        introStagePreparationUI.SetActive(false);
 
         setupUI.SetActive(true);
     }
@@ -59,11 +67,27 @@ public class MainScreenUIManager : MonoBehaviour {
         levelOverviewUI.SetActive(false);
         gamePreparationUI.SetActive(false);
         setupUI.SetActive(false);
+        introStagePreparationUI.SetActive(false);
 
         shopUI.SetActive(true);
+    }
+     
+    public void switchToIntroStagePreparationUI() {
+        mainMenuUI.SetActive(false);
+        levelOverviewUI.SetActive(false);
+        gamePreparationUI.SetActive(false);
+        setupUI.SetActive(false);
+        shopUI.SetActive(false);
+
+        introStagePreparationUI.SetActive(true);
+        
     }
 
     public GamePreparationUIManager getGamePreparationUIManager() {
         return this.gamePreparationUIManager;
+    }
+
+    public void loadIntroStage() {
+        SceneManager.LoadScene("IntroStage");
     }
 }

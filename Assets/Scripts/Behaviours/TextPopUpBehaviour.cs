@@ -43,8 +43,16 @@ public class TextPopUpBehaviour : MonoBehaviour {
         }
     }
 
-    public void finishPopUp() {
+
+    public void finishAndResetPopUp() {
+        //Finished and reset the pop up, so it can be triggered again when a new game starts
         Time.timeScale = 1f;
-        Destroy(this.gameObject);
+        resetTimer();
+        disableAllChildGameObjects();
+        this.gameObject.SetActive(false);
+    }
+
+    public void resetTimer() {
+        timer = 0f;
     }
 }

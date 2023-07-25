@@ -4,10 +4,12 @@ using UnityEngine.EventSystems;
 public class FixedJoystick : Joystick
 {
     Vector2 joystickPosition = Vector2.zero;
+    public bool isPressed;
     private Camera cam = new Camera();
 
     void Start()
     {
+        isPressed = false;
         joystickPosition = RectTransformUtility.WorldToScreenPoint(cam, background.position);
     }
 
@@ -23,11 +25,13 @@ public class FixedJoystick : Joystick
     public override void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
+        isPressed = true;
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         inputVector = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
+        isPressed = false;
     }
 }

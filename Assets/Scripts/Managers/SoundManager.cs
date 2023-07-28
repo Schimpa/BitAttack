@@ -6,9 +6,12 @@ public class SoundManager : MonoBehaviour {
 
     public AudioSource audioSrc;
 
-    public AudioClip shootSound;
+    public AudioClip shootSound01;
+    public AudioClip shootSound02;
+    public AudioClip shootSound03;
     public AudioClip levelUpSound;
     public AudioClip deadSound;
+    public AudioClip winSound;
     public AudioClip clickSound;
     public AudioClip obstacleHitSound;
     public AudioClip selectionFailedSound;
@@ -18,8 +21,16 @@ public class SoundManager : MonoBehaviour {
         checkSoundPreference();
     }
 
-    public void playShootSound() {
-        audioSrc.PlayOneShot(shootSound);
+    public void playShootSound01() {
+        audioSrc.PlayOneShot(shootSound01);
+    }
+
+    public void playShootSound02() {
+        audioSrc.PlayOneShot(shootSound02);
+    }
+
+    public void playShootSound03() {
+        audioSrc.PlayOneShot(shootSound03);
     }
 
     public void playLevelUpSound() {
@@ -28,6 +39,10 @@ public class SoundManager : MonoBehaviour {
 
     public void playDeadSound() {
         audioSrc.PlayOneShot(deadSound);
+    }
+
+    public void playWinSound() {
+        audioSrc.PlayOneShot(winSound);
     }
 
     public void playClickSound() {

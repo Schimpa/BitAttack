@@ -46,10 +46,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSrc: {fileID: 8795072728721816048}
-  shootSound: {fileID: 8300000, guid: 43eb11ed8e0aefb4dbb794553e006c9a, type: 3}
+  shootSound01: {fileID: 8300000, guid: 43eb11ed8e0aefb4dbb794553e006c9a, type: 3}
+  shootSound02: {fileID: 8300000, guid: dd51706db2b67f1418ac1b9d65c8f487, type: 3}
+  shootSound03: {fileID: 8300000, guid: 55190b05fbe84b24cbbf160b0cc419b0, type: 3}
   levelUpSound: {fileID: 8300000, guid: 32e230bd944d2a143ae0564960a98e35, type: 3}
-  deadSound: {fileID: 8300000, guid: 07b6755ad59d2974f96bad568b9b5a3e, type: 3}
+  deadSound: {fileID: 8300000, guid: 581334e927750334e8373d0200503c21, type: 3}
+  winSound: {fileID: 8300000, guid: 393913601bcd14840916b03cef9ad467, type: 3}
   clickSound: {fileID: 8300000, guid: 49da51dcff647c241b6be4600e24d12c, type: 3}
+  obstacleHitSound: {fileID: 8300000, guid: ad3d92e7dd9308040bff78d10c3ca449, type: 3}
+  selectionFailedSound: {fileID: 8300000, guid: d4fefacd17f9776478cbd5f5257c1a48, type: 3}
+  selectionSuccessfullSound: {fileID: 8300000, guid: 74e3a470c85d0cf4a9d77c49eacfdfb9, type: 3}
 --- !u!82 &8795072728721816048
 AudioSource:
   m_ObjectHideFlags: 0
@@ -62,7 +68,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -11,6 +11,7 @@ public class MainScreenUIManager : MonoBehaviour {
     public GameObject introStagePreparationUI;
     public GameObject setupUI;
     public GameObject shopUI;
+    public GameObject infoUI;
 
     private GamePreparationUIManager gamePreparationUIManager;
 
@@ -28,6 +29,7 @@ public class MainScreenUIManager : MonoBehaviour {
         setupUI.SetActive(false);
         shopUI.SetActive(false);
         introStagePreparationUI.SetActive(false);
+        infoUI.SetActive(false);
 
         mainMenuUI.SetActive(true);
     }
@@ -38,6 +40,7 @@ public class MainScreenUIManager : MonoBehaviour {
         setupUI.SetActive(false);
         shopUI.SetActive(false);
         introStagePreparationUI.SetActive(false);
+        infoUI.SetActive(false);
 
         levelOverviewUI.SetActive(true);
     }
@@ -48,6 +51,7 @@ public class MainScreenUIManager : MonoBehaviour {
         setupUI.SetActive(false);
         shopUI.SetActive(false);
         introStagePreparationUI.SetActive(false);
+        infoUI.SetActive(false);
 
         gamePreparationUI.SetActive(true);
     }
@@ -58,6 +62,7 @@ public class MainScreenUIManager : MonoBehaviour {
         gamePreparationUI.SetActive(false);
         shopUI.SetActive(false);
         introStagePreparationUI.SetActive(false);
+        infoUI.SetActive(false);
 
         setupUI.SetActive(true);
     }
@@ -68,6 +73,7 @@ public class MainScreenUIManager : MonoBehaviour {
         gamePreparationUI.SetActive(false);
         setupUI.SetActive(false);
         introStagePreparationUI.SetActive(false);
+        infoUI.SetActive(false);
 
         shopUI.SetActive(true);
     }
@@ -78,9 +84,21 @@ public class MainScreenUIManager : MonoBehaviour {
         gamePreparationUI.SetActive(false);
         setupUI.SetActive(false);
         shopUI.SetActive(false);
+        infoUI.SetActive(false);
 
         introStagePreparationUI.SetActive(true);
-        
+      
+    }
+
+    public void switchToInfoUI() {
+        mainMenuUI.SetActive(false);
+        levelOverviewUI.SetActive(false);
+        gamePreparationUI.SetActive(false);
+        setupUI.SetActive(false);
+        shopUI.SetActive(false);
+        introStagePreparationUI.SetActive(false);
+
+        infoUI.SetActive(true);
     }
 
     public GamePreparationUIManager getGamePreparationUIManager() {

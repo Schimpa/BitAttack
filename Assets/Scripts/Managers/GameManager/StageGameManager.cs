@@ -35,9 +35,9 @@ public class StageGameManager : GameManagerBase {
 
     private void updateGameUI() {
         int score = gameStatsManager.currentScore;
-        float playTime = gameStatsManager.currentPlayTime;
+        int bits = gameStatsManager.currentBitsCollected;
 
-        gameUI.updateUIProperties(score);
+        gameUI.updateUIProperties(score, bits);
     }
 
 

@@ -16,10 +16,13 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     public ColorMode obstacleColor;
 
-    [Header("Has to be in order BLUE, RED, YELLOW")]
+    [Header("Has to be in order BLUE, GREEN, PURPLE")]
     public List<GameObject> obstacleTrails;
 
     public Transform trailSpawnTransform;
+
+    [Header("Has to be in order BLUE, GREEN, PURPLE")]
+    public List<GameObject> obstacleDestroyParticles;
 
     private GameStatsManager gameStats;
 
@@ -62,6 +65,7 @@ public class ObstacleBehaviour : MonoBehaviour {
         gameStats.currentObstaclesAvoided++;
 
         GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();
+        spawnObstacleDestroyParticles();
 
         Destroy(this.gameObject);
     }
@@ -111,6 +115,29 @@ public class ObstacleBehaviour : MonoBehaviour {
         }
 
         trail.transform.SetParent(this.gameObject.transform);
+    }
+
+    private void spawnObstacleDestroyParticles() {
+        GameObject destroyParticle;
+        switch (obstacleColor) {
+            case ColorMode.BLUE:
+                destroyParticle = Instantiate(obstacleDestroyParticles[0], 
+                    this.transform.position, obstacleDestroyParticles[0].transform.rotation);
+                break;
+            case ColorMode.GREEN:
+                destroyParticle = Instantiate(obstacleDestroyParticles[1], 
+                    this.transform.position, obstacleDestroyParticles[1].transform.rotation);
+                break;
+            case ColorMode.PURPLE:
+                destroyParticle = Instantiate(obstacleDestroyParticles[2], 
+                    this.transform.position, obstacleDestroyParticles[2].transform.rotation);
+                break;
+            default:
+                destroyParticle = Instantiate(obstacleDestroyParticles[0], 
+                    this.transform.position, obstacleDestroyParticles[0].transform.rotation);
+                break;
+        }
+
     }
 
 }

@@ -63,7 +63,7 @@ public class StageStatsFileManager : MonoBehaviour {
     }
 
     public void validateStage01Achievements() {
-        if (stageStats.level08ReachedAmount >= 5) {
+        if (stageStats.topLevelReached >= 10) {
             stageStats.achievement01Reached = true;
         }
 
@@ -71,7 +71,7 @@ public class StageStatsFileManager : MonoBehaviour {
             stageStats.achievement02Reached = true;
         }
         
-        if (stageStats.totalTimeInSec > (60 * 30)) {
+        if (stageStats.topBitsCollected >= 20) {
             stageStats.achievement03Reached = true;
         }
 

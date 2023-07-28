@@ -65,4 +65,12 @@ public class PlayerConfigurationManager : MonoBehaviour {
                 return null;
         }
     }
+
+    public int getSelectedShipNumber() {
+        return this.selectedShip;
+    }
+
+    public int getSelectedBulletNumber() {
+        return this.selectedBullet;
+    }
 }

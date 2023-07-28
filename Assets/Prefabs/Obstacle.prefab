@@ -142,6 +142,10 @@ MonoBehaviour:
   - {fileID: 3473516464200044832, guid: a1f98d73dacbab14f9bf28b408346401, type: 3}
   - {fileID: 5670972394812437520, guid: d2ae22c69332a0c4bbe2f20645aebfd3, type: 3}
   trailSpawnTransform: {fileID: 4277630511606287398}
+  obstacleDestroyParticles:
+  - {fileID: 1676108731859822743, guid: 80f169aed7532524b8435c96f7e864fc, type: 3}
+  - {fileID: 219302200467441563, guid: 9667bbb641afb3a44b6c219ed66ca458, type: 3}
+  - {fileID: 5589092563813302195, guid: 5ea03e6a300a07d4da91c3767002835e, type: 3}
 --- !u!61 &2810927295146416412
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,9 +8,6 @@ public class SetupUIManager : MonoBehaviour {
     public TMPro.TMP_Text sensitivityText;
     public Slider sensitivitySlider;
 
-    public TMPro.TMP_Text joystickThresholdText;
-    public Slider joystickThresholdSlider;
-
     public TMPro.TMP_Text soundButtonText;
     public TMPro.TMP_Text musicButtonText;
 
@@ -59,12 +56,6 @@ public class SetupUIManager : MonoBehaviour {
 
         sensitivityText.text = "Sensitivity: " + sliderValue.ToString();
     }
-    public void onJoystickThresholdSliderValueChange() {
-        double sliderValue = joystickThresholdSlider.value;
-        sliderValue = System.Math.Round(sliderValue, 1);
-
-        joystickThresholdText.text = "Joystick Threshold: " + sliderValue.ToString();
-    }
 
     public void loadPreferences() {
         if (PlayerPrefs.HasKey(PrefKeys.MUSIC_IS_ON.ToString())) {
@@ -88,19 +79,11 @@ public class SetupUIManager : MonoBehaviour {
             sensitivitySlider.value = sliderValue;
         }
 
-        if (PlayerPrefs.HasKey(PrefKeys.JOYSTICK_THRESOLD.ToString())) {
-            float sliderValue = PlayerPrefs.GetFloat(PrefKeys.JOYSTICK_THRESOLD.ToString());
-            joystickThresholdSlider.value = sliderValue;
-        }
-
     }
 
     public void savePreferences() {
         double sensitivitySliderValue = sensitivitySlider.value;
         sensitivitySliderValue = System.Math.Round(sensitivitySliderValue, 1);
-
-        double joystickThresholdSliderValue = joystickThresholdSlider.value;
-        joystickThresholdSliderValue = System.Math.Round(joystickThresholdSliderValue, 1);
 
         int isSoundOnInt;
         int isMusicOnInt;
@@ -118,7 +101,6 @@ public class SetupUIManager : MonoBehaviour {
         }
 
         PlayerPrefs.SetFloat(PrefKeys.SENSITIVITY.ToString(), (float)sensitivitySliderValue);
-        PlayerPrefs.SetFloat(PrefKeys.JOYSTICK_THRESOLD.ToString(), (float)joystickThresholdSliderValue);
         PlayerPrefs.SetInt(PrefKeys.SOUND_IS_ON.ToString(), isSoundOnInt);
         PlayerPrefs.SetInt(PrefKeys.MUSIC_IS_ON.ToString(), isMusicOnInt);
 

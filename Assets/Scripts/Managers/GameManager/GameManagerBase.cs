@@ -11,7 +11,7 @@ this base class and then implement their own specific game implementation
 public abstract class GameManagerBase : MonoBehaviour {
 
     [Header("Game Object References")]
-    public Spawner spawner;
+    public ObstacleSpawner spawner;
     public GameObject playerPrefab; // The player that will be instantiated by the game manager
 
     [Header("UI References")]
@@ -71,7 +71,7 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected virtual void checkGameConditions() {
         if (playerInstance == null) {
             //If the player object doesn't exist, the player is dead
-            setUpGameOver();
+            setUpGameOverFailed();
             disableMovementController();
         }
     }
@@ -103,16 +103,25 @@ public abstract class GameManagerBase : MonoBehaviour {
         musicManager.playMusic();
     }
 
-    protected void setUpGameOver() {
+    private void setUpGameOver() {
         configureGameOverValues();
         initGameOverUI();
         gameStatsManager.addCurrentGameStatsToGlobalStats();
-        configureGameOverSound();
+    }
+
+    protected void setUpGameOverFailed() {
+        setUpGameOver();
+        configureGameOverFailedSound();
+    }
+
+    protected void setUpGameOverWin() {
+        setUpGameOver();
+        configureGameOverWinSound();
     }
 
     protected void activateMovementController(GameObject objectToMove) {
         movementController.objectToMove = playerInstance;
-        movementController.calculateXAxisMoveBorder();
+        movementController.calculateXAxisMoveBorderBySpawner();
         movementController.enabled = true;
     }
     protected virtual void initGameValues() {
@@ -127,9 +136,14 @@ public abstract class GameManagerBase : MonoBehaviour {
         Time.timeScale = 0f;
     }
 
-    protected void configureGameOverSound() {
+    protected void configureGameOverFailedSound() {
         musicManager.setPlayVolume(0.25f);
         soundManager.playDeadSound();
+    }
+
+    protected void configureGameOverWinSound() {
+        musicManager.setPlayVolume(0.25f);
+        soundManager.playWinSound();
     }
 
     protected void disableMovementController() {

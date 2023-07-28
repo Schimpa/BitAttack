@@ -11,8 +11,8 @@ public class ShopUIManager : MonoBehaviour {
     public const int SHIP03_BITS = 20;
 
     public const int BULLET01_BITS = 0;
-    public const int BULLET02_BITS = 100;
-    public const int BULLET03_BITS = 200;
+    public const int BULLET02_BITS = 10;
+    public const int BULLET03_BITS = 20;
 
     public const int EXHAUST01_BITS = 100;
     public const int EXHAUST02_BITS = 200;
@@ -113,6 +113,7 @@ public class ShopUIManager : MonoBehaviour {
             soundManager.playSelectionFailedSound();
         }
         setSelectionColor();
+        updateBitsText();
     }
 
     public void onShip02ButtonClick() {
@@ -130,6 +131,7 @@ public class ShopUIManager : MonoBehaviour {
             soundManager.playSelectionFailedSound();
         }
         setSelectionColor();
+        updateBitsText();
     }
 
     public void onShip03ButtonClick() {
@@ -147,9 +149,10 @@ public class ShopUIManager : MonoBehaviour {
             soundManager.playSelectionFailedSound();
         }
         setSelectionColor();
+        updateBitsText();
     }
     public void onBullet01ButtonClick() {
-        if (stats.bits >= BULLET01_BITS) {
+        if (stats.bits >= BULLET01_BITS && stats.bullet01Unlocked == false) {
             stats.bullet01Unlocked = true;
             stats.bits -= BULLET01_BITS;
             globalStats.saveStats();
@@ -163,10 +166,11 @@ public class ShopUIManager : MonoBehaviour {
             soundManager.playSelectionFailedSound();
         }
         setSelectionColor();
+        updateBitsText();
     }
 
     public void onBullet02ButtonClick() {
-        if (stats.bits >= BULLET02_BITS) {
+        if (stats.bits >= BULLET02_BITS && stats.bullet02Unlocked == false) {
             stats.bullet02Unlocked = true;
             stats.bits -= BULLET02_BITS;
             globalStats.saveStats();
@@ -180,10 +184,11 @@ public class ShopUIManager : MonoBehaviour {
             soundManager.playSelectionFailedSound();
         }
         setSelectionColor();
+        updateBitsText();
     }
 
     public void onBullet03ButtonClick() {
-        if (stats.bits >= BULLET03_BITS) {
+        if (stats.bits >= BULLET03_BITS && stats.bullet03Unlocked == false) {
             stats.bullet03Unlocked = true;
             stats.bits -= BULLET03_BITS;
             globalStats.saveStats();
@@ -197,6 +202,7 @@ public class ShopUIManager : MonoBehaviour {
             soundManager.playSelectionFailedSound();
         }
         setSelectionColor();
+        updateBitsText();
     }
 
     public void onExhaust01ButtonClick() {

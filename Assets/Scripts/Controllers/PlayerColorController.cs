@@ -10,7 +10,7 @@ public class PlayerColorController : MonoBehaviour {
 
     public float colorChangeTime;       // The time it takes to change the color of the player 
 
-    [Header("Has to be in order BLUE, RED, YELLOW")]
+    [Header("Has to be in order BLUE, GREEN, PURPLE")]
     public List<GameObject> trails;
 
     private float colorChangeTimer;

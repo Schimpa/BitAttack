@@ -50,6 +50,10 @@ public class GameStatsManager : MonoBehaviour {
             stageStatsRef.topScoreReached = currentScore;
         }
 
+        if (stageStatsRef.topBitsCollected < currentBitsCollected) {
+            stageStatsRef.topBitsCollected = currentBitsCollected;
+        }
+
         if (stageStatsRef.topTimeReachedInSec < currentPlayTime) {
             stageStatsRef.topTimeReachedInSec = currentPlayTime;
         }

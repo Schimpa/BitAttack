@@ -6,13 +6,15 @@ public class StageGameUIManager : GameUIManagerBase {
 
     public Animation levelUpTextAnimation;
     public LevelUpTextBehaviour levelUpText;
+    public TMPro.TMP_Text bitsText;
 
     protected override void OnEnable() {
         base.OnEnable();
     }
 
-    public override void updateUIProperties(int score) {
+    public void updateUIProperties(int score, int bits) {
         base.updateUIProperties(score);
+        bitsText.text = bits.ToString();
     }
 
     public override void resetUI() {

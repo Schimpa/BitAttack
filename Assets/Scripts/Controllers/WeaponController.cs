@@ -18,6 +18,8 @@ public class WeaponController : MonoBehaviour {
     //private FixedJoystick joystick;
     private SoundManager soundManager;
 
+    private PlayerConfigurationManager playerConfigManager;
+
     private FixedJoystick joystickRight;
     private FixedJoystick joystickLeft;
 
@@ -27,7 +29,7 @@ public class WeaponController : MonoBehaviour {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         playerColor = GameObject.Find("Player").GetComponent<PlayerColorController>();
 
-        PlayerConfigurationManager configManager = 
+        playerConfigManager = 
             GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
 
         if (SystemInfo.deviceType == DeviceType.Handheld) {
@@ -35,7 +37,7 @@ public class WeaponController : MonoBehaviour {
             joystickLeft = GameObject.Find("MovementController").GetComponent<MovementController>().joystickLeft;
         }
 
-        bulletPrefab = configManager.getSelectedBullet();
+        bulletPrefab = playerConfigManager.getSelectedBullet();
     }
 
     // Update is called once per frame
@@ -58,8 +60,28 @@ public class WeaponController : MonoBehaviour {
             bulletBehaviour.bulletColor = playerColor.currentPlayerColor;
             bulletBehaviour.setBulletColor();
 
-            soundManager.playShootSound();
+            playShootSound();
             bulletSpawnIntervalTimer = 0f;
         } 
+    }
+
+    private void playShootSound() {
+        int shootSoundSelection = playerConfigManager.getSelectedBulletNumber();
+
+        switch (shootSoundSelection) {
+            case 0:
+                soundManager.playShootSound01();
+                break;
+            case 1:
+                soundManager.playShootSound02();
+                break;
+            case 2:
+                soundManager.playShootSound03();
+                break;
+            default:
+                soundManager.playShootSound01();
+                break;
+        }
+
     }
 }

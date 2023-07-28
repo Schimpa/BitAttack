@@ -29,11 +29,12 @@ public class IntroStageGameManager : GameManagerBase {
         base.checkGameConditions();
         if (playerInstance == null) { // When the player lost the game
             setUpGameOverFailedText();
+            // Game Over Failed Setup is done in the base method
         }
 
         if (gameStatsManager.currentBitsCollected >= bitsToWin) { // When the player won the game
             setUpGameOverWinText();
-            setUpGameOver();
+            setUpGameOverWin();
             restartButton.SetActive(false);
         }
     }

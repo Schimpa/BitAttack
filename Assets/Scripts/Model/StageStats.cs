@@ -12,6 +12,7 @@ public class StageStats {
 
     public int topLevelReached;
     public int topScoreReached;
+    public int topBitsCollected;
     public float topTimeReachedInSec;
 
     public int level08ReachedAmount;
@@ -28,6 +29,7 @@ public class StageStats {
 
         this.topLevelReached = 0;
         this.topScoreReached = 0;
+        this.topBitsCollected = 0;
         this.topTimeReachedInSec = 0f;
 
         this.level08ReachedAmount = 0;

@@ -28,8 +28,6 @@ public class MovementController : MonoBehaviour {
         validateMovementConditionsBasedOnInput(xAxisInput, xPos);
 
         updateObjectRotation(-xAxisInput);
-
-        Debug.Log("Mouse Position: " + Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 
     private float getXAxisInput() {
@@ -81,7 +79,7 @@ public class MovementController : MonoBehaviour {
         objectToMove.transform.localRotation = Quaternion.Euler(new Vector3(0,rotation,0));
     }
 
-    public void calculateXAxisMoveBorder() {
+    public void calculateXAxisMoveBorderByScreenWidth() {
         //Get the screen width. This can be different depending on the screen
         Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
@@ -90,8 +88,19 @@ public class MovementController : MonoBehaviour {
 
         //Subtract half of the characters width, so the character does not move out of the screen
         xAxisMovementBorder = Mathf.Abs(stageDimensions.x) - (objectToMoveWidth);
-
     }
+    public void calculateXAxisMoveBorderBySpawner() {
+        // Get the last spawn position of the spawner, which is the most outer spawn position.
+        // Sets the move border based on that
+        ObstacleSpawner spawner = GameObject.Find("Spawner").GetComponent<ObstacleSpawner>();
+        Transform lastSpawnPoint = spawner.spawnPoints[spawner.spawnPoints.Count - 1];
+        float lastSpawnPointXPos = lastSpawnPoint.position.x;
+
+        //Subtract half of the characters width, so the character does not move out of the screen
+        xAxisMovementBorder = Mathf.Abs(lastSpawnPointXPos);
+    }
+
+
     private void loadPreferences() {
         if (PlayerPrefs.HasKey(PrefKeys.SENSITIVITY.ToString())) {
             float sensitivity = PlayerPrefs.GetFloat(PrefKeys.SENSITIVITY.ToString(),1);

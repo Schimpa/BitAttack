@@ -9,11 +9,11 @@ public class PlayerPrefsManager : MonoBehaviour {
     }
     public void initPlayerPrefs() {
         if (PlayerPrefs.HasKey(PrefKeys.MUSIC_IS_ON.ToString()) == false) {
-            PlayerPrefs.SetInt(PrefKeys.MUSIC_IS_ON.ToString(), 0);
+            PlayerPrefs.SetInt(PrefKeys.MUSIC_IS_ON.ToString(), 1);
         }
 
         if (PlayerPrefs.HasKey(PrefKeys.SOUND_IS_ON.ToString()) == false) {
-            PlayerPrefs.SetInt(PrefKeys.SOUND_IS_ON.ToString(), 0);
+            PlayerPrefs.SetInt(PrefKeys.SOUND_IS_ON.ToString(), 1);
         }
 
         if (PlayerPrefs.HasKey(PrefKeys.SENSITIVITY.ToString()) == false) {

@@ -12,32 +12,42 @@ public class BasicSpawner : MonoBehaviour {
 
     public float spawnInterval; // In Seconds
     public float spawnIntervalStartOffset;
+    public int spawnAmount; // The amount of objects that shall be spawned at the same time
     public bool preventSameSpawnPositionTwice;  // If this is true, the spawner does not spawn two objects after another at the same position
 
-    private List<GameObject> spawnedObjects;
-    private float deltaTime;
+    protected List<GameObject> spawnedObjects;
+    protected float deltaTime;
 
-    private int previousSpawnPosition;
+    protected int previousSpawnPosition;
 
-    void Awake() {
-
+    protected virtual void Awake() {
+        if (spawnAmount == 0) {
+            spawnAmount = 1;
+        }
     }
+
     void Start() {
         initValues();
     }
 
-    // Update is called once per frame
-    void Update() {
+    public void resetSpawner() {
+        clearAllSpawnedObjects();
+        initValues();
+    }
+
+    protected virtual void Update() {
         deltaTime += Time.deltaTime;
 
         if (deltaTime > spawnInterval) {
-            spawnNewObject();
+            for (int i = 0; i < spawnAmount; i++) {
+                spawnNewObject();
+            }
             deltaTime = 0f;
         }
 
     }
 
-    private void spawnNewObject() {
+    protected virtual void spawnNewObject() {
         int spawnPos = getSpawnPosition();
 
         // Instantiate at position (0, 0, 0) and zero rotation.
@@ -59,17 +69,13 @@ public class BasicSpawner : MonoBehaviour {
         return spawnPos;
     }
 
-    public void resetSpawner() {
-        clearAllSpawnedObjects();
-        initValues();
-    }
-    private void clearAllSpawnedObjects() { if (spawnedObjects == null) return;
+    protected void clearAllSpawnedObjects() { if (spawnedObjects == null) return;
         foreach(GameObject obj in spawnedObjects) {
             Destroy(obj);
         }
     }
 
-    private void initValues() {
+    protected virtual void initValues() {
         deltaTime = 0f + spawnIntervalStartOffset;
         previousSpawnPosition = 100; // Random number that does not correspond to previos spawn position
         spawnedObjects = new List<GameObject>();

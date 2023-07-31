@@ -29,9 +29,9 @@ public class GameOverTextBehaviour : MonoBehaviour {
         if (level >= goodMotivationLevelThreshold) {
             motivationText.text = goodMotivations[Random.Range(0, goodMotivations.Count)];
         } else if (level >= normalMotivationLevelThreshold) {
-            motivationText.text = normalMotivations[Random.Range(0, goodMotivations.Count)];
+            motivationText.text = normalMotivations[Random.Range(0, normalMotivations.Count)];
         } else {
-            motivationText.text = badMotivations[Random.Range(0, goodMotivations.Count)];
+            motivationText.text = badMotivations[Random.Range(0, badMotivations.Count)];
         }
     }
 

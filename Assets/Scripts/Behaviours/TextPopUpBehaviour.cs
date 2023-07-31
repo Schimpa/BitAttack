@@ -5,15 +5,19 @@ using UnityEngine;
 public class TextPopUpBehaviour : MonoBehaviour {
 
     public float delay; // The delay in seconds, after which the pop up will appear
+    public bool onlyOnFirstTime;    // The pop up will show only on first time at start of the game
 
     private Transform[] childTransforms;
     private float timer;
 
+    private bool firstTimeActivated;
+
     void Start() {
         childTransforms = this.gameObject.GetComponentsInChildren<Transform>();
+        firstTimeActivated = false;
         timer = 0f;
         if (delay > 0f) {
-            disableAllChildGameObjects();
+            disablePopUpGameObjects();
         } else {
             Time.timeScale = 0f;
         }
@@ -24,22 +28,26 @@ public class TextPopUpBehaviour : MonoBehaviour {
     void Update() {
         timer += Time.deltaTime;
 
-        if (timer >= delay) {
-            enableAllChildGameObjects();
+        if (timer >= delay && firstTimeActivated == false) {
+            enablePopUpGameObjects();
             Time.timeScale = 0f;
         }
     }
 
-    private void disableAllChildGameObjects() {
+    private void disablePopUpGameObjects() {
         foreach(Transform obj in childTransforms) {
             obj.gameObject.SetActive(false);
         }
         this.gameObject.SetActive(true);
     }
 
-    private void enableAllChildGameObjects() {
+    private void enablePopUpGameObjects() {      
         foreach (Transform obj in childTransforms) {
             obj.gameObject.SetActive(true);
+        }
+
+        if (onlyOnFirstTime == true) {
+            firstTimeActivated = true;
         }
     }
 
@@ -48,7 +56,7 @@ public class TextPopUpBehaviour : MonoBehaviour {
         //Finished and reset the pop up, so it can be triggered again when a new game starts
         Time.timeScale = 1f;
         resetTimer();
-        disableAllChildGameObjects();
+        disablePopUpGameObjects();
         this.gameObject.SetActive(false);
     }
 

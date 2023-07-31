@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GamePreparationUIManager : MonoBehaviour {
 
-    public StageStatsFileManager totalStats;
+    public StageStatsFileManager stageStats;
 
     public TMPro.TMP_Text topLevelText;
     public TMPro.TMP_Text topScoreText;
@@ -24,6 +24,16 @@ public class GamePreparationUIManager : MonoBehaviour {
 
     private string levelToLoad = "";
 
+    private void OnEnable() {
+        stageStats.updateStatsFileName(levelToLoad);
+        stageStats.loadStats();
+
+        StageStats stats = stageStats.getStageStats();
+
+        setUITextValues(stats);
+        checkAchievementValidation(stats);
+    }
+
     public void onLoadLevelButton() {
         if (levelToLoad == "") {
             Debug.LogError("Level to load is not specified!");
@@ -32,16 +42,8 @@ public class GamePreparationUIManager : MonoBehaviour {
         }
     }
 
-    public void configureUI(string levelToLoad) {
+    public void setFileNameToLoad(string levelToLoad) {
         this.levelToLoad = levelToLoad;
-
-        totalStats.updateStatsFileName(levelToLoad);
-        totalStats.loadStats();
-
-        StageStats stats = totalStats.getStageStats();
-
-        setUITextValues(stats);
-        checkAchievementValidation(stats);
     }
 
     public void setUITextValues(StageStats stats) {
@@ -50,9 +52,9 @@ public class GamePreparationUIManager : MonoBehaviour {
 
         topLevelText.text = stats.topLevelReached.ToString();
         topScoreText.text = stats.topScoreReached.ToString();
-        topTimeText.text = topTime.ToString() + "s";
+        topTimeText.text = topTime.ToString() + " sec.";
 
-        totalTimeText.text = totalTime.ToString() + "s";
+        totalTimeText.text = totalTime.ToString() + " sec.";
         totalScoreText.text = stats.totalScore.ToString();
         bitsCollectedText.text = stats.totalBitsCollected.ToString();
         obstaclesAvoidedText.text = stats.totalObstaclesAvoided.ToString();
@@ -60,7 +62,7 @@ public class GamePreparationUIManager : MonoBehaviour {
 
     public void checkAchievementValidation(StageStats stats) {
         int achievementsReached = 3;
-        totalStats.validateStage01Achievements();
+        stageStats.validateStage01Achievements();
 
         if (stats.achievement01Reached == false) {
             achievement01Text.color = new Color(1, 1, 1, .3f);

@@ -106,7 +106,6 @@ public abstract class GameManagerBase : MonoBehaviour {
     private void setUpGameOver() {
         configureGameOverValues();
         initGameOverUI();
-        gameStatsManager.addCurrentGameStatsToGlobalStats();
     }
 
     protected void setUpGameOverFailed() {
@@ -160,6 +159,8 @@ public abstract class GameManagerBase : MonoBehaviour {
         int playTime = (int)gameStatsManager.currentPlayTime;
         int level = gameStatsManager.currentLevel;
         int bits = gameStatsManager.currentBitsCollected;
+
+        gameStatsManager.addCurrentGameStatsToGlobalStats();
 
         gameOverUI.setGameStats(score, (int)playTime, level, bits);
         gameOverUI.gameObject.SetActive(true);

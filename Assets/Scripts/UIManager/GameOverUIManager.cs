@@ -47,7 +47,6 @@ public class GameOverUIManager : MonoBehaviour {
     }
 
     public void createGameOverText(int level) {
-        //gameOverText.createInfoTextByLevel(level);
         gameOverText.createMotivationTextByLevel(level);
     }
 

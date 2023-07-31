@@ -14,8 +14,11 @@ public class StageStatsFileManager : MonoBehaviour {
 
     private StageStats stageStats;
 
+    private bool newAchievementUnlocked;
+
     void Awake() {
         formatter = new BinaryFormatter();
+        newAchievementUnlocked = false;
         if (stageStatsFileName != "") {
             filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
         }
@@ -63,17 +66,28 @@ public class StageStatsFileManager : MonoBehaviour {
     }
 
     public void validateStage01Achievements() {
-        if (stageStats.topLevelReached >= 10) {
+        if (stageStats.topLevelReached >= 10 && stageStats.achievement01Reached == false) {
             stageStats.achievement01Reached = true;
+            this.newAchievementUnlocked = true;
         }
 
-        if (stageStats.totalObstaclesAvoided >= 1000) {
+        if (stageStats.totalObstaclesAvoided >= 1000 && stageStats.achievement01Reached == false) {
             stageStats.achievement02Reached = true;
+            this.newAchievementUnlocked = true;
         }
         
-        if (stageStats.topBitsCollected >= 20) {
+        if (stageStats.topBitsCollected >= 20 && stageStats.achievement01Reached == false) {
             stageStats.achievement03Reached = true;
+            this.newAchievementUnlocked = true;
         }
 
+    }
+
+    public bool isNewAchievementUnlocked() {
+        return this.newAchievementUnlocked;
+    }
+
+    public void setNewAchievementUnlocked(bool value) {
+        this.newAchievementUnlocked = false;
     }
 }

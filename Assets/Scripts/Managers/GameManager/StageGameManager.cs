@@ -63,6 +63,16 @@ public class StageGameManager : GameManagerBase {
 
     protected override void initGameOverUI() {
         base.initGameOverUI();
-        gameUI.gameObject.SetActive(false);
+        createAchievementTextIfFirstTimeUnlocked();
+    }
+
+    private void createAchievementTextIfFirstTimeUnlocked() {
+        gameStatsManager.stageStats.validateStage01Achievements();
+        if (gameStatsManager.stageStats.isNewAchievementUnlocked()) {
+            this.gameOverUI.gameOverText.setCustomInfoText("Achievement unlocked!");
+            gameStatsManager.stageStats.setNewAchievementUnlocked(false);
+        } else {
+            this.gameOverUI.gameOverText.setCustomInfoText("");
+        }
     }
 }

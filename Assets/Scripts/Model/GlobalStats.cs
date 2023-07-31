@@ -26,15 +26,15 @@ public class GlobalStats {
 
         this.bits = 0;
 
-        this.ship01Unlocked = false;
+        this.ship01Unlocked = true;
         this.ship02Unlocked = false;
         this.ship03Unlocked = false;
 
-        this.bullet01Unlocked = false;
+        this.bullet01Unlocked = true;
         this.bullet02Unlocked = false;
         this.bullet03Unlocked = false;
 
-        this.exhaust01Unlocked = false;
+        this.exhaust01Unlocked = true;
         this.exhaust02Unlocked = false;
         this.exhaust03Unlocked = false;
 

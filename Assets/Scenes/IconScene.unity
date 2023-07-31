@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5645620286611106552, guid: c37e09ee1cc5656439f580b02d0c2686, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5645620286611106553, guid: c37e09ee1cc5656439f580b02d0c2686, type: 3}
       propertyPath: m_RootOrder
@@ -234,6 +234,10 @@ PrefabInstance:
     - target: {fileID: 9159408223885750016, guid: 7e2fd846b600000408a35d28a5b66acf, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159408223885750016, guid: 7e2fd846b600000408a35d28a5b66acf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9159408223885750018, guid: 7e2fd846b600000408a35d28a5b66acf, type: 3}
       propertyPath: m_RootOrder

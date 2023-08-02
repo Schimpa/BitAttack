@@ -71,12 +71,12 @@ public class StageStatsFileManager : MonoBehaviour {
             this.newAchievementUnlocked = true;
         }
 
-        if (stageStats.totalObstaclesAvoided >= 1000 && stageStats.achievement01Reached == false) {
+        if (stageStats.totalObstaclesAvoided >= 1000 && stageStats.achievement02Reached == false) {
             stageStats.achievement02Reached = true;
             this.newAchievementUnlocked = true;
         }
         
-        if (stageStats.topBitsCollected >= 20 && stageStats.achievement01Reached == false) {
+        if (stageStats.topBitsCollected >= 20 && stageStats.achievement03Reached == false) {
             stageStats.achievement03Reached = true;
             this.newAchievementUnlocked = true;
         }

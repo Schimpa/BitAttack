@@ -16,7 +16,7 @@ public class GlobalStatsFileManager : MonoBehaviour {
     private GlobalStats globalStats;
     private bool fileLoaded;
 
-    void Awake() {
+    void OnEnable() {
         formatter = new BinaryFormatter();
         filePath = Application.persistentDataPath + "/" + GLOBAL_STATS_FILE_NAME + ".stats";
         fileLoaded = false;

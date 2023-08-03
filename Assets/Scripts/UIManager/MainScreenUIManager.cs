@@ -108,4 +108,8 @@ public class MainScreenUIManager : MonoBehaviour {
     public void loadIntroStage() {
         SceneManager.LoadScene("IntroStage");
     }
+
+    public void exitGame() {
+        Application.Quit();
+    }
 }

@@ -38,14 +38,21 @@ public abstract class GameManagerBase : MonoBehaviour {
 
     protected GameObject playerInstance;
 
+    private bool playerSpawned;
+
 
     protected virtual void Start() {
+        playerSpawned = false;
         setUpNewGame();
 
     }
 
     // Update is called once per frame
     protected virtual void Update() { if (gameActive == false) return;
+        if (playerSpawned == false) {
+            spawnPlayer();
+            playerSpawned = true;
+        }
         checkGameConditions();
         checkScore();
         gameStatsManager.addPlayTime(Time.deltaTime);
@@ -98,7 +105,6 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected virtual void setUpNewGame() {
         initGameValues();
         spawner.resetSpawner();
-        spawnPlayer();
         initGameUI();
         musicManager.playMusic();
     }
@@ -132,6 +138,7 @@ public abstract class GameManagerBase : MonoBehaviour {
 
     protected void configureGameOverValues() {
         gameActive = false;
+        playerSpawned = false;
         Time.timeScale = 0f;
     }
 

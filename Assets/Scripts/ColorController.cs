@@ -17,12 +17,12 @@ public class ColorController : MonoBehaviour {
         mat.SetColor("_Color01", colorBlue01);
         mat.SetColor("_Color02", colorBlue02);
     }
-    public void setColorRed(Material mat) {
+    public void setColoGreend(Material mat) {
         mat.SetColor("_Color01", colorGreen01);
         mat.SetColor("_Color02", colorGreen02);
     }
 
-    public void setColorYellow(Material mat) {
+    public void setColorPurple(Material mat) {
         mat.SetColor("_Color01", colorPurple01);
         mat.SetColor("_Color02", colorPurple02);
     }

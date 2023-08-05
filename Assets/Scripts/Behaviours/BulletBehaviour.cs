@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour {
 
-    // The upp move speed in Y direction
+    [Header("The up movespeed in Y direction")]
     public float moveSpeed;
 
-    // The position, at which this obstacle will be destoyed
+    [Header("The position, at which this obstacle will be destoyed")]
     public float destroyPositionY;
 
-    public ColorMode bulletColor;
+    [Header("The damage that the bullet does to the obstacles")]
+    public int damage = 10;
+
+    [Header("The interval at which new bullets will be spawned")]
+    public float spawnInterval = 0.33f;
+
+    public ColorMode color;
 
     [Header("Has to be in order BLUE, GREEN, PURPLE")]
     public List<GameObject> bulletTrails;
+
+    [Header("Has to be in order BLUE, GREEN, PURPLE")]
+    public List<GameObject> destroyParticles;
 
     private void Start() {
         setBulletColor();
@@ -30,7 +39,7 @@ public class BulletBehaviour : MonoBehaviour {
 
     public void setBulletColor() {
         GameObject trail;
-        switch (bulletColor) {
+        switch (color) {
             case ColorMode.BLUE:
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
                 trail = Instantiate(bulletTrails[0], this.transform.position, Quaternion.identity);
@@ -50,6 +59,34 @@ public class BulletBehaviour : MonoBehaviour {
         }
 
         trail.transform.SetParent(this.gameObject.transform);
+    }
+
+    public void Destroy() {
+        spawnBulletDestroyParticles();
+        Destroy(this.gameObject);
+    }
+
+    private void spawnBulletDestroyParticles() {
+        GameObject destroyParticle;
+        switch (color) {
+            case ColorMode.BLUE:
+                destroyParticle = Instantiate(destroyParticles[0],
+                    this.transform.position, destroyParticles[0].transform.rotation);
+                break;
+            case ColorMode.GREEN:
+                destroyParticle = Instantiate(destroyParticles[1],
+                    this.transform.position, destroyParticles[1].transform.rotation);
+                break;
+            case ColorMode.PURPLE:
+                destroyParticle = Instantiate(destroyParticles[2],
+                    this.transform.position, destroyParticles[2].transform.rotation);
+                break;
+            default:
+                destroyParticle = Instantiate(destroyParticles[0],
+                    this.transform.position, destroyParticles[0].transform.rotation);
+                break;
+        }
+
     }
 
 }

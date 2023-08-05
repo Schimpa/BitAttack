@@ -6,17 +6,32 @@ using UnityEngine.UI;
 
 public class ShopUIManager : MonoBehaviour {
 
-    public const int SHIP01_BITS = 0;
-    public const int SHIP02_BITS = 10;
-    public const int SHIP03_BITS = 20;
+    [Header("The price in bits of the items")]
+    public int ship01Price;
+    public int ship02Price;
+    public int ship03Price;
 
-    public const int BULLET01_BITS = 0;
-    public const int BULLET02_BITS = 10;
-    public const int BULLET03_BITS = 20;
+    public int bullet01Price;
+    public int bullet02Price;
+    public int bullet03Price;
 
-    public const int EXHAUST01_BITS = 100;
-    public const int EXHAUST02_BITS = 200;
-    public const int EXHAUST03_BITS = 400;
+    [Header("The names of the items")]
+    public string ship01Name;
+    public string ship02Name;
+    public string ship03Name;
+
+    public string bullet01Name;
+    public string bullet02Name;
+    public string bullet03Name;
+
+    [Header("The description of the items")]
+    [Multiline]public string ship01Description;
+    [Multiline] public string ship02Description;
+    [Multiline] public string ship03Description;
+
+    [Multiline] public string bullet01Description;
+    [Multiline] public string bullet02Description;
+    [Multiline] public string bullet03Description;
 
     public SoundManager soundManager;
 
@@ -31,10 +46,8 @@ public class ShopUIManager : MonoBehaviour {
     public GameObject bullet02Button;
     public GameObject bullet03Button;
 
-    public GameObject exhaust01Button;
-    public GameObject exhaust02Button;
-    public GameObject exhaust03Button;
-
+    public TMPro.TMP_Text itemNameText;
+    public TMPro.TMP_Text itemDescriptionText;
 
     private GlobalStats stats;
 
@@ -42,6 +55,8 @@ public class ShopUIManager : MonoBehaviour {
         globalStats.loadStats();
         stats = globalStats.getGlobalStats();
         updateBitsText();
+        itemNameText.text = "";
+        itemDescriptionText.text = "";
 
         checkShip01Button();
         checkShip02Button();
@@ -50,10 +65,6 @@ public class ShopUIManager : MonoBehaviour {
         checkBullet01Button();
         checkBullet02Button();
         checkBullet03Button();
-
-        checkExhaust01Button();
-        checkExhaust02Button();
-        checkExhaust03Button();
 
         setSelectionColor();
 
@@ -99,9 +110,9 @@ public class ShopUIManager : MonoBehaviour {
     }
 
     public void onShip01ButtonClick() {
-        if (stats.bits >= SHIP01_BITS && stats.ship01Unlocked == false) {
+        if (stats.bits >= ship01Price && stats.ship01Unlocked == false) {
             stats.ship01Unlocked = true;
-            stats.bits -= SHIP01_BITS;
+            stats.bits -= ship01Price;
             globalStats.saveStats();
             checkShip01Button();
         }
@@ -117,9 +128,9 @@ public class ShopUIManager : MonoBehaviour {
     }
 
     public void onShip02ButtonClick() {
-        if (stats.bits >= SHIP02_BITS && stats.ship02Unlocked == false) {
+        if (stats.bits >= ship02Price && stats.ship02Unlocked == false) {
             stats.ship02Unlocked = true;
-            stats.bits -= SHIP02_BITS;
+            stats.bits -= ship02Price;
             globalStats.saveStats();
             checkShip02Button();
         }
@@ -135,9 +146,9 @@ public class ShopUIManager : MonoBehaviour {
     }
 
     public void onShip03ButtonClick() {
-        if (stats.bits >= SHIP03_BITS && stats.ship03Unlocked == false) {
+        if (stats.bits >= ship03Price && stats.ship03Unlocked == false) {
             stats.ship03Unlocked = true;
-            stats.bits -= SHIP03_BITS;
+            stats.bits -= ship03Price;
             globalStats.saveStats();
             checkShip03Button();
         }
@@ -152,9 +163,9 @@ public class ShopUIManager : MonoBehaviour {
         updateBitsText();
     }
     public void onBullet01ButtonClick() {
-        if (stats.bits >= BULLET01_BITS && stats.bullet01Unlocked == false) {
+        if (stats.bits >= bullet01Price && stats.bullet01Unlocked == false) {
             stats.bullet01Unlocked = true;
-            stats.bits -= BULLET01_BITS;
+            stats.bits -= bullet01Price;
             globalStats.saveStats();
             checkBullet01Button();
         }
@@ -170,9 +181,9 @@ public class ShopUIManager : MonoBehaviour {
     }
 
     public void onBullet02ButtonClick() {
-        if (stats.bits >= BULLET02_BITS && stats.bullet02Unlocked == false) {
+        if (stats.bits >= bullet02Price && stats.bullet02Unlocked == false) {
             stats.bullet02Unlocked = true;
-            stats.bits -= BULLET02_BITS;
+            stats.bits -= bullet02Price;
             globalStats.saveStats();
             checkBullet02Button();
         }
@@ -188,9 +199,9 @@ public class ShopUIManager : MonoBehaviour {
     }
 
     public void onBullet03ButtonClick() {
-        if (stats.bits >= BULLET03_BITS && stats.bullet03Unlocked == false) {
+        if (stats.bits >= bullet03Price && stats.bullet03Unlocked == false) {
             stats.bullet03Unlocked = true;
-            stats.bits -= BULLET03_BITS;
+            stats.bits -= bullet03Price;
             globalStats.saveStats();
             checkBullet03Button();
         }
@@ -204,40 +215,12 @@ public class ShopUIManager : MonoBehaviour {
         setSelectionColor();
         updateBitsText();
     }
-
-    public void onExhaust01ButtonClick() {
-        if (stats.bits >= EXHAUST01_BITS) {
-            stats.exhaust01Unlocked = true;
-            stats.bits -= EXHAUST01_BITS;
-            globalStats.saveStats();
-            checkExhaust01Button();
-        }
-    }
-
-    public void onExhaust02ButtonClick() {
-        if (stats.bits >= EXHAUST02_BITS) {
-            stats.exhaust02Unlocked = true;
-            stats.bits -= EXHAUST02_BITS;
-            globalStats.saveStats();
-            checkExhaust02Button();
-        }
-    }
-
-    public void onExhaust03ButtonClick() {
-        if (stats.bits >= EXHAUST03_BITS) {
-            stats.exhaust03Unlocked = true;
-            stats.bits -= EXHAUST03_BITS;
-            globalStats.saveStats();
-            checkExhaust03Button();
-        }
-    }
-
     public void checkShip01Button() {
         TMPro.TMP_Text buttonText = ship01Button.GetComponentInChildren<TMPro.TMP_Text>();
         if (stats.ship01Unlocked) {
             buttonText.text = "";
         } else {
-            buttonText.text = SHIP01_BITS.ToString();
+            buttonText.text = ship01Price.ToString();
         }
     }
 
@@ -246,7 +229,7 @@ public class ShopUIManager : MonoBehaviour {
         if (stats.ship02Unlocked) {
             buttonText.text = "";
         } else {
-            buttonText.text = SHIP02_BITS.ToString();
+            buttonText.text = ship02Price.ToString();
         }
     }
 
@@ -255,7 +238,7 @@ public class ShopUIManager : MonoBehaviour {
         if (stats.ship03Unlocked) {
             buttonText.text = "";
         } else {
-            buttonText.text = SHIP03_BITS.ToString();
+            buttonText.text = ship03Price.ToString();
         }
     }
 
@@ -264,7 +247,7 @@ public class ShopUIManager : MonoBehaviour {
         if (stats.bullet01Unlocked) {
             buttonText.text = "";
         } else {
-            buttonText.text = BULLET01_BITS.ToString();
+            buttonText.text = bullet01Price.ToString();
         }
     }
 
@@ -273,7 +256,7 @@ public class ShopUIManager : MonoBehaviour {
         if (stats.bullet02Unlocked) {
             buttonText.text = "";
         } else {
-            buttonText.text = BULLET02_BITS.ToString();
+            buttonText.text = bullet02Price.ToString();
         }
     }
 
@@ -282,36 +265,40 @@ public class ShopUIManager : MonoBehaviour {
         if (stats.bullet03Unlocked) {
             buttonText.text = "";
         } else {
-            buttonText.text = BULLET03_BITS.ToString();
+            buttonText.text = bullet03Price.ToString();
         }
     }
 
-    public void checkExhaust01Button() {
-        TMPro.TMP_Text buttonText = exhaust01Button.GetComponentInChildren<TMPro.TMP_Text>();
-        if (stats.exhaust01Unlocked) {
-            buttonText.text = "";
-        } else {
-            buttonText.text = EXHAUST01_BITS.ToString();
-        }
+    public void onShip01Hover() {
+        itemNameText.text = ship01Name;
+        itemDescriptionText.text = ship01Description;
     }
 
-    public void checkExhaust02Button() {
-        TMPro.TMP_Text buttonText = exhaust02Button.GetComponentInChildren<TMPro.TMP_Text>();
-        if (stats.exhaust02Unlocked) {
-            buttonText.text = "";
-        } else {
-            buttonText.text = EXHAUST02_BITS.ToString();
-        }
+    public void onShip02Hover() {
+        itemNameText.text = ship02Name;
+        itemDescriptionText.text = ship02Description;
     }
 
-    public void checkExhaust03Button() {
-        TMPro.TMP_Text buttonText = exhaust03Button.GetComponentInChildren<TMPro.TMP_Text>();
-        if (stats.exhaust03Unlocked) {
-            buttonText.text = "";
-        } else {
-            buttonText.text = EXHAUST03_BITS.ToString();
-        }
+    public void onShip03Hover() {
+        itemNameText.text = ship03Name;
+        itemDescriptionText.text = ship03Description;
     }
+
+    public void onBullet01Hover() {
+        itemNameText.text = bullet01Name;
+        itemDescriptionText.text = bullet01Description;
+    }
+
+    public void onBullet02Hover() {
+        itemNameText.text = bullet02Name;
+        itemDescriptionText.text = bullet02Description;
+    }
+
+    public void onBullet03Hover() {
+        itemNameText.text = bullet03Name;
+        itemDescriptionText.text = bullet03Description;
+    }
+
 
     public void updateBitsText() {
         bitsText.text = "Bits: " + stats.bits.ToString();

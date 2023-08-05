@@ -4,13 +4,27 @@ using UnityEngine;
 
 public class ObstacleBehaviour : MonoBehaviour {
 
-    
-    public float moveDownSpeedY; // The down move speed in Y direction (towards the player)
-    public float destroyPositionY; // The position, at which this obstacle will be destoyed
 
-    public int scoreWhenAvoided = 25; // The amount of score the player gets if this obstacle is avoided
-    public int scoreWhenShot = 50; // The amount of score the player gets if this obstacle is shot
-    public int bitsWhenShot = 1; // The amount of bits the player gets if this obstacle is shot
+    [Header("The down move speed in Y direction (towards the player)")]
+    public float moveDownSpeedY;
+
+    [Header("The position, at which this obstacle will be destoyed")]
+    public float destroyPositionY;
+
+    [Header("The amount of score the player gets if this obstacle is avoided")]
+    public int scoreWhenAvoided = 25;
+
+    [Header("The amount of score the player gets if this obstacle is shot")]
+    public int scoreWhenShot = 50;
+
+    [Header("The amount of bits the player gets if this obstacle is shot")]
+    public int bitsWhenShot = 1;
+
+    [Header("The health points the obstacle has, before it gets destroyed. Different bullets to different damage")]
+    public int healthPoints = 10;
+
+    [Header("The damage that the obstacle does to the player")]
+    public int damage = 10;
 
     public Renderer obstacleRenderer;
 
@@ -26,9 +40,12 @@ public class ObstacleBehaviour : MonoBehaviour {
 
     private GameStatsManager gameStats;
 
+    private int currentHealthPoints;
+
 
     private void Start() {
         gameStats = GameObject.Find("GameStatsManager").GetComponent<GameStatsManager>();
+        currentHealthPoints = healthPoints;
         setObstacleColor();
         spawnObstacleTrail();
     }
@@ -38,12 +55,25 @@ public class ObstacleBehaviour : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Bullet") == false) return;
+        if (collision.CompareTag("Bullet")){
 
-        PlayerColorController playerColor = GameObject.Find("Player").GetComponent<PlayerColorController>();
+            GameObject playerObj = GameObject.Find("Player");
+            PlayerColorController playerColor = playerObj.GetComponent<PlayerColorController>();
 
-        if (playerColor.currentPlayerColor == obstacleColor) {
-            destroyObstacleFromBullet();
+            if (playerColor.currentPlayerColor == obstacleColor) {
+
+                currentHealthPoints -= collision.gameObject.GetComponent<BulletBehaviour>().damage;
+
+                if (currentHealthPoints <= 0) {
+                    destroyObstacleFromBullet();
+                    playerColor.changePlayerColor();
+                } else {
+                    GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();
+                    collision.gameObject.GetComponent<BulletBehaviour>().Destroy();
+                }
+            }
+        } else if (collision.CompareTag("Player")){
+            destroyObstacleFromPlayerCollision();
         }
     }
 
@@ -51,6 +81,12 @@ public class ObstacleBehaviour : MonoBehaviour {
         if (transform.position.y < destroyPositionY) {
             destroyObstacleFromBorder();
         }
+    }
+
+    private void destroyObstacleFromPlayerCollision() {
+        GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();
+        spawnObstacleDestroyParticles();
+        Destroy(this.gameObject);
     }
 
     private void destroyObstacleFromBorder() {
@@ -64,7 +100,7 @@ public class ObstacleBehaviour : MonoBehaviour {
         gameStats.addBits(bitsWhenShot);
         gameStats.currentObstaclesAvoided++;
 
-        GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();
+        GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleDestroyedSound();
         spawnObstacleDestroyParticles();
 
         Destroy(this.gameObject);
@@ -85,11 +121,11 @@ public class ObstacleBehaviour : MonoBehaviour {
                 obstacleColor = ColorMode.BLUE;
                 break;
             case 1:
-                colorController.setColorRed(obstacleRenderer.material);
+                colorController.setColoGreend(obstacleRenderer.material);
                 obstacleColor = ColorMode.GREEN;
                 break;
             case 2:
-                colorController.setColorYellow(obstacleRenderer.material);
+                colorController.setColorPurple(obstacleRenderer.material);
                 obstacleColor = ColorMode.PURPLE;
                 break;
 

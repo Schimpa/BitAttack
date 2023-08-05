@@ -4736,7 +4736,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 83.8
+  m_fontSize: 120
   m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5130,7 +5130,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can move the spaceship around...
+  m_text: 'Move the spaceship with the arrow keys or W.A.S.D
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bca1162c9de443047b78e7bbebf8f9e8, type: 2}
   m_sharedMaterial: {fileID: 6303670703543890688, guid: bca1162c9de443047b78e7bbebf8f9e8, type: 2}
@@ -6289,7 +6292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ...and shoot lasers as well!
+  m_text: Shoot fany lasers with SPACE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bca1162c9de443047b78e7bbebf8f9e8, type: 2}
   m_sharedMaterial: {fileID: 6303670703543890688, guid: bca1162c9de443047b78e7bbebf8f9e8, type: 2}
@@ -6649,7 +6652,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue
+  m_text: play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bca1162c9de443047b78e7bbebf8f9e8, type: 2}
   m_sharedMaterial: {fileID: 6303670703543890688, guid: bca1162c9de443047b78e7bbebf8f9e8, type: 2}

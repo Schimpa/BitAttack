@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2810927295146416408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4861004807327085425}
@@ -128,11 +128,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   destroyPositionY: 25
-  bulletColor: 0
+  damage: 5
+  spawnInterval: 0.2
+  color: 0
   bulletTrails:
   - {fileID: 7541471166190802509, guid: 041095543b5bb974799978c8cd485594, type: 3}
   - {fileID: 4166388758598609319, guid: d3ded24b7157e324180918390ccbb751, type: 3}
   - {fileID: 1689915558058109513, guid: 558551e01a0d0014c90c1a07963277ab, type: 3}
+  destroyParticles:
+  - {fileID: 5589092563813302195, guid: 721fda485a50f7348a2e346764e39b0b, type: 3}
+  - {fileID: 5589092563813302195, guid: d308df4aa6b232c489eb7cb00520f5cb, type: 3}
+  - {fileID: 5589092563813302195, guid: e38370cd659827e4fa8790a0dce430be, type: 3}
 --- !u!50 &-7376335658484828282
 Rigidbody2D:
   serializedVersion: 4

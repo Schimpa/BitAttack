@@ -3913,6 +3913,14 @@ PrefabInstance:
       value: PlayerConfigurationManager
       objectReference: {fileID: 0}
     - target: {fileID: 8274157430382043835, guid: 30b7285d008e79c4c98d662cdd73a9bb, type: 3}
+      propertyPath: ship01MoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274157430382043835, guid: 30b7285d008e79c4c98d662cdd73a9bb, type: 3}
+      propertyPath: ship02MoveSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274157430382043835, guid: 30b7285d008e79c4c98d662cdd73a9bb, type: 3}
       propertyPath: globalStatsFileManager
       value: 
       objectReference: {fileID: 1325996272}
@@ -4567,7 +4575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085f955232bca5d43a25e5720b388baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeedXAxis: 1
+  moveSpeedYAxis: 1
   joystickSensitivity: 1
   objectMovementRotation: 45
   joystickRight: {fileID: 778252594}

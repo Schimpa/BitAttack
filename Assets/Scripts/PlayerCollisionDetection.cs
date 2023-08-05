@@ -8,20 +8,42 @@ using UnityEngine;
  */
 public class PlayerCollisionDetection : MonoBehaviour {
 
-    public BoxCollider2D col;
-    void Start() {
-        
-    }
+    [Header("The health points that the player has")]
+    public int playerHealthPoints;
 
-    void Update() {
-        
+    private int currentHealthPoints;
+
+    public BoxCollider2D col;
+
+    private void Start() {
+        ResetStats();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Obstacle")) {
-            Destroy(this.gameObject);
-        }
-        
+
+            ObstacleBehaviour obst = collision.gameObject.GetComponent<ObstacleBehaviour>();
+
+            currentHealthPoints -= obst.damage;
+
+            if (currentHealthPoints <= 0) {
+                Destroy(this.gameObject);
+            }       
+        }      
+    }
+
+    public void setPlayerHealthPoints(int value) {
+        playerHealthPoints = value;
+        currentHealthPoints = value;
+    }
+
+    public void ResetStats() {
+        PlayerConfigurationManager playerConfigManager
+            = GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
+
+        this.playerHealthPoints = playerConfigManager.getSelectedShipHealth();
+
+        currentHealthPoints = playerHealthPoints;
     }
 
 }

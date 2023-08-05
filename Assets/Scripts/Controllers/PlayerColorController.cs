@@ -7,9 +7,12 @@ public class PlayerColorController : MonoBehaviour {
     public Material playerMaterial;
 
     public ColorMode currentPlayerColor = ColorMode.BLUE;
-
+  
+    [Header("Shall the color be changed by time?. If this is disabled, the player color has to be changes manually," +
+        "for example by the obstacles or bullets")]
+    public bool changeColorByTime;
     public float colorChangeTime;       // The time it takes to change the color of the player 
-
+    
     [Header("Has to be in order BLUE, GREEN, PURPLE")]
     public List<GameObject> trails;
 
@@ -25,18 +28,20 @@ public class PlayerColorController : MonoBehaviour {
 
     // Update is called once per frame
     void Update(){
-        colorChangeTimer += Time.deltaTime;
-        checkColorChangeTimer();
+        if (changeColorByTime == true) {
+            colorChangeTimer += Time.deltaTime;
+            checkColorChangeTimer();
+        }
     }
 
     private void checkColorChangeTimer() {
         if (colorChangeTimer >= colorChangeTime) {
             colorChangeTimer = 0f;
-            updatePlayerColor();
+            changePlayerColor();
         }
     }
 
-    private void updatePlayerColor() {
+    public void changePlayerColor() {
         if (currentPlayerColor == ColorMode.BLUE) {
             setColorRed();
         } else if (currentPlayerColor == ColorMode.GREEN) {
@@ -56,7 +61,7 @@ public class PlayerColorController : MonoBehaviour {
     }
 
     public void setColorRed() {
-        colorController.setColorRed(playerMaterial);
+        colorController.setColoGreend(playerMaterial);
         currentPlayerColor = ColorMode.GREEN;
 
         trails[0].SetActive(false);  // BLUE
@@ -65,7 +70,7 @@ public class PlayerColorController : MonoBehaviour {
     }
 
     public void setColorYellow() {
-        colorController.setColorYellow(playerMaterial);
+        colorController.setColorPurple(playerMaterial);
         currentPlayerColor = ColorMode.PURPLE;
 
         trails[0].SetActive(false);  // BLUE

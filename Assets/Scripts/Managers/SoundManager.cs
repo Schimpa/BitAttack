@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip shootSound02;
     public AudioClip shootSound03;
     public AudioClip levelUpSound;
+    public AudioClip damageSound;
     public AudioClip deadSound;
     public AudioClip winSound;
     public AudioClip clickSound;
@@ -57,8 +58,12 @@ public class SoundManager : MonoBehaviour {
         audioSrc.PlayOneShot(selectionSuccessfullSound);
     }
 
-    public void playObstacleHitSound() {
+    public void playObstacleDestroyedSound() {
         audioSrc.PlayOneShot(obstacleHitSound);
+    }
+
+    public void playObstacleHitSound() {
+        audioSrc.PlayOneShot(damageSound);
     }
 
     public void checkSoundPreference() {

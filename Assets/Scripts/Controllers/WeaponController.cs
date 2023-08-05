@@ -7,8 +7,7 @@ public class WeaponController : MonoBehaviour {
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
 
-    public float bulletSpeed;
-    public float bulletSpawnInterval;
+    private float bulletSpawnInterval;
 
     //Value, from which the input is processed and bullets are shoot
     public float verticalInputThreshold;
@@ -38,6 +37,9 @@ public class WeaponController : MonoBehaviour {
         }
 
         bulletPrefab = playerConfigManager.getSelectedBullet();
+
+        BulletBehaviour bulletBehav = bulletPrefab.GetComponent<BulletBehaviour>();
+        bulletSpawnInterval = bulletBehav.spawnInterval;
     }
 
     // Update is called once per frame
@@ -57,7 +59,7 @@ public class WeaponController : MonoBehaviour {
             GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
 
             BulletBehaviour bulletBehaviour = bulletInstance.GetComponent<BulletBehaviour>();
-            bulletBehaviour.bulletColor = playerColor.currentPlayerColor;
+            bulletBehaviour.color = playerColor.currentPlayerColor;
             bulletBehaviour.setBulletColor();
 
             playShootSound();

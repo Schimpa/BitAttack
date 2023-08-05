@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 3250890199348632324}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affa331491390e248849f7d949f1848f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealthPoints: 0
   col: {fileID: 4350093349400020556}
 --- !u!114 &5494014111943330181
 MonoBehaviour:
@@ -101,8 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2810927295146416408, guid: c79b83764757e004eaec6087cc2ff90b, type: 3}
   bulletSpawnPoint: {fileID: 9106205034376640036}
-  bulletSpeed: 5
-  bulletSpawnInterval: 0.33
   verticalInputThreshold: 0.1
 --- !u!114 &4696579470119487479
 MonoBehaviour:
@@ -118,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMaterial: {fileID: 2100000, guid: a1da87a8f18b60842be68c24039fe95c, type: 2}
   currentPlayerColor: 0
+  changeColorByTime: 0
   colorChangeTime: 10
   trails:
   - {fileID: 3622445047936990214}

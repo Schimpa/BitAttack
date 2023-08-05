@@ -127,6 +127,7 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected void activateMovementController(GameObject objectToMove) {
         movementController.objectToMove = playerInstance;
         movementController.calculateXAxisMoveBorderBySpawner();
+        movementController.calculateYAxisMoveBorderByScreenHeight();
         movementController.enabled = true;
     }
     protected virtual void initGameValues() {

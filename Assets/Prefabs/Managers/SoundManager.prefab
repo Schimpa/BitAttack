@@ -50,6 +50,7 @@ MonoBehaviour:
   shootSound02: {fileID: 8300000, guid: dd51706db2b67f1418ac1b9d65c8f487, type: 3}
   shootSound03: {fileID: 8300000, guid: 55190b05fbe84b24cbbf160b0cc419b0, type: 3}
   levelUpSound: {fileID: 8300000, guid: 32e230bd944d2a143ae0564960a98e35, type: 3}
+  damageSound: {fileID: 8300000, guid: 290e81569845d634eb4ce4abe580023c, type: 3}
   deadSound: {fileID: 8300000, guid: 581334e927750334e8373d0200503c21, type: 3}
   winSound: {fileID: 8300000, guid: 393913601bcd14840916b03cef9ad467, type: 3}
   clickSound: {fileID: 8300000, guid: 49da51dcff647c241b6be4600e24d12c, type: 3}

@@ -41,6 +41,11 @@ public class StageStatsFileManager : MonoBehaviour {
             }
             else {
                 stageStats = formatter.Deserialize(stream) as StageStats;
+                
+                // To set the achievements
+                validateStage01Achievements();
+                setNewAchievementUnlocked(false);
+
             }
             stream.Close();
         } else {
@@ -66,7 +71,7 @@ public class StageStatsFileManager : MonoBehaviour {
     }
 
     public void validateStage01Achievements() {
-        if (stageStats.topLevelReached >= 10 && stageStats.achievement01Reached == false) {
+        if (stageStats.topLevelReached >= 15 && stageStats.achievement01Reached == false) {
             stageStats.achievement01Reached = true;
             this.newAchievementUnlocked = true;
         }
@@ -76,7 +81,7 @@ public class StageStatsFileManager : MonoBehaviour {
             this.newAchievementUnlocked = true;
         }
         
-        if (stageStats.topBitsCollected >= 20 && stageStats.achievement03Reached == false) {
+        if (stageStats.topBitsCollected >= 40 && stageStats.achievement03Reached == false) {
             stageStats.achievement03Reached = true;
             this.newAchievementUnlocked = true;
         }

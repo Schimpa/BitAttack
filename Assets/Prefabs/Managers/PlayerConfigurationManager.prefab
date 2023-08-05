@@ -51,3 +51,9 @@ MonoBehaviour:
   bullet01: {fileID: 2810927295146416408, guid: c79b83764757e004eaec6087cc2ff90b, type: 3}
   bullet02: {fileID: 2810927295146416408, guid: 3706835a2d0eef54bac1094781f55925, type: 3}
   bullet03: {fileID: 2810927295146416408, guid: 732ce60929b191e40b4caa513ec20aaf, type: 3}
+  ship01MoveSpeed: 1
+  ship02MoveSpeed: 1.5
+  ship03MoveSpeed: 0.7
+  ship01Health: 10
+  ship02Health: 7
+  ship03Health: 20

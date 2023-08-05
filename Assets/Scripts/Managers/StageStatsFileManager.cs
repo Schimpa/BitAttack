@@ -71,21 +71,36 @@ public class StageStatsFileManager : MonoBehaviour {
     }
 
     public void validateStage01Achievements() {
-        if (stageStats.topLevelReached >= 15 && stageStats.achievement01Reached == false) {
+        if (stageStats.topLevelReached >= 10 && stageStats.achievement01Reached == false) {
             stageStats.achievement01Reached = true;
             this.newAchievementUnlocked = true;
         }
 
-        if (stageStats.totalObstaclesAvoided >= 1000 && stageStats.achievement02Reached == false) {
+        if (stageStats.topLevelReached >= 15 && stageStats.achievement02Reached == false) {
             stageStats.achievement02Reached = true;
             this.newAchievementUnlocked = true;
         }
-        
-        if (stageStats.topBitsCollected >= 40 && stageStats.achievement03Reached == false) {
+
+        if (stageStats.topLevelReached >= 20 && stageStats.achievement03Reached == false) {
             stageStats.achievement03Reached = true;
             this.newAchievementUnlocked = true;
         }
 
+        if (stageStats.topBitsCollected >= 25 && stageStats.achievement04Reached == false) {
+            stageStats.achievement04Reached = true;
+            this.newAchievementUnlocked = true;
+        }
+
+        if (stageStats.topBitsCollected >= 50 && stageStats.achievement05Reached == false) {
+            stageStats.achievement05Reached = true;
+            this.newAchievementUnlocked = true;
+        }
+
+        if (stageStats.totalObstaclesAvoided >= 3000 && stageStats.achievement06Reached == false) {
+            stageStats.achievement06Reached = true;
+            this.newAchievementUnlocked = true;
+        }
+  
     }
 
     public bool isNewAchievementUnlocked() {

@@ -19,6 +19,9 @@ public class GamePreparationUIManager : MonoBehaviour {
     public TMPro.TMP_Text achievement01Text;
     public TMPro.TMP_Text achievement02Text;
     public TMPro.TMP_Text achievement03Text;
+    public TMPro.TMP_Text achievement04Text;
+    public TMPro.TMP_Text achievement05Text;
+    public TMPro.TMP_Text achievement06Text;
 
     public TMPro.TMP_Text achievementTitleText;
 
@@ -61,7 +64,7 @@ public class GamePreparationUIManager : MonoBehaviour {
     }
 
     public void checkAchievementValidation(StageStats stats) {
-        int achievementsReached = 3;
+        int achievementsReached = 6;
         stageStats.validateStage01Achievements();
 
         if (stats.achievement01Reached == false) {
@@ -76,8 +79,20 @@ public class GamePreparationUIManager : MonoBehaviour {
             achievement03Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
         }
+        if (stats.achievement04Reached == false) {
+            achievement04Text.color = new Color(1, 1, 1, .3f);
+            achievementsReached--;
+        }
+        if (stats.achievement05Reached == false) {
+            achievement05Text.color = new Color(1, 1, 1, .3f);
+            achievementsReached--;
+        }
+        if (stats.achievement06Reached == false) {
+            achievement06Text.color = new Color(1, 1, 1, .3f);
+            achievementsReached--;
+        }
 
-        achievementTitleText.text = "Achievements: " + achievementsReached.ToString() + "/3";
+        achievementTitleText.text = "Achievements: " + achievementsReached.ToString() + "/6";
     }
 
 }

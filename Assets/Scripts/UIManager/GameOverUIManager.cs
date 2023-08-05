@@ -14,7 +14,7 @@ public class GameOverUIManager : MonoBehaviour {
     public GameOverTextBehaviour gameOverText;
 
     public void OnEnable() {
-        adjustTextWidth();
+        // adjustTextWidth();       ONLY FOR MOBILE
     }
 
     public void setGameStats(int score, int time, int level, int bits) {

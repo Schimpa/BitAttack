@@ -20,6 +20,9 @@ public class StageStats {
     public bool achievement01Reached;
     public bool achievement02Reached;
     public bool achievement03Reached;
+    public bool achievement04Reached;
+    public bool achievement05Reached;
+    public bool achievement06Reached;
 
     public StageStats() {
         this.totalScore = 0;
@@ -37,6 +40,9 @@ public class StageStats {
         this.achievement01Reached = false;
         this.achievement02Reached = false;
         this.achievement03Reached = false;
+        this.achievement04Reached = false;
+        this.achievement05Reached = false;
+        this.achievement06Reached = false;
     }
 
 

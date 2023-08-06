@@ -9,9 +9,6 @@ public class GameConfigurator : MonoBehaviour {
     [Header("To rotate the camera by 90°")]
     public Camera mainCamera;
 
-    [Header("Set the correct input (up/down or left/right) based on game mode and camera rotation")]
-    public MovementController movementController;
-
     [Header("The spawner is moved to be outside of the camera field")]
     public GameObject spawner;
 
@@ -26,8 +23,6 @@ public class GameConfigurator : MonoBehaviour {
     void Awake() {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120;
-
-        movementController.setGameMode(this.gameMode);
 
         Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         float backgroundShapeSpawnerWidth = 0f;

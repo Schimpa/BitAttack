@@ -41,8 +41,6 @@ public class PlayerCollisionDetection : MonoBehaviour {
         PlayerConfigurationManager playerConfigManager
             = GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
 
-        this.playerHealthPoints = playerConfigManager.getSelectedShipHealth();
-
         currentHealthPoints = playerHealthPoints;
     }
 

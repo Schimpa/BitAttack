@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour {
 
+    [Header("Set the correct input (up/down or left/right) based on game mode and camera rotation")]
+    public GameMode gameMode;
+
     public float moveSpeedXAxis;
     public float moveSpeedYAxis;
     public float joystickSensitivity;
@@ -18,16 +21,12 @@ public class MovementController : MonoBehaviour {
     private float yAxisMovementBorderMin;
     private float yAxisMovementBorderMax;
 
-    private GameMode gameMode = GameMode.MOBILE;
-
     private PlayerConfigurationManager playerConfigManager;
 
     private bool configurationLoaded;
 
     void Awake() {
-        configurationLoaded = false;
-        setJoyStickActive(true);
-        
+        configurationLoaded = false;       
     }
 
     private void Start() {
@@ -36,8 +35,6 @@ public class MovementController : MonoBehaviour {
 
     void Update() { 
         if (objectToMove == null) return;
-        if (configurationLoaded == false) loadMoveSpeed();
-
 
         Vector2 axisInput = getInput();
         Vector2 pos = objectToMove.transform.position;
@@ -157,13 +154,7 @@ public class MovementController : MonoBehaviour {
             this.moveSpeedXAxis *= sensitivity;
         }
         playerConfigManager = GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
-    }
 
-    private void loadMoveSpeed() {
-        if (playerConfigManager.isConfigurationLoaded()) {
-            this.moveSpeedYAxis = playerConfigManager.getSelectedShipMoveSpeed();
-            this.configurationLoaded = true;
-        }   
     }
 
     public void setJoyStickActive(bool value) {
@@ -179,9 +170,9 @@ public class MovementController : MonoBehaviour {
         }
         
     }
-
-    public void setGameMode(GameMode newMode) {
-        this.gameMode = newMode;
+    public void setJoysticks(FixedJoystick left, FixedJoystick right) {
+        this.joystickLeft = left;
+        this.joystickRight = right;
     }
 
 }

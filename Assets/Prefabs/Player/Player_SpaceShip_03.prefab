@@ -43,13 +43,14 @@ GameObject:
   - component: {fileID: 9159408223885750044}
   - component: {fileID: 5494014111943330181}
   - component: {fileID: 4696579470119487479}
+  - component: {fileID: 8946662973083218489}
   - component: {fileID: 2028169635566692515}
   - component: {fileID: 3735859727625737049}
   - component: {fileID: 4350093349400020556}
   - component: {fileID: 908748430549079169}
   - component: {fileID: 3250890199348632324}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_SpaceShip_03
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affa331491390e248849f7d949f1848f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealthPoints: 0
+  playerHealthPoints: 20
   col: {fileID: 4350093349400020556}
 --- !u!114 &5494014111943330181
 MonoBehaviour:
@@ -123,6 +124,26 @@ MonoBehaviour:
   - {fileID: 3622445047936990214}
   - {fileID: 7980193284094302049}
   - {fileID: 2403527489838854246}
+--- !u!114 &8946662973083218489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9159408223885750016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085f955232bca5d43a25e5720b388baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMode: 0
+  moveSpeedXAxis: 0.7
+  moveSpeedYAxis: 1
+  joystickSensitivity: 1
+  objectMovementRotation: 45
+  joystickRight: {fileID: 0}
+  joystickLeft: {fileID: 0}
+  objectToMove: {fileID: 0}
 --- !u!23 &2028169635566692515
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -172,7 +193,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9159408223885750016}
-  m_Mesh: {fileID: 5284991553290929056, guid: 908a8333a641dcc4593bf4e5bae91547, type: 3}
+  m_Mesh: {fileID: 4711208715938537054, guid: 7b9a94c3f226a8848a16c6247f421431, type: 3}
 --- !u!61 &4350093349400020556
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -197,7 +218,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.6, y: 1.6}
   m_EdgeRadius: 0
 --- !u!50 &908748430549079169
 Rigidbody2D:

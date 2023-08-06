@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GamePreparationUIManager : MonoBehaviour {
 
-    public StageStatsFileManager stageStats;
+    public StageStatsFileManager stageStatsFileManager;
 
     public TMPro.TMP_Text topLevelText;
     public TMPro.TMP_Text topScoreText;
@@ -28,13 +28,10 @@ public class GamePreparationUIManager : MonoBehaviour {
     private string levelToLoad = "";
 
     private void OnEnable() {
-        stageStats.updateStatsFileName(levelToLoad);
-        stageStats.loadStats();
-
-        StageStats stats = stageStats.getStageStats();
-
-        setUITextValues(stats);
-        checkAchievementValidation(stats);
+        setUp();
+    }
+    private void Start() {
+        setUp();
     }
 
     public void onLoadLevelButton() {
@@ -43,6 +40,16 @@ public class GamePreparationUIManager : MonoBehaviour {
         } else {
             SceneManager.LoadScene(levelToLoad);
         }
+    }
+
+    private void setUp() {
+        stageStatsFileManager.updateStatsFileName(levelToLoad);
+        stageStatsFileManager.loadStats();
+
+        StageStats stats = stageStatsFileManager.getStageStats();
+
+        setUITextValues(stats);
+        checkAchievementValidation(stats);
     }
 
     public void setFileNameToLoad(string levelToLoad) {
@@ -65,31 +72,43 @@ public class GamePreparationUIManager : MonoBehaviour {
 
     public void checkAchievementValidation(StageStats stats) {
         int achievementsReached = 6;
-        stageStats.validateStage01Achievements();
+        stageStatsFileManager.validateStage01Achievements();
 
         if (stats.achievement01Reached == false) {
             achievement01Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
+        } else {
+            achievement01Text.color = new Color(1, 1, 1, 1f);
         }
         if (stats.achievement02Reached == false) {
             achievement02Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
+        } else {
+            achievement02Text.color = new Color(1, 1, 1, 1f);
         }
         if (stats.achievement03Reached == false) {
             achievement03Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
+        } else {
+            achievement03Text.color = new Color(1, 1, 1, 1f);
         }
         if (stats.achievement04Reached == false) {
             achievement04Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
+        } else {
+            achievement04Text.color = new Color(1, 1, 1, 1f);
         }
         if (stats.achievement05Reached == false) {
             achievement05Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
+        } else {
+            achievement05Text.color = new Color(1, 1, 1, 1f);
         }
         if (stats.achievement06Reached == false) {
             achievement06Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
+        } else {
+            achievement06Text.color = new Color(1, 1, 1, 1f);
         }
 
         achievementTitleText.text = "Achievements: " + achievementsReached.ToString() + "/6";

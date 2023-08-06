@@ -12,7 +12,7 @@ public abstract class GameManagerBase : MonoBehaviour {
 
     [Header("Game Object References")]
     public ObstacleSpawner spawner;
-    public GameObject playerPrefab; // The player that will be instantiated by the game manager
+    
 
     [Header("UI References")]
     public GameOverUIManager gameOverUI;
@@ -23,8 +23,12 @@ public abstract class GameManagerBase : MonoBehaviour {
     public MusicManager musicManager;
     public GameStatsManager gameStatsManager;
 
-    [Header("Other Controllers")]
-    public MovementController movementController;
+    [Header("Joysticks")]
+    public FixedJoystick joystickRight;
+    public FixedJoystick joystickLeft;
+
+    protected MovementController movementController;
+    protected GameObject playerPrefab; // The player that will be instantiated by the game manager
 
     [Header("Game Parameters")]
     public float scoreAddTime = 1f;   // The time it takes to add score
@@ -91,15 +95,15 @@ public abstract class GameManagerBase : MonoBehaviour {
         }
     }
 
-    protected void spawnPlayer() {   
-        playerInstance = Instantiate(playerPrefab, playerSpawnPosition.transform.position, Quaternion.identity);
-        playerInstance.name = "Player";
-        activateMovementController(playerInstance);
-
+    protected void spawnPlayer() {
         PlayerConfigurationManager configManager =
             GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
 
-        playerInstance.GetComponent<MeshFilter>().mesh = configManager.getSelectedShip();
+        playerPrefab = configManager.getSelectedShip();
+
+        playerInstance = Instantiate(playerPrefab, playerSpawnPosition.transform.position, Quaternion.identity);
+        playerInstance.name = "Player";
+        activateMovementController();
     }
 
     protected virtual void setUpNewGame() {
@@ -124,10 +128,14 @@ public abstract class GameManagerBase : MonoBehaviour {
         configureGameOverWinSound();
     }
 
-    protected void activateMovementController(GameObject objectToMove) {
+    protected void activateMovementController() {
+        movementController = playerInstance.GetComponent<MovementController>();
+        movementController.setJoysticks(this.joystickLeft, this.joystickRight);
+
         movementController.objectToMove = playerInstance;
         movementController.calculateXAxisMoveBorderBySpawner();
         movementController.calculateYAxisMoveBorderByScreenHeight();
+        movementController.setJoyStickActive(true);
         movementController.enabled = true;
     }
     protected virtual void initGameValues() {
@@ -154,12 +162,11 @@ public abstract class GameManagerBase : MonoBehaviour {
     }
 
     protected void disableMovementController() {
-        movementController.enabled = false;
+        //movementController.enabled = false;
     }
 
     protected virtual void initGameUI() {
         gameOverUI.gameObject.SetActive(false);
-        movementController.setJoyStickActive(true);
     }
 
     protected virtual void initGameOverUI() {

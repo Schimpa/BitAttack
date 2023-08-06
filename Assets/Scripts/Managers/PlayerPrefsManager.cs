@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerPrefsManager : MonoBehaviour {
-
     public void Start() {
         initPlayerPrefs();
     }

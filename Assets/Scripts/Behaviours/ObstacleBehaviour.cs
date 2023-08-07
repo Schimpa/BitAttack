@@ -69,8 +69,9 @@ public class ObstacleBehaviour : MonoBehaviour {
                     playerColor.changePlayerColor();
                 } else {
                     GameObject.Find("SoundManager").GetComponent<SoundManager>().playObstacleHitSound();
-                    collision.gameObject.GetComponent<BulletBehaviour>().Destroy();
                 }
+               
+                collision.gameObject.GetComponent<BulletBehaviour>().Destroy();
             }
         } else if (collision.CompareTag("Player")){
             destroyObstacleFromPlayerCollision();

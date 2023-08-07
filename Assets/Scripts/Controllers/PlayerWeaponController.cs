@@ -2,39 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour {
-
-    public GameObject bulletPrefab;
-    public Transform bulletSpawnPoint;
-
-    private float bulletSpawnInterval;
+public class PlayerWeaponController : WeaponControllerBase {
 
     //Value, from which the input is processed and bullets are shoot
     public float verticalInputThreshold;
 
     private PlayerColorController playerColor;
 
-    //private FixedJoystick joystick;
-    private SoundManager soundManager;
-
     private PlayerConfigurationManager playerConfigManager;
 
     private FixedJoystick joystickRight;
     private FixedJoystick joystickLeft;
 
-    private float bulletSpawnIntervalTimer;
-
-    void Start() {
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    protected override void Start() {
+        base.Start();
         playerColor = GameObject.Find("Player").GetComponent<PlayerColorController>();
 
         playerConfigManager = 
             GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
-
-        if (SystemInfo.deviceType == DeviceType.Handheld) {
-            joystickRight = GameObject.Find("MovementController").GetComponent<MovementController>().joystickRight;
-            joystickLeft = GameObject.Find("MovementController").GetComponent<MovementController>().joystickLeft;
-        }
 
         bulletPrefab = playerConfigManager.getSelectedBullet();
 
@@ -43,8 +28,8 @@ public class WeaponController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        bulletSpawnIntervalTimer += Time.deltaTime;
+    protected override void Update() {
+        base.Update();
 
         if ( (SystemInfo.deviceType == DeviceType.Handheld) && (joystickRight.isPressed || joystickLeft.isPressed) ) {
             shootBullet();
@@ -54,7 +39,7 @@ public class WeaponController : MonoBehaviour {
    
     }
 
-    void shootBullet() {
+    protected override void shootBullet() {
         if (bulletSpawnIntervalTimer > bulletSpawnInterval) {
             GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
 
@@ -67,7 +52,7 @@ public class WeaponController : MonoBehaviour {
         } 
     }
 
-    private void playShootSound() {
+    protected override void playShootSound() {
         int shootSoundSelection = playerConfigManager.getSelectedBulletNumber();
 
         switch (shootSoundSelection) {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-
 public class StageGameManager : GameManagerBase {
 
     [Header("UI References")]
@@ -11,6 +10,8 @@ public class StageGameManager : GameManagerBase {
 
     [Header("Game Parameters")]
     public int levelUpTime = 10;   // The time it takes to level up
+
+    public BasicSpawner enemyShipSpawner;
 
     private float levelUpTimer;
 
@@ -27,9 +28,30 @@ public class StageGameManager : GameManagerBase {
     protected override void checkGameConditions() {
         base.checkGameConditions();
 
-        levelUpTimer += Time.deltaTime;
+        if ( gameStatsManager.currentLevel % 5 == 0) {
+            handleEnemyShipLevel();
+
+        } else {
+            handleObstacleLevel();        
+        }
+      
         if (levelUpTimer >= levelUpTime) {
             levelUp();         
+        }
+    }
+
+    private void handleObstacleLevel() {
+        levelUpTimer += Time.deltaTime;
+    }
+
+    private void handleEnemyShipLevel() {
+        if (enemyShipSpawner.getSpawnedObjectsCount() > 0) {
+
+        } else {
+            if (obstacleSpawner.gameObject.activeSelf == false) {
+                obstacleSpawner.gameObject.SetActive(true);
+            }
+            levelUpTimer += Time.deltaTime;
         }
     }
 
@@ -46,7 +68,23 @@ public class StageGameManager : GameManagerBase {
         gameStatsManager.levelUp();
         gameUI.playLevelUpAnimation(gameStatsManager.currentLevel);
         soundManager.playLevelUpSound();
-        spawner.levelUp();
+        obstacleSpawner.levelUp();
+
+        if (gameStatsManager.currentLevel % 5 == 0) {
+            activateEnemyShip();
+        }
+    }
+
+    private void activateEnemyShip() {
+        obstacleSpawner.gameObject.SetActive(false);
+        enemyShipSpawner.spawnNewObject();
+    }
+
+    protected override void setUpNewGame() {
+        base.setUpNewGame();
+        obstacleSpawner.gameObject.SetActive(true);
+        enemyShipSpawner.resetSpawner();
+        pauseUI.SetActive(false);
     }
 
     protected override void initGameValues() {

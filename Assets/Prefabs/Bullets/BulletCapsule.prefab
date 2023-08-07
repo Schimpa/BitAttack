@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  destroyPositionY: 25
+  destroyDistance: 30
   damage: 20
-  spawnInterval: 0.6
+  spawnInterval: 1
   color: 0
   bulletTrails:
   - {fileID: 7541471166190802509, guid: 041095543b5bb974799978c8cd485594, type: 3}

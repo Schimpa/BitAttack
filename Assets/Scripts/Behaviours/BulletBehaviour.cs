@@ -7,8 +7,8 @@ public class BulletBehaviour : MonoBehaviour {
     [Header("The up movespeed in Y direction")]
     public float moveSpeed;
 
-    [Header("The position, at which this obstacle will be destoyed")]
-    public float destroyPositionY;
+    [Header("The distance, at which this bullet will be destoyed")]
+    public float destroyDistance;
 
     [Header("The damage that the bullet does to the obstacles")]
     public int damage = 10;
@@ -24,18 +24,31 @@ public class BulletBehaviour : MonoBehaviour {
     [Header("Has to be in order BLUE, GREEN, PURPLE")]
     public List<GameObject> destroyParticles;
 
+    private Vector2 startPos;
+
     private void Start() {
         setBulletColor();
+        startPos = transform.position;
     }
 
     void Update() {
-        if (transform.position.y > destroyPositionY) {
-            Destroy(this.gameObject);
-        }
+        checkDistance();
+        moveBullet();
+    }
+
+    private void moveBullet() {
         Vector3 moveVector = new Vector3(0, 1, 0) * moveSpeed * Time.deltaTime;
         transform.Translate(moveVector);
-
     }
+
+    private void checkDistance() {
+        Vector2 currentPos = transform.position;
+
+        if (Vector2.Distance(currentPos, startPos) > destroyDistance) {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     public void setBulletColor() {
         GameObject trail;
@@ -49,7 +62,7 @@ public class BulletBehaviour : MonoBehaviour {
                 trail = Instantiate(bulletTrails[1], this.transform.position, Quaternion.identity);
                 break;
             case ColorMode.PURPLE:
-                this.GetComponent<SpriteRenderer>().color = Color.blue * Color.red;
+                this.GetComponent<SpriteRenderer>().color = Color.magenta;
                 trail = Instantiate(bulletTrails[2], this.transform.position, Quaternion.identity);
                 break;
             default:

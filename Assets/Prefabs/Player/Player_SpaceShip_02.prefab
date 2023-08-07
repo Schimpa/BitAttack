@@ -133,16 +133,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9159408223885750016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 085f955232bca5d43a25e5720b388baa, type: 3}
+  m_Script: {fileID: 11500000, guid: 184500c5746f0674aabc844634457579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameMode: 0
   moveSpeedXAxis: 1.3
-  moveSpeedYAxis: 1
+  moveSpeedYAxis: 1.3
   joystickSensitivity: 1
   objectMovementRotation: 45
-  joystickRight: {fileID: 0}
-  joystickLeft: {fileID: 0}
   objectToMove: {fileID: 0}
 --- !u!23 &2028169635566692515
 MeshRenderer:

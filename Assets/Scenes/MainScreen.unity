@@ -20125,11 +20125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship01Price: 0
-  ship02Price: 50
-  ship03Price: 100
+  ship02Price: 1
+  ship03Price: 1
   bullet01Price: 0
-  bullet02Price: 50
-  bullet03Price: 100
+  bullet02Price: 1
+  bullet03Price: 1
   ship01Name: Basic Baraxus
   ship02Name: Deftly Deloria
   ship03Name: Clumpy Crystis

@@ -11,7 +11,7 @@ this base class and then implement their own specific game implementation
 public abstract class GameManagerBase : MonoBehaviour {
 
     [Header("Game Object References")]
-    public ObstacleSpawner spawner;
+    public ObstacleSpawner obstacleSpawner;
     
 
     [Header("UI References")]
@@ -80,8 +80,12 @@ public abstract class GameManagerBase : MonoBehaviour {
     }
 
     protected virtual void checkGameConditions() {
-        if (playerInstance == null) {
-            //If the player object doesn't exist, the player is dead
+        checkIfPlayerIsDead();
+    }
+
+    protected void checkIfPlayerIsDead() {
+        //If the player object doesn't exist, the player is dead
+        if (playerInstance == null) {       
             setUpGameOverFailed();
             disableMovementController();
         }
@@ -103,12 +107,12 @@ public abstract class GameManagerBase : MonoBehaviour {
 
         playerInstance = Instantiate(playerPrefab, playerSpawnPosition.transform.position, Quaternion.identity);
         playerInstance.name = "Player";
-        activateMovementController();
+        setUpMovementController();
     }
 
     protected virtual void setUpNewGame() {
         initGameValues();
-        spawner.resetSpawner();
+        obstacleSpawner.resetSpawner();
         initGameUI();
         musicManager.playMusic();
     }
@@ -128,15 +132,11 @@ public abstract class GameManagerBase : MonoBehaviour {
         configureGameOverWinSound();
     }
 
-    protected void activateMovementController() {
+    protected void setUpMovementController() {
         movementController = playerInstance.GetComponent<MovementController>();
-        movementController.setJoysticks(this.joystickLeft, this.joystickRight);
-
         movementController.objectToMove = playerInstance;
         movementController.calculateXAxisMoveBorderBySpawner();
         movementController.calculateYAxisMoveBorderByScreenHeight();
-        movementController.setJoyStickActive(true);
-        movementController.enabled = true;
     }
     protected virtual void initGameValues() {
         gameActive = true;
@@ -181,7 +181,5 @@ public abstract class GameManagerBase : MonoBehaviour {
         gameOverUI.gameObject.SetActive(true);
 
         gameOverUI.createGameOverText(level);
-
-        movementController.setJoyStickActive(false);
     }
 }

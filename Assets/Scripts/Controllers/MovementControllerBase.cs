@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovementController : MonoBehaviour {
+public class MovementControllerBase : MonoBehaviour {
 
     [Header("Set the correct input (up/down or left/right) based on game mode and camera rotation")]
     public GameMode gameMode;
@@ -11,6 +11,8 @@ public class MovementController : MonoBehaviour {
 
     public float objectMovementRotation;
 
+    public FixedJoystick joystickRight;
+    public FixedJoystick joystickLeft;
     public GameObject objectToMove;
 
     // The maximum value, in which the character can move on the play field (Both directions)
@@ -18,6 +20,10 @@ public class MovementController : MonoBehaviour {
 
     private float yAxisMovementBorderMin;
     private float yAxisMovementBorderMax;
+
+    void Awake() {
+ 
+    }
 
     private void Start() {
         loadPreferences();
@@ -38,7 +44,11 @@ public class MovementController : MonoBehaviour {
         float xAxisInput = 0f;
         float yAxisInput = 0f;
 
-        if (gameMode == GameMode.MOBILE) {   
+        if ( (SystemInfo.deviceType == DeviceType.Handheld) && (joystickRight.isPressed) ) {
+            xAxisInput = 1;
+        } else if ((SystemInfo.deviceType == DeviceType.Handheld) && (joystickLeft.isPressed)) {
+            xAxisInput = -1;
+        } else if (gameMode == GameMode.MOBILE) {   
             // The input from left and right arrow is taken
             xAxisInput = Input.GetAxis("Horizontal");
         } else if (gameMode == GameMode.PC) {
@@ -51,15 +61,12 @@ public class MovementController : MonoBehaviour {
     }
 
     private void validateMovementConditionsBasedOnInput(Vector2 axisInput, Vector2 pos) {
-        validateMovementConditionsOnXAxis(axisInput, pos);
-        validateMovementConditionsOnYAxis(axisInput, pos);
-    }
 
-    private void validateMovementConditionsOnXAxis(Vector2 axisInput, Vector2 pos) {
+        // X AXIS
         if (Mathf.Abs(pos.x) > xAxisMovementBorder) {
             if ((pos.x < -xAxisMovementBorder) && axisInput.x > 0) {
                 // Allow player to move from left (outside border) to the right back into the area
-                updateObjectPosition(axisInput * new Vector2(1, 0) * moveSpeedXAxis);
+                updateObjectPosition(axisInput * new Vector2(1,0) * moveSpeedXAxis);
             } else if ((pos.x > xAxisMovementBorder) && axisInput.x < 0) {
                 // Allow player to move from right (outside border) to the left back into the area
                 updateObjectPosition(axisInput * new Vector2(1, 0) * moveSpeedXAxis);
@@ -67,14 +74,13 @@ public class MovementController : MonoBehaviour {
         } else {
             updateObjectPosition(axisInput * new Vector2(1, 0) * moveSpeedXAxis);
         }
-    }
 
-    private void validateMovementConditionsOnYAxis(Vector2 axisInput, Vector2 pos) {
+        // Y AXIS
         if (pos.y < yAxisMovementBorderMin) {
             if ((pos.y < -xAxisMovementBorder) && axisInput.y > 0) {
                 // Allow player to move from bottom (outside border) up back into the area
                 updateObjectPosition(axisInput * new Vector2(0, 1) * moveSpeedYAxis);
-            }
+            } 
         } else if (pos.y > yAxisMovementBorderMax) {
             if ((pos.y > yAxisMovementBorderMax) && axisInput.y < 0) {
                 // Allow player to move from bottom (outside border) up back into the area
@@ -83,9 +89,9 @@ public class MovementController : MonoBehaviour {
         } else {
             updateObjectPosition(axisInput * new Vector2(0, 1) * moveSpeedYAxis);
         }
+
+
     }
-
-
 
     private void updateObjectPosition(Vector2 axisInput) {
         Vector3 moveVector = axisInput  * Time.deltaTime * 10;
@@ -143,6 +149,24 @@ public class MovementController : MonoBehaviour {
             float sensitivity = PlayerPrefs.GetFloat(PrefKeys.SENSITIVITY.ToString(),1);
             this.moveSpeedXAxis *= sensitivity;
         }
+    }
+
+    public void setJoyStickActive(bool value) {
+        /**
+         * Sets the joystick active or inactive. But only active if it is a mobile device
+         */
+        if (value == true && SystemInfo.deviceType == DeviceType.Handheld) {
+            joystickRight.gameObject.SetActive(true);
+            joystickLeft.gameObject.SetActive(true);
+        } else {
+            joystickRight.gameObject.SetActive(false);
+            joystickLeft.gameObject.SetActive(false);
+        }
+        
+    }
+    public void setJoysticks(FixedJoystick left, FixedJoystick right) {
+        this.joystickLeft = left;
+        this.joystickRight = right;
     }
 
 }

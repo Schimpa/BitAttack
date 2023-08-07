@@ -6,7 +6,7 @@ using UnityEngine;
  * This script is responsible for spawning the obstacles
  * that move towards the player
  */
-public class ObstacleSpawner : BasicSpawner {
+public class ObstacleSpawner : TimerSpawner {
 
     [Header("PC = All five spawn points are used, MOBILE = Only three are used")]
     public GameMode gameMode;
@@ -53,13 +53,13 @@ public class ObstacleSpawner : BasicSpawner {
         return spawnPos;
     }
 
-    protected override void spawnNewObject() {
+    public override void spawnNewObject() {
         int spawnPos = getSpawnPosition();
 
         // Instantiate at position (0, 0, 0) and zero rotation.
         GameObject newObject = Instantiate(spawnObjectPrefab, spawnPoints[spawnPos].position, Quaternion.identity);
         setObstacleProperties(newObject);
-        newObject.transform.rotation = this.transform.rotation;
+        newObject.transform.rotation = transform.rotation;
 
         spawnedObjects.Add(newObject);
     }

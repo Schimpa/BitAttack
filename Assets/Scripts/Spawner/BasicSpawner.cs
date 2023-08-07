@@ -10,13 +10,13 @@ public class BasicSpawner : MonoBehaviour {
     public List<Transform> spawnPoints;
     public GameObject spawnObjectPrefab;
 
-    public float spawnInterval; // In Seconds
-    public float spawnIntervalStartOffset;
     public int spawnAmount; // The amount of objects that shall be spawned at the same time
     public bool preventSameSpawnPositionTwice;  // If this is true, the spawner does not spawn two objects after another at the same position
 
+    private float spawnListClearInterval = 1f;
+    private float spawnListClearIntervalTimer;
+
     protected List<GameObject> spawnedObjects;
-    protected float deltaTime;
 
     protected int previousSpawnPosition;
 
@@ -24,30 +24,31 @@ public class BasicSpawner : MonoBehaviour {
         if (spawnAmount == 0) {
             spawnAmount = 1;
         }
+        spawnListClearIntervalTimer = 0;
     }
 
     void Start() {
         initValues();
     }
 
-    public void resetSpawner() {
-        clearAllSpawnedObjects();
+    protected virtual void Update() {
+        spawnListClearIntervalTimer += Time.deltaTime;
+
+        if (spawnListClearIntervalTimer > spawnListClearInterval) {
+            spawnListClearIntervalTimer = 0f;
+            clearListOfDestroyedObjects();
+        }
+    }
+
+    public void resetSpawner() {  
+        if (spawnedObjects != null) {
+            clearListOfDestroyedObjects();
+            destroyAllSpawnedObjects();
+        }      
         initValues();
     }
 
-    protected virtual void Update() {
-        deltaTime += Time.deltaTime;
-
-        if (deltaTime > spawnInterval) {
-            for (int i = 0; i < spawnAmount; i++) {
-                spawnNewObject();
-            }
-            deltaTime = 0f;
-        }
-
-    }
-
-    protected virtual void spawnNewObject() {
+    public virtual void spawnNewObject() {
         int spawnPos = getSpawnPosition();
 
         // Instantiate at position (0, 0, 0) and zero rotation.
@@ -69,16 +70,27 @@ public class BasicSpawner : MonoBehaviour {
         return spawnPos;
     }
 
-    protected void clearAllSpawnedObjects() { if (spawnedObjects == null) return;
+    protected void destroyAllSpawnedObjects() {
         foreach(GameObject obj in spawnedObjects) {
             Destroy(obj);
         }
     }
 
+    protected void clearListOfDestroyedObjects() {
+        for (int i = 0; i < spawnedObjects.Count; i++) {
+            if (spawnedObjects[i] == null) {
+                spawnedObjects.RemoveAt(i);
+            }
+        }
+    }
+
     protected virtual void initValues() {
-        deltaTime = 0f + spawnIntervalStartOffset;
         previousSpawnPosition = 100; // Random number that does not correspond to previos spawn position
         spawnedObjects = new List<GameObject>();
+    }
+
+    public int getSpawnedObjectsCount() {
+        return spawnedObjects.Count;
     }
 
 }

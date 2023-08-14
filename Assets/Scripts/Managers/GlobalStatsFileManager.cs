@@ -14,12 +14,12 @@ public class GlobalStatsFileManager : MonoBehaviour {
     private string filePath;
 
     private GlobalStats globalStats;
-    private bool fileLoaded;
 
     void OnEnable() {
         formatter = new BinaryFormatter();
         filePath = Application.persistentDataPath + "/" + GLOBAL_STATS_FILE_NAME + ".stats";
-        fileLoaded = false;
+
+        loadStats();
     }
 
     public void saveStats() {
@@ -50,7 +50,7 @@ public class GlobalStatsFileManager : MonoBehaviour {
 
     public void resetStats() {
         File.Delete(filePath);
-        globalStats = new GlobalStats();
+        this.globalStats = new GlobalStats();
     }
 
     public GlobalStats getGlobalStats() {

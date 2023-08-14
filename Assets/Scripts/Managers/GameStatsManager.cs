@@ -23,9 +23,6 @@ public class GameStatsManager : MonoBehaviour {
     }
 
     public void addCurrentGameStatsToGlobalStats() {
-        stageStats.loadStats();
-        globalStats.loadStats();
-
         StageStats stageStatsRef = stageStats.getStageStats();
         GlobalStats globalStatsRef = globalStats.getGlobalStats();
 

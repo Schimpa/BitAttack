@@ -8,6 +8,8 @@ using UnityEngine;
 public class IntroGameUIManager : GameUIManagerBase {
 
     public TMPro.TMP_Text objectiveText;
+
+    [Header("To reset them after a new game")]
     public List<TextPopUpBehaviour> textPopUps;
 
     public int totalBitsAmount; // Total bits needed to win
@@ -27,8 +29,7 @@ public class IntroGameUIManager : GameUIManagerBase {
         base.resetUI();
         objectiveText.text = "";
         foreach (TextPopUpBehaviour textPopUp in textPopUps) {
-            textPopUp.gameObject.SetActive(true);
-            textPopUp.resetTimer();
+            //textPopUp.resetPopUp();
         }
     }
 

@@ -13,6 +13,10 @@ public class BasicSpawner : MonoBehaviour {
     public int spawnAmount; // The amount of objects that shall be spawned at the same time
     public bool preventSameSpawnPositionTwice;  // If this is true, the spawner does not spawn two objects after another at the same position
 
+    [Header("If this is not null, the particles will be spawned with the new object. \nThe particle gameobject " +
+        "shall be set to be destroyed afterthe particle is finished playing")]
+    public GameObject spawnParticle;
+
     private float spawnListClearInterval = 1f;
     private float spawnListClearIntervalTimer;
 
@@ -54,6 +58,10 @@ public class BasicSpawner : MonoBehaviour {
         // Instantiate at position (0, 0, 0) and zero rotation.
         GameObject newObject = Instantiate(spawnObjectPrefab, spawnPoints[spawnPos].position, Quaternion.identity);
         newObject.transform.rotation = this.transform.rotation;
+
+        if (spawnParticle != null) {
+            Instantiate(spawnParticle, spawnPoints[spawnPos].position, Quaternion.identity);
+        }
 
         spawnedObjects.Add(newObject);
     }

@@ -13,6 +13,9 @@ public class MovementController : MonoBehaviour {
 
     public GameObject objectToMove;
 
+    [Header("To calculate the movement border")]
+    public ObstacleSpawner spawner;
+
     // The maximum value, in which the character can move on the play field (Both directions)
     private float xAxisMovementBorder;
 
@@ -31,7 +34,7 @@ public class MovementController : MonoBehaviour {
 
         validateMovementConditionsBasedOnInput(axisInput, pos);
 
-        updateObjectRotation(axisInput);
+        updateObjectRotation(-axisInput);
     }
 
     private Vector2 getInput() {
@@ -129,7 +132,6 @@ public class MovementController : MonoBehaviour {
     public void calculateXAxisMoveBorderBySpawner() {
         // Get the last spawn position of the spawner, which is the most outer spawn position.
         // Sets the move border based on that
-        ObstacleSpawner spawner = GameObject.Find("ObstacleSpawner").GetComponent<ObstacleSpawner>();
         Transform lastSpawnPoint = spawner.spawnPoints[spawner.spawnPoints.Count - 1];
         float lastSpawnPointXPos = lastSpawnPoint.position.x;
 

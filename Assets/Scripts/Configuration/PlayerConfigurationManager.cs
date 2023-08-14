@@ -28,8 +28,6 @@ public class PlayerConfigurationManager : MonoBehaviour {
 
 
     void Start() {
-        globalStatsFileManager.loadStats();
-
         globalStats = globalStatsFileManager.getGlobalStats();
 
         selectedShip = globalStats.selectedShip;

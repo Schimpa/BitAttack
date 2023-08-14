@@ -16,11 +16,12 @@ public class StageStatsFileManager : MonoBehaviour {
 
     private bool newAchievementUnlocked;
 
-    void Awake() {
+    void OnEnable() {
         formatter = new BinaryFormatter();
         newAchievementUnlocked = false;
-        if (stageStatsFileName != "") {
+        if (stageStatsFileName != "") { 
             filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
+            loadStats();
         }
     }
 
@@ -57,7 +58,7 @@ public class StageStatsFileManager : MonoBehaviour {
 
     public void resetStats() {
         File.Delete(filePath);
-        stageStats = new StageStats();
+        this.stageStats = new StageStats();
     }
 
     public StageStats getStageStats() {

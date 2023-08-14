@@ -9,8 +9,14 @@ public class GameConfigurator : MonoBehaviour {
     [Header("To rotate the camera by 90°")]
     public Camera mainCamera;
 
-    [Header("The spawner is moved to be outside of the camera field")]
-    public GameObject spawner;
+    [Header("Shall the mouse curser be enabled during the game?")]
+    public bool mouseCursorEnabled;
+
+    [Header("The obstacle spawner is moved to be outside of the camera field")]
+    public GameObject obstacleSpawner;
+
+    [Header("The enemy ship spawner is moved to be inside the camera field")]
+    public GameObject enemyShipSpawner;
 
     [Header("The player spawn position is moved to be in the bottom / left 15% of the screen")]
     public GameObject playerSpawnPosition;
@@ -24,9 +30,11 @@ public class GameConfigurator : MonoBehaviour {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120;
 
+        Cursor.visible = mouseCursorEnabled;
+
         Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        float backgroundShapeSpawnerWidth = 0f;
-        float viewBorder = 0f;
+        float backgroundShapeSpawnerWidth;
+        float viewBorder;
 
         if (gameMode == GameMode.PC) {
             mainCamera.transform.Rotate(new Vector3(0, 0, 90));
@@ -52,8 +60,11 @@ public class GameConfigurator : MonoBehaviour {
         backgroundLasers.SetActive(true);
         backgroundPixels.SetActive(true);
 
-        spawner.transform.position = new Vector3(
-            spawner.transform.position.x, viewBorder + 2, spawner.transform.position.z);
+        obstacleSpawner.transform.position = new Vector3(
+            obstacleSpawner.transform.position.x, viewBorder + 2, obstacleSpawner.transform.position.z);
+
+        enemyShipSpawner.transform.position = new Vector3(
+            enemyShipSpawner.transform.position.x, viewBorder - 2, obstacleSpawner.transform.position.z);
 
         backgroundCubes.transform.position = new Vector3(
             backgroundCubes.transform.position.x, viewBorder + 5, backgroundCubes.transform.position.z);
@@ -71,11 +82,6 @@ public class GameConfigurator : MonoBehaviour {
             playerSpawnPosition.transform.position.x,playerSpawnPosY,playerSpawnPosition.transform.position.z);
 
     }
-
-    void Update() {
-        
-    }
-
 
 }
 

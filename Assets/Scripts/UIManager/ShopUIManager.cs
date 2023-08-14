@@ -52,7 +52,6 @@ public class ShopUIManager : MonoBehaviour {
     private GlobalStats stats;
 
     void OnEnable() {
-        globalStats.loadStats();
         stats = globalStats.getGlobalStats();
         updateBitsText();
         itemNameText.text = "";

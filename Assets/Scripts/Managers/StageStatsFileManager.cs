@@ -58,7 +58,7 @@ public class StageStatsFileManager : MonoBehaviour {
 
     public void resetStats() {
         File.Delete(filePath);
-        this.stageStats = new StageStats();
+        loadStats();
     }
 
     public StageStats getStageStats() {

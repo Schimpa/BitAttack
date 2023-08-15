@@ -52,7 +52,7 @@ public class TextPrintBehaviour : MonoBehaviour {
         }
 
 
-        if (enableSkipText && Input.GetAxis("Submit") > 0) {
+        if (enableSkipText && Input.GetButtonDown("Submit")) {
             printFullText();
         }
     }

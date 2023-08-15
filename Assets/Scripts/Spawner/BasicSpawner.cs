@@ -8,7 +8,10 @@ using UnityEngine;
 public class BasicSpawner : MonoBehaviour {
 
     public List<Transform> spawnPoints;
-    public GameObject spawnObjectPrefab;
+    public List<GameObject> spawnObjectPrefabs;
+
+    [Header("Shall the spawn objects be choosen randomly or by order?")]
+    public SpawnOrder spawnObjectOrder;
 
     public int spawnAmount; // The amount of objects that shall be spawned at the same time
     public bool preventSameSpawnPositionTwice;  // If this is true, the spawner does not spawn two objects after another at the same position
@@ -24,11 +27,16 @@ public class BasicSpawner : MonoBehaviour {
 
     protected int previousSpawnPosition;
 
+    protected int spawnObjectListPosition;
+    protected int spawnPositionListPosition;
+
     protected virtual void Awake() {
         if (spawnAmount == 0) {
             spawnAmount = 1;
         }
         spawnListClearIntervalTimer = 0;
+        spawnObjectListPosition = 0;
+        spawnPositionListPosition = 0;
     }
 
     void Start() {
@@ -53,29 +61,47 @@ public class BasicSpawner : MonoBehaviour {
     }
 
     public virtual void spawnNewObject() {
-        int spawnPos = getSpawnPosition();
-
+        setNewSpawnPositionListPosition();
+        
         // Instantiate at position (0, 0, 0) and zero rotation.
-        GameObject newObject = Instantiate(spawnObjectPrefab, spawnPoints[spawnPos].position, Quaternion.identity);
+        GameObject newObject = Instantiate(
+            spawnObjectPrefabs[spawnObjectListPosition], 
+            spawnPoints[spawnPositionListPosition].position, 
+            Quaternion.identity);
+
         newObject.transform.rotation = this.transform.rotation;
 
         if (spawnParticle != null) {
-            Instantiate(spawnParticle, spawnPoints[spawnPos].position, Quaternion.identity);
+            Instantiate(
+                spawnParticle, 
+                spawnPoints[spawnPositionListPosition].position, 
+                Quaternion.identity);
         }
 
         spawnedObjects.Add(newObject);
+        setNewSpawnObjectListPosition();
     }
 
-    private int getSpawnPosition() {
-        int spawnPos = Random.Range(0, spawnPoints.Count);
+    protected void setNewSpawnPositionListPosition() {
+        spawnPositionListPosition = Random.Range(0, spawnPoints.Count);
 
-        while (preventSameSpawnPositionTwice && spawnPos == previousSpawnPosition) {
+        while (preventSameSpawnPositionTwice && spawnPositionListPosition == previousSpawnPosition) {
             //Prevent same spawn position twice
-            spawnPos = Random.Range(0, spawnPoints.Count);
+            spawnPositionListPosition = Random.Range(0, spawnPoints.Count);
         }
 
-        previousSpawnPosition = spawnPos;
-        return spawnPos;
+        previousSpawnPosition = spawnPositionListPosition;
+    }
+
+    protected void setNewSpawnObjectListPosition() {
+        if (spawnObjectOrder == SpawnOrder.RANDOM) {
+            spawnObjectListPosition = Random.Range(0, spawnObjectPrefabs.Count);
+        } else if (spawnObjectOrder == SpawnOrder.ORDERED) {
+            spawnObjectListPosition++;
+            if (spawnObjectListPosition >= spawnObjectPrefabs.Count) {
+                spawnObjectListPosition = 0;
+            }
+        }
     }
 
     protected void destroyAllSpawnedObjects() {
@@ -101,4 +127,9 @@ public class BasicSpawner : MonoBehaviour {
         return spawnedObjects.Count;
     }
 
+}
+
+public enum SpawnOrder {
+    ORDERED,
+    RANDOM
 }

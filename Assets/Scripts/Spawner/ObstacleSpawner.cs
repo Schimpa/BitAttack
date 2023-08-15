@@ -54,14 +54,29 @@ public class ObstacleSpawner : TimerSpawner {
     }
 
     public override void spawnNewObject() {
-        int spawnPos = getSpawnPosition();
+        setNewSpawnPositionListPosition();
 
         // Instantiate at position (0, 0, 0) and zero rotation.
-        GameObject newObject = Instantiate(spawnObjectPrefab, spawnPoints[spawnPos].position, Quaternion.identity);
+        GameObject newObject = Instantiate(
+            spawnObjectPrefabs[spawnObjectListPosition],
+            spawnPoints[spawnPositionListPosition].position,
+            Quaternion.identity);
+
+        newObject.transform.rotation = this.transform.rotation;
+
+        if (spawnParticle != null) {
+            Instantiate(
+                spawnParticle,
+                spawnPoints[spawnPositionListPosition].position,
+                Quaternion.identity);
+        }
+
         setObstacleProperties(newObject);
-        newObject.transform.rotation = transform.rotation;
 
         spawnedObjects.Add(newObject);
+        setNewSpawnObjectListPosition();
+
+        
     }
 
     private void setObstacleProperties(GameObject newObject) {

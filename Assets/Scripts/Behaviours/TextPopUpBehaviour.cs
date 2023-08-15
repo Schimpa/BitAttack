@@ -57,7 +57,6 @@ public class TextPopUpBehaviour : MonoBehaviour {
         foreach(GameObject obj in childGameObjects) {
             obj.gameObject.SetActive(false);
         }
-        this.gameObject.SetActive(true);
     }
 
     private void enablePopUpGameObjects() {      
@@ -82,7 +81,6 @@ public class TextPopUpBehaviour : MonoBehaviour {
         countdownDurationTimer = 0f;
         disablePopUpGameObjects();
         continueButton.SetActive(enableContinueButtonOnStart);
-        this.gameObject.SetActive(true);
     }
 
     public void startCountDown() {

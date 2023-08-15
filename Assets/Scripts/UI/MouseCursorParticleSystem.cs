@@ -5,11 +5,7 @@ using UnityEngine;
 public class MouseCursorParticleSystem : MonoBehaviour {
 
     public ParticleSystem clickParticles;
-
-    void Start()
-    {
-        
-    }
+    public BoxCollider2D boxCollider;
 
     // Update is called once per frame
     void Update() {
@@ -21,6 +17,9 @@ public class MouseCursorParticleSystem : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             //clickParticles.transform.position = newMousePos;
             clickParticles.Play();
+            boxCollider.enabled = true;
+        } else if (Input.GetKeyUp(KeyCode.Mouse0)) {
+            boxCollider.enabled = false;
         }
     }
 }

@@ -9,9 +9,6 @@ public class IntroGameUIManager : GameUIManagerBase {
 
     public TMPro.TMP_Text objectiveText;
 
-    [Header("To reset them after a new game")]
-    public List<TextPopUpBehaviour> textPopUps;
-
     public int totalBitsAmount; // Total bits needed to win
 
     protected override void OnEnable() {
@@ -28,9 +25,6 @@ public class IntroGameUIManager : GameUIManagerBase {
     public override void resetUI() {
         base.resetUI();
         objectiveText.text = "";
-        foreach (TextPopUpBehaviour textPopUp in textPopUps) {
-            //textPopUp.resetPopUp();
-        }
     }
 
 }

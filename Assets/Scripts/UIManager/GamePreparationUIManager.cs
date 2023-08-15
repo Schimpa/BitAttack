@@ -30,9 +30,6 @@ public class GamePreparationUIManager : MonoBehaviour {
     private void OnEnable() {
         setUp();
     }
-    private void Start() {
-        setUp();
-    }
 
     public void onLoadLevelButton() {
         if (levelToLoad == "") {

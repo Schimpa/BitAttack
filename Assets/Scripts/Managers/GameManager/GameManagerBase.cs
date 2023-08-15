@@ -10,11 +10,21 @@ this base class and then implement their own specific game implementation
  */
 public abstract class GameManagerBase : MonoBehaviour {
 
+    [Header("What shall happen when the game starts?")]
     public UnityEvent startEvents;
 
-    public ObstacleSpawner obstacleSpawner;
-    public bool obstacleSpawnerActiveOnStart;
+    [Header("What shall happen when the game was lost?")]
+    public UnityEvent gameOverEvents;
 
+    [Header("What shall happen when the game was won?")]
+    public UnityEvent gameWinEvents;
+
+    [Header("Spawners")]
+    public ObstacleSpawner obstacleSpawner;
+    public BasicSpawner enemyShipSpawner;
+
+    [Header("Activate or deactivate components on game start")]
+    public bool obstacleSpawnerActiveOnStart;
     public bool movementControllerActiveOnStart;
     public bool weaponControllerActiveOnStart;
 
@@ -59,10 +69,7 @@ public abstract class GameManagerBase : MonoBehaviour {
 
     // Update is called once per frame
     protected virtual void Update() { if (gameActive == false) return;
-        if (playerSpawned == false) {
-            spawnPlayer();
-            playerSpawned = true;
-        }
+        spawnPlayer();
         checkGameConditions();
         checkScore();
         gameStatsManager.addPlayTime(Time.deltaTime);
@@ -106,7 +113,7 @@ public abstract class GameManagerBase : MonoBehaviour {
         }
     }
 
-    protected void spawnPlayer() {
+    public void spawnPlayer() { if (playerSpawned == true) return;
         PlayerConfigurationManager configManager =
             GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
 
@@ -118,15 +125,14 @@ public abstract class GameManagerBase : MonoBehaviour {
         playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
         playerWeaponController.enabled = weaponControllerActiveOnStart;
         setUpMovementController();
+
+        playerSpawned = true;
     }
 
     protected virtual void setUpNewGame() {
         initGameValues();
-
-        obstacleSpawner.resetSpawner();
-        
+        obstacleSpawner.resetSpawner();      
         initGameUI();
-
         musicManager.playMusic();
 
     }
@@ -139,17 +145,14 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected void setUpGameOverFailed() {
         setUpGameOver();
         configureGameOverFailedSound();
+        gameOverEvents.Invoke();
     }
 
-    protected void setUpGameOverWin() {
+    protected virtual void setUpGameOverWin() {
         setUpGameOver();
         configureGameOverWinSound();
-        unlockLevel01();
-    }
-
-    private void unlockLevel01() {
-        gameStatsManager.globalStats.getGlobalStats().level01Unlocked = true;
-        gameStatsManager.globalStats.saveStats();
+        gameWinEvents.Invoke();
+        movementController.enabled = false;
     }
 
     protected void setUpMovementController() {
@@ -170,6 +173,7 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected void configureGameOverValues() {
         gameActive = false;
         playerSpawned = false;
+        Cursor.visible = true;
     }
 
     protected void configureGameOverFailedSound() {
@@ -213,5 +217,4 @@ public abstract class GameManagerBase : MonoBehaviour {
     public void setGameActive(bool value) {
         this.gameActive = value;
     }
-
 }

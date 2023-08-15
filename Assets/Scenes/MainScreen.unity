@@ -5611,7 +5611,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stage 1
+  m_text: Level 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7b33bf4a7a1b1744bbfc19526261d108, type: 2}
   m_sharedMaterial: {fileID: 1008260936322950657, guid: 7b33bf4a7a1b1744bbfc19526261d108, type: 2}
@@ -7087,6 +7087,14 @@ PrefabInstance:
       propertyPath: spawnIntervalStartOffset
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2810927295146416408, guid: 546c36d21e9c9d447a4f6110ad6d648f, type: 3}
     m_RemovedComponents:
     - {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
@@ -8212,7 +8220,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1035411325}
         m_TargetAssemblyTypeName: MainScreenUIManager, Assembly-CSharp
-        m_MethodName: switchToIntroStagePreparationUI
+        m_MethodName: loadIntroStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12242,6 +12250,14 @@ PrefabInstance:
       propertyPath: spawnIntervalStartOffset
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2810927295146416408, guid: 546c36d21e9c9d447a4f6110ad6d648f, type: 3}
     m_RemovedComponents:
     - {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
@@ -16953,7 +16969,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871327501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17051,6 +17067,14 @@ PrefabInstance:
       propertyPath: spawnIntervalStartOffset
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2810927295146416408, guid: 546c36d21e9c9d447a4f6110ad6d648f, type: 3}
     m_RemovedComponents:
     - {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
@@ -17194,11 +17218,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship01Price: 0
-  ship02Price: 1
-  ship03Price: 1
+  ship02Price: 50
+  ship03Price: 50
   bullet01Price: 0
-  bullet02Price: 1
-  bullet03Price: 1
+  bullet02Price: 50
+  bullet03Price: 50
   ship01Name: Basic Baraxus
   ship02Name: Deftly Deloria
   ship03Name: Clumpy Crystis
@@ -18995,6 +19019,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2054414930}
   - component: {fileID: 2054414929}
+  - component: {fileID: 2054414932}
+  - component: {fileID: 2054414931}
   m_Layer: 0
   m_Name: MouseCursorParticleSystem
   m_TagString: Untagged
@@ -19015,6 +19041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickParticles: {fileID: 1776747834361966626}
+  boxCollider: {fileID: 2054414931}
 --- !u!4 &2054414930
 Transform:
   m_ObjectHideFlags: 0
@@ -19032,6 +19059,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2054414931
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054414928}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.02}
+  m_EdgeRadius: 0
+--- !u!50 &2054414932
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054414928}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2058307271
 GameObject:
   m_ObjectHideFlags: 0
@@ -19444,6 +19518,14 @@ PrefabInstance:
       propertyPath: spawnIntervalStartOffset
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528042499389991949, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
+      propertyPath: spawnObjectPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2810927295146416408, guid: 546c36d21e9c9d447a4f6110ad6d648f, type: 3}
     m_RemovedComponents:
     - {fileID: 6566379257644349546, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0c3af4f25185fa348a0656a811fdd05a, type: 3}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameConfigurator : MonoBehaviour {
 
+
     public GameMode gameMode;
 
     [Header("To rotate the camera by 90°")]
@@ -29,6 +30,15 @@ public class GameConfigurator : MonoBehaviour {
     void Awake() {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120;
+
+        Resolution[] resolutions = Screen.resolutions;
+
+        // Print the resolutions
+        //foreach (Resolution res in resolutions) {
+        //    Debug.Log(res.width + "x" + res.height + " : " + res.refreshRate + " aspect: " + (float)((float)res.width/(float)res.height) );
+        //}
+
+        Screen.SetResolution(640, 480, true);
 
         Cursor.visible = mouseCursorEnabled;
 

@@ -50,7 +50,7 @@ public class GlobalStatsFileManager : MonoBehaviour {
 
     public void resetStats() {
         File.Delete(filePath);
-        this.globalStats = new GlobalStats();
+        loadStats();
     }
 
     public GlobalStats getGlobalStats() {

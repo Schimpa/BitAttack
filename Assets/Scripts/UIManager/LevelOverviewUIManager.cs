@@ -9,7 +9,7 @@ public class LevelOverviewUIManager : MonoBehaviour {
 
     public Button level01Button;
 
-    void Start() {
+    void OnEnable() {
         GlobalStats globalStats = globalStatsFileManager.getGlobalStats();
 
         if (globalStats.level01Unlocked) {

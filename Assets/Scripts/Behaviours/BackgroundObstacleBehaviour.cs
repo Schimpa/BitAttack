@@ -13,6 +13,8 @@ public class BackgroundObstacleBehaviour : MonoBehaviour {
 
     public Renderer obstacleRenderer;
 
+    public GameObject obstacleDestroyParticle;
+
     private Vector3 spawnPosition;
 
     private void Start() {
@@ -40,6 +42,14 @@ public class BackgroundObstacleBehaviour : MonoBehaviour {
     private void translateObstacle() {
         Vector3 moveVector = new Vector3(0, -moveSpeed, 0) * moveSpeed * Time.deltaTime;
         transform.Translate(moveVector);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+
+        Instantiate(obstacleDestroyParticle,
+                    this.transform.position, obstacleDestroyParticle.transform.rotation);
+
+        Destroy(this.gameObject);
     }
 
 }

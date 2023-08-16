@@ -8,7 +8,6 @@ using UnityEngine;
 public class IntroGameUIManager : GameUIManagerBase {
 
     public TMPro.TMP_Text objectiveText;
-    public List<TextPopUpBehaviour> textPopUps;
 
     public int totalBitsAmount; // Total bits needed to win
 
@@ -26,10 +25,6 @@ public class IntroGameUIManager : GameUIManagerBase {
     public override void resetUI() {
         base.resetUI();
         objectiveText.text = "";
-        foreach (TextPopUpBehaviour textPopUp in textPopUps) {
-            textPopUp.gameObject.SetActive(true);
-            textPopUp.resetTimer();
-        }
     }
 
 }

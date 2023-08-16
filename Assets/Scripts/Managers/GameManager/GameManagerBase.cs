@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 /**
  Base class for Game Managers. Every Game Manager shall inherit from
@@ -10,9 +10,23 @@ this base class and then implement their own specific game implementation
  */
 public abstract class GameManagerBase : MonoBehaviour {
 
-    [Header("Game Object References")]
+    [Header("What shall happen when the game starts?")]
+    public UnityEvent startEvents;
+
+    [Header("What shall happen when the game was lost?")]
+    public UnityEvent gameOverEvents;
+
+    [Header("What shall happen when the game was won?")]
+    public UnityEvent gameWinEvents;
+
+    [Header("Spawners")]
     public ObstacleSpawner obstacleSpawner;
-    
+    public BasicSpawner enemyShipSpawner;
+
+    [Header("Activate or deactivate components on game start")]
+    public bool obstacleSpawnerActiveOnStart;
+    public bool movementControllerActiveOnStart;
+    public bool weaponControllerActiveOnStart;
 
     [Header("UI References")]
     public GameOverUIManager gameOverUI;
@@ -27,14 +41,15 @@ public abstract class GameManagerBase : MonoBehaviour {
     public FixedJoystick joystickRight;
     public FixedJoystick joystickLeft;
 
-    protected MovementController movementController;
-    protected GameObject playerPrefab; // The player that will be instantiated by the game manager
-
     [Header("Game Parameters")]
     public float scoreAddTime = 1f;   // The time it takes to add score
     public int scoreAddTimeAmount = 100;
 
     public GameObject playerSpawnPosition;
+
+    protected MovementController movementController;
+    protected PlayerWeaponController playerWeaponController;
+    protected GameObject playerPrefab; // The player that will be instantiated by the game manager
 
     protected float scoreTimer;
 
@@ -48,15 +63,13 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected virtual void Start() {
         playerSpawned = false;
         setUpNewGame();
-
+        obstacleSpawner.gameObject.SetActive(obstacleSpawnerActiveOnStart);
+        startEvents.Invoke();
     }
 
     // Update is called once per frame
     protected virtual void Update() { if (gameActive == false) return;
-        if (playerSpawned == false) {
-            spawnPlayer();
-            playerSpawned = true;
-        }
+        spawnPlayer();
         checkGameConditions();
         checkScore();
         gameStatsManager.addPlayTime(Time.deltaTime);
@@ -71,11 +84,13 @@ public abstract class GameManagerBase : MonoBehaviour {
 
     public void pauseGame() {
         pauseUI.SetActive(true);
+        Cursor.visible = true;
         Time.timeScale = 0f;
     }
 
     public void continueGame() {
         pauseUI.SetActive(false);
+        Cursor.visible = false;
         Time.timeScale = 1f;
     }
 
@@ -87,7 +102,6 @@ public abstract class GameManagerBase : MonoBehaviour {
         //If the player object doesn't exist, the player is dead
         if (playerInstance == null) {       
             setUpGameOverFailed();
-            disableMovementController();
         }
     }
 
@@ -99,7 +113,7 @@ public abstract class GameManagerBase : MonoBehaviour {
         }
     }
 
-    protected void spawnPlayer() {
+    public void spawnPlayer() { if (playerSpawned == true) return;
         PlayerConfigurationManager configManager =
             GameObject.Find("PlayerConfigurationManager").GetComponent<PlayerConfigurationManager>();
 
@@ -107,14 +121,20 @@ public abstract class GameManagerBase : MonoBehaviour {
 
         playerInstance = Instantiate(playerPrefab, playerSpawnPosition.transform.position, Quaternion.identity);
         playerInstance.name = "Player";
+
+        playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
+        playerWeaponController.enabled = weaponControllerActiveOnStart;
         setUpMovementController();
+
+        playerSpawned = true;
     }
 
     protected virtual void setUpNewGame() {
         initGameValues();
-        obstacleSpawner.resetSpawner();
+        obstacleSpawner.resetSpawner();      
         initGameUI();
         musicManager.playMusic();
+
     }
 
     private void setUpGameOver() {
@@ -125,22 +145,27 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected void setUpGameOverFailed() {
         setUpGameOver();
         configureGameOverFailedSound();
+        gameOverEvents.Invoke();
     }
 
-    protected void setUpGameOverWin() {
+    protected virtual void setUpGameOverWin() {
         setUpGameOver();
         configureGameOverWinSound();
+        gameWinEvents.Invoke();
+        movementController.enabled = false;
     }
 
     protected void setUpMovementController() {
         movementController = playerInstance.GetComponent<MovementController>();
         movementController.objectToMove = playerInstance;
+        movementController.spawner = obstacleSpawner;
         movementController.calculateXAxisMoveBorderBySpawner();
         movementController.calculateYAxisMoveBorderByScreenHeight();
+
+        movementController.enabled = movementControllerActiveOnStart;
     }
     protected virtual void initGameValues() {
         gameActive = true;
-        Time.timeScale = 1f;
         gameStatsManager.resetCurrentGameStats();
         scoreTimer = 0f;
     }
@@ -148,7 +173,7 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected void configureGameOverValues() {
         gameActive = false;
         playerSpawned = false;
-        Time.timeScale = 0f;
+        Cursor.visible = true;
     }
 
     protected void configureGameOverFailedSound() {
@@ -159,10 +184,6 @@ public abstract class GameManagerBase : MonoBehaviour {
     protected void configureGameOverWinSound() {
         musicManager.setPlayVolume(0.25f);
         soundManager.playWinSound();
-    }
-
-    protected void disableMovementController() {
-        //movementController.enabled = false;
     }
 
     protected virtual void initGameUI() {
@@ -181,5 +202,19 @@ public abstract class GameManagerBase : MonoBehaviour {
         gameOverUI.gameObject.SetActive(true);
 
         gameOverUI.createGameOverText(level);
+    }
+
+    public void enablePlayerMovementController() { if (movementController == null) return;
+        this.movementController.enabled = true;
+        movementControllerActiveOnStart = true;
+    }
+
+    public void enablePlayerWeaponController() {if (playerWeaponController == null) return;
+        this.playerWeaponController.enabled = true;
+        weaponControllerActiveOnStart = true;
+    }
+
+    public void setGameActive(bool value) {
+        this.gameActive = value;
     }
 }

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class IntroStageGameManager : GameManagerBase {
 
@@ -15,8 +16,16 @@ public class IntroStageGameManager : GameManagerBase {
     [Header("Winning condition")]
     public int bitsToWin;
 
+    [Header("What shall happen when the enemy ship spawns?")]
+    public UnityEvent enemyShipSpawnEvent;
+
+    private bool enemyShipSpawned;
+    private bool enemyShipDestroyed;
+
     protected override void Start() {
         base.Start();
+        enemyShipDestroyed = false;
+        enemyShipSpawned = false;
     }
 
     // Update is called once per frame
@@ -32,11 +41,41 @@ public class IntroStageGameManager : GameManagerBase {
             // Game Over Failed Setup is done in the base method
         }
 
-        if (gameStatsManager.currentBitsCollected >= bitsToWin) { // When the player won the game
-            setUpGameOverWinText();
-            setUpGameOverWin();
-            restartButton.SetActive(false);
+        if (enemyShipSpawned == false && gameStatsManager.currentBitsCollected >= bitsToWin) {
+            activateEnemyShip();         
         }
+
+        if (enemyShipSpawned) {
+            checkIfEnemyShipDestroyed();
+        }
+
+        if (enemyShipDestroyed) {
+            setUpGameWin();
+        }
+    }
+
+    private void setUpGameWin() {
+        setUpGameOverWinText();
+        setUpGameOverWin();
+        restartButton.SetActive(false);
+    }
+
+    private void checkIfEnemyShipDestroyed() {
+        if (enemyShipSpawner.getSpawnedObjectsCount() > 0) {
+
+        } else {
+            if (obstacleSpawner.gameObject.activeSelf == false) {
+                obstacleSpawner.gameObject.SetActive(true);
+            }
+            enemyShipDestroyed = true;
+        }
+    }
+
+    private void activateEnemyShip() {
+        obstacleSpawner.gameObject.SetActive(false);
+        enemyShipSpawner.spawnNewObject();
+        enemyShipSpawned = true;
+        enemyShipSpawnEvent.Invoke();
     }
 
     private void updateGameUI() {
@@ -73,5 +112,19 @@ public class IntroStageGameManager : GameManagerBase {
     protected override void initGameOverUI() {
         base.initGameOverUI();
         gameUI.gameObject.SetActive(false);
+    }
+
+    protected override void setUpGameOverWin() {
+        base.setUpGameOverWin();
+        unlockLevel01();
+    }
+
+    private void unlockLevel01() {
+        gameStatsManager.globalStats.getGlobalStats().level01Unlocked = true;
+        gameStatsManager.globalStats.saveStats();
+    }
+
+    public void reloadScene() {
+        SceneManager.LoadScene("IntroStage");
     }
 }

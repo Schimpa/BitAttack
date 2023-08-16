@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6566379257644349547}
-  - component: {fileID: 6566379257644349546}
+  - component: {fileID: 8528042499389991949}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6566379257644349546
+--- !u!114 &8528042499389991949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,15 +44,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6566379257644349545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e81a150825a56b040b44c6ad4f8f5f45, type: 3}
+  m_Script: {fileID: 11500000, guid: 998f871ecfdd0bd4db18581ae22103b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints:
   - {fileID: 6566379258641608691}
   - {fileID: 6566379259214850199}
   - {fileID: 6566379259189258249}
-  spawnObject: {fileID: 2810927295146416408, guid: 7abf885700fb1d3409923f5190fbf980, type: 3}
-  spawnInterval: 1
+  spawnObjectPrefab: {fileID: 2810927295146416408, guid: 546c36d21e9c9d447a4f6110ad6d648f, type: 3}
+  spawnAmount: 1
+  preventSameSpawnPositionTwice: 1
+  spawnInterval: 2
+  spawnIntervalStartOffset: 0
 --- !u!1 &6566379258641608690
 GameObject:
   m_ObjectHideFlags: 0

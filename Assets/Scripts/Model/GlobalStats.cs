@@ -15,9 +15,7 @@ public class GlobalStats {
     public bool bullet02Unlocked;
     public bool bullet03Unlocked;
 
-    public bool exhaust01Unlocked;
-    public bool exhaust02Unlocked;
-    public bool exhaust03Unlocked;
+    public bool level01Unlocked;
 
     public int selectedShip;
     public int selectedBullet;
@@ -34,9 +32,7 @@ public class GlobalStats {
         this.bullet02Unlocked = false;
         this.bullet03Unlocked = false;
 
-        this.exhaust01Unlocked = true;
-        this.exhaust02Unlocked = false;
-        this.exhaust03Unlocked = false;
+        this.level01Unlocked = false;
 
         this.selectedShip = 0;
         this.selectedBullet = 0;

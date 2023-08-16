@@ -14,8 +14,8 @@ public class TimerSpawner : BasicSpawner {
 
     void Start() {
         initValues();
+        deltaTime += spawnIntervalStartOffset;
     }
-
 
     protected override void Update() {
         base.Update();

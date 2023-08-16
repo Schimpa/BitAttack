@@ -11,7 +11,7 @@ public class StageGameManager : GameManagerBase {
     [Header("Game Parameters")]
     public int levelUpTime = 10;   // The time it takes to level up
 
-    public BasicSpawner enemyShipSpawner;
+    
 
     private float levelUpTimer;
 

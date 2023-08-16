@@ -106,7 +106,7 @@ public class MainScreenUIManager : MonoBehaviour {
     }
 
     public void loadIntroStage() {
-        SceneManager.LoadScene("IntroStage");
+        SceneManager.LoadScene("IntroStoryScene");
     }
 
     public void exitGame() {

@@ -23,6 +23,7 @@ public class TextPopUpBehaviour : MonoBehaviour {
     private float countdownDurationTimer;
     private bool firstTimeActivated;
 
+
     private void OnEnable() {
         disablePopUpGameObjects();
         continueButton.SetActive(enableContinueButtonOnStart);
@@ -31,7 +32,6 @@ public class TextPopUpBehaviour : MonoBehaviour {
     void Start() {
         firstTimeActivated = false;
         countdownDurationTimer = 0f;
-      
     }
 
     // Update is called once per frame
@@ -90,5 +90,7 @@ public class TextPopUpBehaviour : MonoBehaviour {
     public void enableContinueButton() {
         continueButton.SetActive(true);
     }
+
+
 
 }

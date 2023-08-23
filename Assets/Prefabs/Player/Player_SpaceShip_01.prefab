@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2810927295146416408, guid: c79b83764757e004eaec6087cc2ff90b, type: 3}
   bulletSpawnPoint: {fileID: 9106205034376640036}
+  bulletSpawnInterval: 0
   verticalInputThreshold: 0.1
 --- !u!114 &4696579470119487479
 MonoBehaviour:
@@ -142,6 +143,7 @@ MonoBehaviour:
   joystickSensitivity: 1
   objectMovementRotation: 45
   objectToMove: {fileID: 0}
+  spawner: {fileID: 0}
 --- !u!23 &2028169635566692515
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -191,7 +193,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9159408223885750016}
-  m_Mesh: {fileID: 5284991553290929056, guid: 908a8333a641dcc4593bf4e5bae91547, type: 3}
+  m_Mesh: {fileID: 4203976641462373418, guid: 94d47cefc98ce4f49afcd1ffe53424e7, type: 3}
 --- !u!61 &4350093349400020556
 BoxCollider2D:
   m_ObjectHideFlags: 0

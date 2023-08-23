@@ -146,6 +146,7 @@ public abstract class GameManagerBase : MonoBehaviour {
         setUpGameOver();
         configureGameOverFailedSound();
         gameOverEvents.Invoke();
+        Cursor.visible = true;
     }
 
     protected virtual void setUpGameOverWin() {
@@ -153,6 +154,7 @@ public abstract class GameManagerBase : MonoBehaviour {
         configureGameOverWinSound();
         gameWinEvents.Invoke();
         movementController.enabled = false;
+        Cursor.visible = true;
     }
 
     protected void setUpMovementController() {

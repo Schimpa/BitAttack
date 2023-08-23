@@ -31,16 +31,19 @@ public class GameConfigurator : MonoBehaviour {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120;
 
-        Resolution[] resolutions = Screen.resolutions;
-
-        // Print the resolutions
-        //foreach (Resolution res in resolutions) {
-        //    Debug.Log(res.width + "x" + res.height + " : " + res.refreshRate + " aspect: " + (float)((float)res.width/(float)res.height) );
-        //}
-
-        Screen.SetResolution(640, 480, true);
-
         Cursor.visible = mouseCursorEnabled;
+
+        int screenWidth = PlayerPrefs.GetInt(PrefKeys.SCREEN_WIDTH.ToString());
+        int screenHeight = PlayerPrefs.GetInt(PrefKeys.SCREEN_HEIGHT.ToString());
+        bool isFullScreen;
+
+        if (PlayerPrefs.GetInt(PrefKeys.FULLSCREEN.ToString()) == 1) {
+            isFullScreen = true;
+        } else {
+            isFullScreen = false;
+        }
+
+        Screen.SetResolution(screenWidth, screenHeight, isFullScreen);
 
         Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         float backgroundShapeSpawnerWidth;

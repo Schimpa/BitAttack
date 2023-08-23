@@ -19,6 +19,18 @@ public class PlayerPrefsManager : MonoBehaviour {
             PlayerPrefs.SetFloat(PrefKeys.SENSITIVITY.ToString(), 1);
         }
 
+        if (PlayerPrefs.HasKey(PrefKeys.SCREEN_WIDTH.ToString()) == false) {
+            PlayerPrefs.SetInt(PrefKeys.SCREEN_WIDTH.ToString(), Screen.currentResolution.width);
+        }
+
+        if (PlayerPrefs.HasKey(PrefKeys.SCREEN_HEIGHT.ToString()) == false) {
+            PlayerPrefs.SetInt(PrefKeys.SCREEN_HEIGHT.ToString(), Screen.currentResolution.height);
+        }
+
+        if (PlayerPrefs.HasKey(PrefKeys.FULLSCREEN.ToString()) == false) {
+            PlayerPrefs.SetInt(PrefKeys.FULLSCREEN.ToString(), 1);
+        }
+
         PlayerPrefs.Save();
     }
 
@@ -47,5 +59,8 @@ public enum PrefKeys {
     MUSIC_IS_ON,
     SOUND_IS_ON,
     SENSITIVITY,
-    JOYSTICK_THRESOLD
+    JOYSTICK_THRESOLD,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    FULLSCREEN
 }

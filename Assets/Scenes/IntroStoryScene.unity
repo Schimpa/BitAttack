@@ -1116,7 +1116,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 240b4735830f4cb46b3d6d144bacaa73, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c1da9c83afcfac445af8910b22b0f635, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1215,7 +1215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSrc: {fileID: 2002142446}
-  music: {fileID: 8300000, guid: 240b4735830f4cb46b3d6d144bacaa73, type: 3}
+  music: {fileID: 8300000, guid: c1da9c83afcfac445af8910b22b0f635, type: 3}
   resetClipOnReplay: 0
   playOnStart: 0
 --- !u!4 &2002142448

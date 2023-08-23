@@ -12,6 +12,9 @@ public class TextPrintBehaviour : MonoBehaviour {
     [TextArea]
     public string textToPrint;
 
+    [Header("Sound that is played when the text is being typed")]
+    public AudioSource dialogSound;
+
     [Header("Determines how fast a letter is printed")]
     public float letterPrintTime;
 
@@ -26,8 +29,18 @@ public class TextPrintBehaviour : MonoBehaviour {
 
     private float letterPrintTimer;
 
+    private bool audioSourceAvailable;
+
     private void OnEnable() {
         resetTextPrint();
+
+        if (dialogSound != null) {
+            audioSourceAvailable = true;
+        } else {
+            audioSourceAvailable = false;
+        }
+
+        playAudio();
     }
 
     private void OnDisable() {
@@ -76,7 +89,18 @@ public class TextPrintBehaviour : MonoBehaviour {
     private void finishText() {
         isFinished = true;
         Cursor.visible = true;
+        stopAudio();
         onTextPrintFinished.Invoke();
+    }
+
+    private void playAudio() {
+        if (audioSourceAvailable == false) return;
+        dialogSound.Play();
+    }
+
+    private void stopAudio() {
+        if (audioSourceAvailable == false) return;
+        dialogSound.Stop();
     }
 
 

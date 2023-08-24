@@ -25,7 +25,7 @@ public class ObstacleSpawner : TimerSpawner {
 
     protected override void Awake() {
         base.Awake();
-        spawnObjectMoveDownSpeed = 1;
+        spawnObjectMoveDownSpeed = 0;
         spawnIntervalDefault = spawnInterval;
         spawnObjectMoveDownSpeedMultiplierDefault = spawnObjectMoveDownSpeedMultiplier;
         if (gameMode == GameMode.MOBILE) {
@@ -76,17 +76,16 @@ public class ObstacleSpawner : TimerSpawner {
         setObstacleProperties(newObject);
 
         spawnedObjects.Add(newObject);
-        setNewSpawnObjectListPosition();
-
-        
+        setNewSpawnObjectListPosition();      
     }
 
     private void setObstacleProperties(GameObject newObject) {
         ObstacleBehaviour obstacle = newObject.GetComponent<ObstacleBehaviour>();
-        obstacle.moveDownSpeedY *= spawnObjectMoveDownSpeedMultiplier;
-
-        if (spawnObjectMoveDownSpeed != 1) {    //Special handling for the arcade mode where initial speed is determined in menu
+        
+        if (spawnObjectMoveDownSpeed != 0) {    //Special handling for the arcade mode where initial speed is determined in menu
             obstacle.moveDownSpeedY = spawnObjectMoveDownSpeed * spawnObjectMoveDownSpeedMultiplier;
+        } else {
+            obstacle.moveDownSpeedY *= spawnObjectMoveDownSpeedMultiplier;
         }
     }
 

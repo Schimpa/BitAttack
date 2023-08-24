@@ -64,3 +64,11 @@ public enum PrefKeys {
     SCREEN_HEIGHT,
     FULLSCREEN
 }
+
+public enum ArcadeKeys {
+    SPAWN_INTERVAL,
+    SPAWN_INTERVAL_MULTIPLIER,
+    BIT_SPEED,
+    BIT_SPEED_MULTIPLIER,
+    LEVEL_DURATION
+}

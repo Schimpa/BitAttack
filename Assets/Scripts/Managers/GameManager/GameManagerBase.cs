@@ -129,7 +129,7 @@ public abstract class GameManagerBase : MonoBehaviour {
         playerSpawned = true;
     }
 
-    protected virtual void setUpNewGame() {
+    public virtual void setUpNewGame() {
         initGameValues();
         obstacleSpawner.resetSpawner();      
         initGameUI();

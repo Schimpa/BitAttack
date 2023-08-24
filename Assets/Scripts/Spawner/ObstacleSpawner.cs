@@ -18,12 +18,14 @@ public class ObstacleSpawner : TimerSpawner {
     public float obstacleSpeedMultiplier;
 
     private float spawnIntervalDefault;
+    private float spawnObjectMoveDownSpeed;
     private float spawnObjectMoveDownSpeedMultiplierDefault;
 
     private int previousSpawnPoint;
 
     protected override void Awake() {
         base.Awake();
+        spawnObjectMoveDownSpeed = 1;
         spawnIntervalDefault = spawnInterval;
         spawnObjectMoveDownSpeedMultiplierDefault = spawnObjectMoveDownSpeedMultiplier;
         if (gameMode == GameMode.MOBILE) {
@@ -82,6 +84,10 @@ public class ObstacleSpawner : TimerSpawner {
     private void setObstacleProperties(GameObject newObject) {
         ObstacleBehaviour obstacle = newObject.GetComponent<ObstacleBehaviour>();
         obstacle.moveDownSpeedY *= spawnObjectMoveDownSpeedMultiplier;
+
+        if (spawnObjectMoveDownSpeed != 1) {    //Special handling for the arcade mode where initial speed is determined in menu
+            obstacle.moveDownSpeedY = spawnObjectMoveDownSpeed * spawnObjectMoveDownSpeedMultiplier;
+        }
     }
 
     public void levelUp() {
@@ -94,6 +100,23 @@ public class ObstacleSpawner : TimerSpawner {
         base.initValues();
         spawnInterval = spawnIntervalDefault;
         spawnObjectMoveDownSpeedMultiplier = spawnObjectMoveDownSpeedMultiplierDefault;
+    }
+
+    public void loadArcadePreferenceValues() {
+
+        float spawnInterval = PlayerPrefs.GetFloat(ArcadeKeys.SPAWN_INTERVAL.ToString());
+        float spawnIntervalMultiplier = PlayerPrefs.GetFloat(ArcadeKeys.SPAWN_INTERVAL_MULTIPLIER.ToString());
+        float bitSpeed = PlayerPrefs.GetFloat(ArcadeKeys.BIT_SPEED.ToString());
+        float bitSpeedMultiplier = PlayerPrefs.GetFloat(ArcadeKeys.BIT_SPEED_MULTIPLIER.ToString());
+
+        this.spawnInterval = spawnInterval;
+        this.spawnIntervalDefault = spawnInterval;
+        this.spawnerIntervalMultiplier = spawnIntervalMultiplier;
+        this.obstacleSpeedMultiplier = bitSpeedMultiplier;
+        this.spawnObjectMoveDownSpeedMultiplier = bitSpeedMultiplier;
+        this.spawnObjectMoveDownSpeedMultiplierDefault = bitSpeedMultiplier;
+        this.spawnObjectMoveDownSpeed = bitSpeed;
+
     }
 
 }

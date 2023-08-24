@@ -76,8 +76,10 @@ public class GameConfigurator : MonoBehaviour {
         obstacleSpawner.transform.position = new Vector3(
             obstacleSpawner.transform.position.x, viewBorder + 2, obstacleSpawner.transform.position.z);
 
-        enemyShipSpawner.transform.position = new Vector3(
-            enemyShipSpawner.transform.position.x, viewBorder - 2, obstacleSpawner.transform.position.z);
+        if (enemyShipSpawner != null) {
+            enemyShipSpawner.transform.position = new Vector3(
+                enemyShipSpawner.transform.position.x, viewBorder - 2, obstacleSpawner.transform.position.z);
+        }
 
         backgroundCubes.transform.position = new Vector3(
             backgroundCubes.transform.position.x, viewBorder + 5, backgroundCubes.transform.position.z);

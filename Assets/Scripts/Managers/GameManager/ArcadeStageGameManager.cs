@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class StageGameManager : GameManagerBase {
+public class ArcadeStageGameManager : GameManagerBase {
 
     [Header("UI References")]
     public StageGameUIManager gameUI;
 
-    [Header("Game Parameters")]
-    public int levelUpTime = 10;   // The time it takes to level up
 
-    
+    private int levelUpTime;
 
     private float levelUpTimer;
 
     protected override void Start() {
         base.Start();
+        levelUpTime = PlayerPrefs.GetInt(ArcadeKeys.LEVEL_DURATION.ToString());
     }
 
     // Update is called once per frame
@@ -28,40 +27,18 @@ public class StageGameManager : GameManagerBase {
     protected override void checkGameConditions() {
         base.checkGameConditions();
 
-        if ( gameStatsManager.currentLevel % 5 == 0) {
-            handleEnemyShipLevel();
+        levelUpTimer += Time.deltaTime;
 
-        } else {
-            handleObstacleLevel();        
-        }
-      
         if (levelUpTimer >= levelUpTime) {
             levelUp();         
         }
     }
-
-    private void handleObstacleLevel() {
-        levelUpTimer += Time.deltaTime;
-    }
-
-    private void handleEnemyShipLevel() {
-        if (enemyShipSpawner.getSpawnedObjectsCount() > 0) {
-
-        } else {
-            if (obstacleSpawner.gameObject.activeSelf == false) {
-                obstacleSpawner.gameObject.SetActive(true);
-            }
-            levelUpTimer += Time.deltaTime;
-        }
-    }
-
     private void updateGameUI() {
         int score = gameStatsManager.currentScore;
         int bits = gameStatsManager.currentBitsCollected;
 
         gameUI.updateUIProperties(score, bits);
     }
-
 
     private void levelUp() {
         levelUpTimer = 0f;
@@ -70,20 +47,11 @@ public class StageGameManager : GameManagerBase {
         soundManager.playLevelUpSound();
         obstacleSpawner.levelUp();
 
-        if (gameStatsManager.currentLevel % 5 == 0) {
-            activateEnemyShip();
-        }
-    }
-
-    private void activateEnemyShip() {
-        obstacleSpawner.gameObject.SetActive(false);
-        enemyShipSpawner.spawnNewObject();
     }
 
     public override void setUpNewGame() {
         base.setUpNewGame();
         obstacleSpawner.gameObject.SetActive(true);
-        enemyShipSpawner.resetSpawner();
         pauseUI.SetActive(false);
     }
 
@@ -101,16 +69,5 @@ public class StageGameManager : GameManagerBase {
 
     protected override void initGameOverUI() {
         base.initGameOverUI();
-        createAchievementTextIfFirstTimeUnlocked();
-    }
-
-    private void createAchievementTextIfFirstTimeUnlocked() {
-        gameStatsManager.stageStats.validateStage01Achievements();
-        if (gameStatsManager.stageStats.isNewAchievementUnlocked()) {
-            this.gameOverUI.gameOverText.setCustomInfoText("Achievement unlocked!");
-            gameStatsManager.stageStats.setNewAchievementUnlocked(false);
-        } else {
-            this.gameOverUI.gameOverText.setCustomInfoText("");
-        }
     }
 }

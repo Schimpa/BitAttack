@@ -85,7 +85,7 @@ public class IntroStageGameManager : GameManagerBase {
         gameUI.updateUIProperties(score, currentBitsCollected);
     }
 
-    protected override void setUpNewGame() {
+    public override void setUpNewGame() {
         base.setUpNewGame();
         pauseUI.SetActive(false);
     }

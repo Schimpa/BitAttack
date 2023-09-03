@@ -60,6 +60,7 @@ public class ObstacleBehaviour : MonoBehaviour {
             GameObject playerObj = GameObject.Find("Player");
             PlayerColorController playerColor = playerObj.GetComponent<PlayerColorController>();
 
+
             if (playerColor.currentPlayerColor == obstacleColor) {
 
                 currentHealthPoints -= collision.gameObject.GetComponent<BulletBehaviour>().damage;

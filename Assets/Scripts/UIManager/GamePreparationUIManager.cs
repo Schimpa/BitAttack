@@ -59,9 +59,9 @@ public class GamePreparationUIManager : MonoBehaviour {
 
         topLevelText.text = stats.topLevelReached.ToString();
         topScoreText.text = stats.topScoreReached.ToString();
-        topTimeText.text = topTime.ToString() + " sec.";
+        topTimeText.text = topTime.ToString() + "s.";
 
-        totalTimeText.text = totalTime.ToString() + " sec.";
+        totalTimeText.text = totalTime.ToString() + "s.";
         totalScoreText.text = stats.totalScore.ToString();
         bitsCollectedText.text = stats.totalBitsCollected.ToString();
         obstaclesAvoidedText.text = stats.totalObstaclesAvoided.ToString();

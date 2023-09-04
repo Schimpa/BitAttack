@@ -9,6 +9,9 @@ public class StageStatsFileManager : MonoBehaviour {
 
     public string stageStatsFileName;
 
+    [Header("Handles achievmenet validation for each stage")]
+    public AchievementHandler achievementHandler;
+
     private BinaryFormatter formatter;
     private string filePath;
 
@@ -17,8 +20,8 @@ public class StageStatsFileManager : MonoBehaviour {
     private bool newAchievementUnlocked;
 
     void OnEnable() {
-        formatter = new BinaryFormatter();
         newAchievementUnlocked = false;
+        formatter = new BinaryFormatter();
         if (stageStatsFileName != "") { 
             filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
             loadStats();
@@ -34,6 +37,8 @@ public class StageStatsFileManager : MonoBehaviour {
     }
 
     public void loadStats() {
+        achievementHandler.initAchievements();
+
         if (File.Exists(this.filePath)) {
             // Load existing data
             FileStream stream = new FileStream(this.filePath, FileMode.Open);
@@ -42,10 +47,9 @@ public class StageStatsFileManager : MonoBehaviour {
             }
             else {
                 stageStats = formatter.Deserialize(stream) as StageStats;
-                
-                // To set the achievements
-                validateStage01Achievements();
-                setNewAchievementUnlocked(false);
+
+                // To set the achievements            
+                achievementHandler.validateAchievements(stageStats);
 
             }
             stream.Close();
@@ -71,44 +75,11 @@ public class StageStatsFileManager : MonoBehaviour {
         this.filePath = Application.persistentDataPath + "/" + stageStatsFileName + ".stats";
     }
 
-    public void validateStage01Achievements() {
-        if (stageStats.topLevelReached >= 10 && stageStats.achievement01Reached == false) {
-            stageStats.achievement01Reached = true;
-            this.newAchievementUnlocked = true;
-        }
-
-        if (stageStats.topLevelReached >= 15 && stageStats.achievement02Reached == false) {
-            stageStats.achievement02Reached = true;
-            this.newAchievementUnlocked = true;
-        }
-
-        if (stageStats.topLevelReached >= 20 && stageStats.achievement03Reached == false) {
-            stageStats.achievement03Reached = true;
-            this.newAchievementUnlocked = true;
-        }
-
-        if (stageStats.topBitsCollected >= 25 && stageStats.achievement04Reached == false) {
-            stageStats.achievement04Reached = true;
-            this.newAchievementUnlocked = true;
-        }
-
-        if (stageStats.topBitsCollected >= 50 && stageStats.achievement05Reached == false) {
-            stageStats.achievement05Reached = true;
-            this.newAchievementUnlocked = true;
-        }
-
-        if (stageStats.totalObstaclesAvoided >= 3000 && stageStats.achievement06Reached == false) {
-            stageStats.achievement06Reached = true;
-            this.newAchievementUnlocked = true;
-        }
-  
+    public void checkIfNewAchievementUnlocked() {
+        newAchievementUnlocked = achievementHandler.checkIfNewAchievementUnlocked(stageStats);
     }
 
     public bool isNewAchievementUnlocked() {
         return this.newAchievementUnlocked;
-    }
-
-    public void setNewAchievementUnlocked(bool value) {
-        this.newAchievementUnlocked = false;
     }
 }

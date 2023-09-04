@@ -15,15 +15,6 @@ public class StageStats {
     public int topBitsCollected;
     public float topTimeReachedInSec;
 
-    public int level08ReachedAmount;
-
-    public bool achievement01Reached;
-    public bool achievement02Reached;
-    public bool achievement03Reached;
-    public bool achievement04Reached;
-    public bool achievement05Reached;
-    public bool achievement06Reached;
-
     public StageStats() {
         this.totalScore = 0;
         this.totalTimeInSec = 0f;
@@ -34,16 +25,5 @@ public class StageStats {
         this.topScoreReached = 0;
         this.topBitsCollected = 0;
         this.topTimeReachedInSec = 0f;
-
-        this.level08ReachedAmount = 0;
-
-        this.achievement01Reached = false;
-        this.achievement02Reached = false;
-        this.achievement03Reached = false;
-        this.achievement04Reached = false;
-        this.achievement05Reached = false;
-        this.achievement06Reached = false;
     }
-
-
 }

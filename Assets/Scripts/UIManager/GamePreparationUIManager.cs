@@ -69,39 +69,40 @@ public class GamePreparationUIManager : MonoBehaviour {
 
     public void checkAchievementValidation(StageStats stats) {
         int achievementsReached = 6;
-        stageStatsFileManager.validateStage01Achievements();
+        stageStatsFileManager.achievementHandler.validateAchievements(stats);
+        List<bool> achievements = stageStatsFileManager.achievementHandler.getAchievements();
 
-        if (stats.achievement01Reached == false) {
+        if (achievements[0] == false) {
             achievement01Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
         } else {
             achievement01Text.color = new Color(1, 1, 1, 1f);
         }
-        if (stats.achievement02Reached == false) {
+        if (achievements[1] == false) {
             achievement02Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
         } else {
             achievement02Text.color = new Color(1, 1, 1, 1f);
         }
-        if (stats.achievement03Reached == false) {
+        if (achievements[2] == false) {
             achievement03Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
         } else {
             achievement03Text.color = new Color(1, 1, 1, 1f);
         }
-        if (stats.achievement04Reached == false) {
+        if (achievements[3] == false) {
             achievement04Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
         } else {
             achievement04Text.color = new Color(1, 1, 1, 1f);
         }
-        if (stats.achievement05Reached == false) {
+        if (achievements[4] == false) {
             achievement05Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
         } else {
             achievement05Text.color = new Color(1, 1, 1, 1f);
         }
-        if (stats.achievement06Reached == false) {
+        if (achievements[5] == false) {
             achievement06Text.color = new Color(1, 1, 1, .3f);
             achievementsReached--;
         } else {

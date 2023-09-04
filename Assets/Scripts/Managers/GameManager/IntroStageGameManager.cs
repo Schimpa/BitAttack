@@ -120,8 +120,8 @@ public class IntroStageGameManager : GameManagerBase {
     }
 
     private void unlockLevel01() {
-        gameStatsManager.globalStats.getGlobalStats().level01Unlocked = true;
-        gameStatsManager.globalStats.saveStats();
+        gameStatsManager.globalStatsFileManager.getGlobalStats().level01Unlocked = true;
+        gameStatsManager.globalStatsFileManager.saveStats();
     }
 
     public void reloadScene() {

@@ -8,3 +8,11 @@
   * Visual Studio-Tools für Unity 4.11.4.0
 * Audacity
 * Bfxr  
+
+
+## Prepare Release
+
+The web version has following differences compared to the PC version:
+
+* No Exit Button
+* No Resolution and Full Screen Settings

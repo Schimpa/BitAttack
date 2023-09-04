@@ -105,10 +105,8 @@ public class StageGameManager : GameManagerBase {
     }
 
     private void createAchievementTextIfFirstTimeUnlocked() {
-        gameStatsManager.stageStats.validateStage01Achievements();
-        if (gameStatsManager.stageStats.isNewAchievementUnlocked()) {
+        if (gameStatsManager.stageStatsFileManager.isNewAchievementUnlocked()) {
             this.gameOverUI.gameOverText.setCustomInfoText("Achievement unlocked!");
-            gameStatsManager.stageStats.setNewAchievementUnlocked(false);
         } else {
             this.gameOverUI.gameOverText.setCustomInfoText("");
         }
